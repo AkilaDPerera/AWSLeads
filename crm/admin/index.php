@@ -385,12 +385,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Company</th>
-                                    <th scope="col">Owner</th>
+                                    <th scope="col" class="mobile">Owner</th>
                                     <th scope="col">Revenue</th>
                                     <th scope="col">Agent</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Web/FB</th>
-                                    <th scope="col">Phone</th>
+                                    <th scope="col" class="mobile">Phone</th>
                                     <th scope="col">Notes</th>
                                     <th scope="col">Appointment</th>
                                     <th scope="col">No Answer</th>
@@ -400,13 +400,19 @@
                                     <th scope="col">Sold</th>
                                     <th scope="col">+Property Sale</th>
                                     <th scope="col">+Biz Buyer</th>
-                                    <th scope="col"></th>
+                                    <th scope="col" class="mobile"></th>
                                     <th scope="col">Remaining</th>
                                 </tr>
                             </thead>
                             <tfoot style="display: table-header-group;">
                                 <tr>
                                     <th></th>
+                                    <th class="mobile"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="mobile"></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -416,20 +422,14 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th class="mobile"></th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                             <tbody></tbody>
                         </table>
 
-                        <button class="btn btn-primary" onclick="download();">Download</button>
+                        <button class="btn btn-primary desktop" onclick="download();">Download</button>
                     </div>
                     <style>
                         table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date { text-align: left!important;}
@@ -444,6 +444,10 @@
                         .dt-layout-row .dt-layout-start { display: none!important; }
                         .dt-layout-row .dt-layout-end { display: block!important; margin-left: unset!important; }
                         tfoot th input { max-width: 50px; }
+                        @media (max-width: 750px) {
+                            .desktop { display: none!important; }
+                            .mobile { display: table-cell!important; }
+                        }
                     </style>
 
                     <script>
@@ -499,7 +503,7 @@
 
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.aname}</td>
-                                <td>${record.email}</td><td>${record.web}</td><td>${record.phone}, ${record.phone2}</td>
+                                <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
                                 <td>${record.notes}</td>
                                 <td>${record.appointment}</td>
                                 <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
@@ -530,7 +534,11 @@
                                 responsive: true,
                                 searching: true,
                                 order: [[17, 'asc']],
-                                columnDefs: [{ target:16, visible: true, searchable: false}, { target:17, visible: false, searchable: false}],
+                                columnDefs: [
+                                    { targets:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], className: "desktop" },
+                                    { targets:[1, 6, 16], className: "mobile" },
+                                    { target:16, visible: true, searchable: false}, { target:17, visible: false, searchable: false}
+                                ],
                                 initComplete: function () {
                                     this.api()
                                     .columns()
