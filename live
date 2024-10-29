@@ -1,0 +1,25 @@
+$host = "127.0.0.1";
+$port = "6432";
+$dbname = "phonebook";
+$user = "jaynofi";
+$password = "jaynofi1#book";
+
+$host = "52.41.130.39";
+$port = "5432";
+$dbname = "phonebooktest";
+$user = "jaynofi";
+$password = "jaynofi1#book";
+
+sudo crontab -e
+00 00 * * * /usr/bin/python3 /var/www/html/periodicRemoves.py
+
+cd /var/www/html
+unzip phonebook.zip 
+rm phonebook.zip
+cp constant.php crm/backend/constant.php
+cp constant.php dataset/backend/constant.php
+mkdir dataset/data
+mkdir dataset/exception
+mkdir dataset/removals
+mkdir dataset/pendingremovals
+sudo chmod -R 777 *
