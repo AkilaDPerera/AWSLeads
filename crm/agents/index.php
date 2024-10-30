@@ -8,12 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/jquery.datetimepicker.min.css?v=1730216903" />
   
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/jquery.datetimepicker.full.min.js?v=1730216904"></script>
+    <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/moment.js?v=1730218704"></script>
 
     <style>
         .hide { display: none; }
+        .xdsoft_datetimepicker .xdsoft_timepicker { margin-left: 16px!important; }
     </style>
 </head>
 <body>
@@ -88,7 +93,8 @@
                         </div>
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
-                            <input type="datetime-local" id="appointment" name="appointment" class="form-control"/>
+                            <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
+                            <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -174,6 +180,7 @@
                         const form = event.currentTarget;
                         const url = new URL(form.action);
                         const formData = new FormData(form);
+                        formData.append("appointment", getbackendtime(loadedData.adddatetime));
                         // formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
@@ -290,7 +297,8 @@
                             </div>
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
-                                <input type="datetime-local" id="appointment" name="appointment" class="form-control"/>
+                                <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
+                                <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -474,7 +482,7 @@
                             document.querySelector("#updateInfoForm #web").value = record.web;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
                             document.querySelector("#updateInfoForm #aname").value = record.aname;
-                            record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = record.appointment.replaceAll(" ", "T");
+                            record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
                             // document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
                             document.querySelector("#updateInfoForm #notinterestedu").checked = record.notinterested==="f"?false:true;
@@ -491,11 +499,13 @@
                             const tableEle = document.querySelector("#searchInfoSection table tbody");
                             try{ loadedData.table.destroy(); }catch{}
                             tableEle.innerHTML = "";
-                            today = Date.now();
+                            today = new Date();
                             data.forEach((record, i) => {
                                 remaining = "9999999.999";
+                                istoday = false;
                                 if (record.appointment!=""){
                                     appo = new Date(Date.parse(record.appointment));
+                                    istoday = appo.getDate() == today.getDate();
                                     remaining = (appo-today)/(1000);
                                 }
                                 
@@ -503,13 +513,13 @@
                                 if (record.listedtosale=="t" || record.successsale=="t"){ remaining = "999999999"; }
 
                                 tense = "";
-                                if (remaining<0){ tense = "class='red'"; } else if (remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
+                                if (remaining<0){ tense = "class='red'"; } else if (istoday){ tense="class='green'"; } else { tense=""; }
 
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.aname}</td>
                                 <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
                                 <td>${record.notes}</td>
-                                <td>${record.appointment}</td>
+                                <td>${getfrontendtime(record.appointment)}</td>
                                 <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.notinterested==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.followingup=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
@@ -606,6 +616,7 @@
                             const form = event.currentTarget;
                             const url = new URL(form.action);
                             const formData = new FormData(form);
+                            formData.append("appointment", getbackendtime(loadedData.updatedatetime));
                             // formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
                             formData.append("nocontact", document.querySelector("#updateInfoForm #nocontactu").checked);
                             formData.append("notinterested", document.querySelector("#updateInfoForm #notinterestedu").checked);
@@ -635,7 +646,7 @@
                                     record.web = document.querySelector("#updateInfoForm #web").value;
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
                                     record.aname = document.querySelector("#updateInfoForm #aname").value;
-                                    record.appointment = document.querySelector("#updateInfoForm #appointment").value.replaceAll("T", " ");
+                                    record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
                                     // record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
                                     record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
                                     record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
@@ -709,6 +720,64 @@
                             link.click()
                         }
 
+                        const initDateTimePickers = ()=>{
+                            $.datetimepicker.setDateFormatter({
+                                parseDate: function (date, format) {
+                                    var d = moment(date, format);
+                                    return d.isValid() ? d.toDate() : false;
+                                },
+
+                                formatDate: function (date, format) {
+                                    return moment(date).format(format);
+                                },
+                                //Optional if using mask input
+                                formatMask: function(format){
+                                    return format
+                                        .replace(/Y{4}/g, '9999')
+                                        .replace(/Y{2}/g, '99')
+                                        .replace(/M{2}/g, '19')
+                                        .replace(/D{2}/g, '39')
+                                        .replace(/H{2}/g, '29')
+                                        .replace(/m{2}/g, '59')
+                                        .replace(/s{2}/g, '59');
+                                }
+                            });
+                            loadedData.adddatetime = jQuery('.appointment1').datetimepicker({
+                                format:'YYYY-MM-DD h:mm a',
+                                formatTime: "h:mm a",
+                                formatDate:'YYYY-MM-DD',
+                                step: 15,
+                                minTime: '07:00',
+                                maxTime: '20:01'
+                            });
+                            loadedData.updatedatetime = jQuery('.appointment2').datetimepicker({
+                                format:'YYYY-MM-DD h:mm a',
+                                formatTime: "h:mm a",
+                                formatDate:'YYYY-MM-DD',
+                                step: 15,
+                                minTime: '07:00',
+                                maxTime: '20:01'
+                            });
+                            $.datetimepicker.setDateFormatter('moment');
+                        }
+                        const addleadingzeros = (num)=>{
+                            return num<10? '0'+num:''+num;
+                        }
+                        const getbackendtime = (picker)=>{
+                            // Y-m-dTH:i
+                            if (picker.val()==""){ return ""; }
+                            a = new Date(picker.val());
+                            return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
+                        }
+                        const getfrontendtime = (datestring)=>{
+                            // Y-m-d H:i -> Y-m-d h:mm a
+                            if (datestring==""){ return ""; }
+                            a = new Date(datestring);
+                            [d, t, s] = a.toLocaleString().split(" ");
+                            return a.toISOString().slice(0, 10) + " " + t.slice(0, -3) + " " + s.toLowerCase();
+                        }
+                        
+                        initDateTimePickers();
                         listInfoAgent();
                     </script>
                 </div>
