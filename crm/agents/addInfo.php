@@ -69,6 +69,7 @@
                     "followingup" => $_POST["followingup"],
                     "listedtosale" => $_POST["listedtosale"],
                     "successsale" => $_POST["successsale"],
+                    "lowrev" => $_POST["lowrev"],
                     "possibleproperty" => $_POST["possibleproperty"],
                     "possiblebuyer" => $_POST["possiblebuyer"],
                     "notes" => $_POST["notes"],

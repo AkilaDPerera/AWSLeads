@@ -93,16 +93,11 @@
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                             <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
                             <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off">
+                            <div class="invalid-feedback">Please enter a future date and time.</div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <!-- <div class="d-inline-block me-4">
-                                <input class="form-check-input" type="radio" name="status" id="lowrev">
-                                <label class="form-check-label" for="lowrev">
-                                    Low Rev
-                                </label>
-                            </div> -->
                             <div class="d-inline-block me-4">
                                 <!-- <input class="form-check-input" type="checkbox" value="" id="nocontact" name="nocontact"> -->
                                 <input class="form-check-input" type="radio" name="status" id="nocontact" checked>
@@ -138,6 +133,12 @@
                                     Sold
                                 </label>
                             </div>
+                            <div class="d-inline-block me-4">
+                                <input class="form-check-input" type="radio" name="status" id="lowrev" >
+                                <label class="form-check-label" for="lowrev">
+                                    Remarket
+                                </label>
+                            </div>
                             <div class="d-block">
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="checkbox" value="" id="possibleproperty" name="possibleproperty">
@@ -169,6 +170,8 @@
                 <script>
                     const dateclr = ()=>{
                         document.querySelectorAll("#appointment").forEach((comp)=>{comp.value = "";})
+                        document.querySelector("#addInfoForm #appointment").classList.remove("is-invalid");
+                        document.querySelector("#updateInfoForm #appointment").classList.remove("is-invalid");
                     }
                     const phonenumbervalidation = (e)=>{
                         e.target.value = e.target.value.replace(/\D/g,'');
@@ -178,8 +181,17 @@
                         const form = event.currentTarget;
                         const url = new URL(form.action);
                         const formData = new FormData(form);
+                        
+                        if (document.querySelector("#addInfoForm #nocontact").checked || document.querySelector("#addInfoForm #followingup").checked){
+                            if(!validappointment(document.querySelector("#addInfoForm #appointment").value)){
+                                document.querySelector("#addInfoForm #appointment").classList.add("is-invalid");
+                                return;
+                            };
+                        }
+                        document.querySelector("#addInfoForm #appointment").classList.remove("is-invalid");
+
                         formData.append("appointment", getbackendtime(loadedData.adddatetime));
-                        // formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
+                        formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
                         formData.append("followingup", document.querySelector("#addInfoForm #followingup").checked);
@@ -208,8 +220,9 @@
                                 document.querySelector("#addInfoForm #web").value = "";
                                 document.querySelector("#addInfoForm #revenue").value = "";
                                 document.querySelector("#addInfoForm #aname").value = "";
-                                // document.querySelector("#addInfoForm #lowrev").checked = true;
-                                document.querySelector("#addInfoForm #nocontact").checked = false;
+                                document.querySelector("#addInfoForm #appointment").value = "";
+                                document.querySelector("#addInfoForm #lowrev").checked = false;
+                                document.querySelector("#addInfoForm #nocontact").checked = true;
                                 document.querySelector("#addInfoForm #notinterested").checked = false;
                                 document.querySelector("#addInfoForm #followingup").checked = false;
                                 document.querySelector("#addInfoForm #listedtosale").checked = false;
@@ -230,26 +243,12 @@
         <div class="accordion-item" id="searchInfoSection">
             <div class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <div class="h5">Search Leads</div>
+                    <div class="h5">My Leads</div>
                 </button>
             </div>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#mainaccord">
                 <div class="accordion-body">
-                    <!-- <form action="<?php echo $baseurl ?>agents/searchInfo.php" method="post" onsubmit="searchInfo(event);" class="mt-2" id="searchInfoForm" style="display: none;">
-                        <div class="row g-3 mb-3">
-                            <div class="col-6 col-md-4">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" name="phone" id="phone" class="form-control" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" id="email" class="form-control"/>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </div>
-                    </form> -->
+
 
                     <form action="<?php echo $baseurl ?>agents/updateInfo.php" method="post" onsubmit="updateInfo(event);" class="mb-5 hide" id="updateInfoForm">
                         <input type="text" name="pk" id="pk" hidden/>
@@ -295,16 +294,11 @@
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
                                 <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off">
+                                <div class="invalid-feedback">Please enter a future date and time.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <!-- <div class="d-inline-block me-4">
-                                    <input class="form-check-input" type="radio" name="status" id="lowrevu">
-                                    <label class="form-check-label" for="lowrevu">
-                                        Low Rev
-                                    </label>
-                                </div> -->
                                 <div class="d-inline-block me-4">
                                     <!-- <input class="form-check-input" type="checkbox" value="" id="nocontactu" name="nocontact"> -->
                                     <input class="form-check-input" type="radio" name="status" id="nocontactu">
@@ -340,6 +334,12 @@
                                         Sold
                                     </label>
                                 </div>
+                                <div class="d-inline-block me-4">
+                                    <input class="form-check-input" type="radio" name="status" id="lowrevu">
+                                    <label class="form-check-label" for="lowrevu">
+                                        Remarket
+                                    </label>
+                                </div>
                                 <div class="d-block">
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="checkbox" value="" id="possiblepropertyu" name="possibleproperty">
@@ -368,7 +368,7 @@
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
-                        <hr/>
+                        
                     </form>
 
 
@@ -406,6 +406,7 @@
                                     <th scope="col">Interested</th>
                                     <th scope="col">Listed</th>
                                     <th scope="col">Sold</th>
+                                    <th scope="col">Remarket</th>
                                     <th scope="col">+Property Sale</th>
                                     <th scope="col">+Biz Buyer</th>
                                     <th scope="col" class="mobile"></th>
@@ -421,6 +422,7 @@
                                     <th></th>
                                     <th></th>
                                     <th class="mobile"></th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -479,7 +481,7 @@
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
                             document.querySelector("#updateInfoForm #aname").value = record.aname;
                             record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
-                            // document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
+                            document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
                             document.querySelector("#updateInfoForm #notinterestedu").checked = record.notinterested==="f"?false:true;
                             document.querySelector("#updateInfoForm #followingupu").checked = record.followingup==="f"?false:true;
@@ -505,8 +507,10 @@
                                     remaining = (appo-today)/(1000);
                                 }
                                 
-                                if (record.notinterested==="t"){ remaining = "99999999"; }
-                                if (record.listedtosale=="t" || record.successsale=="t"){ remaining = "999999999"; }
+                                if (record.lowrev==="t"){ remaining = "999999996"; }
+                                if (record.notinterested==="t"){ remaining = "999999997"; }
+                                if (record.listedtosale=="t"){ remaining = "999999998"; }
+                                if (record.successsale=="t"){ remaining = "999999999"; }
 
                                 tense = "";
                                 if (remaining<0){ tense = "class='red'"; } else if (istoday){ tense="class='green'"; } else { tense=""; }
@@ -521,6 +525,7 @@
                                 <td>${record.followingup=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.listedtosale=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.successsale=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.lowrev=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possibleproperty=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possiblebuyer=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td><button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button></td>
@@ -543,11 +548,11 @@
                             loadedData.table = new DataTable('#searchInfoSection table', {
                                 responsive: true,
                                 searching: true,
-                                order: [[17, 'asc']],
+                                order: [[18, 'asc']],
                                 columnDefs: [
-                                    { targets:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], className: "desktop" },
-                                    { targets:[1, 6, 16], className: "mobile" },
-                                    { target:16, visible: true, searchable: false}, { target:17, visible: false, searchable: false}
+                                    { targets:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], className: "desktop" },
+                                    { targets:[1, 6, 17], className: "mobile" },
+                                    { target:17, visible: true, searchable: false}, { target:18, visible: false, searchable: false}
                                 ],
                                 initComplete: function () {
                                     this.api()
@@ -612,8 +617,17 @@
                             const form = event.currentTarget;
                             const url = new URL(form.action);
                             const formData = new FormData(form);
+                            
+                            if (document.querySelector("#updateInfoForm #nocontactu").checked || document.querySelector("#updateInfoForm #followingupu").checked){
+                                if(!validappointment(document.querySelector("#updateInfoForm #appointment").value)){
+                                    document.querySelector("#updateInfoForm #appointment").classList.add("is-invalid");
+                                    return;
+                                };
+                            }
+                            document.querySelector("#updateInfoForm #appointment").classList.remove("is-invalid");
+                            
                             formData.append("appointment", getbackendtime(loadedData.updatedatetime));
-                            // formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
+                            formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
                             formData.append("nocontact", document.querySelector("#updateInfoForm #nocontactu").checked);
                             formData.append("notinterested", document.querySelector("#updateInfoForm #notinterestedu").checked);
                             formData.append("followingup", document.querySelector("#updateInfoForm #followingupu").checked);
@@ -643,7 +657,7 @@
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
                                     record.aname = document.querySelector("#updateInfoForm #aname").value;
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
-                                    // record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
+                                    record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
                                     record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
                                     record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
                                     record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
@@ -686,7 +700,7 @@
                             // clean the search array
                             const cleanData = [[
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "No Answer", "Not Interested", "Interested",
-                                "Listed", "Sold", "PProperty", "PBuyer"
+                                "Listed", "Sold", "Remarket", "PProperty", "PBuyer"
                             ]];
                             loadedData.searchedArray.forEach(function(rowArray) {
                                 rowArray[9] = rowArray[9].includes("T")?"TRUE":"FALSE";
@@ -696,8 +710,9 @@
                                 rowArray[13] = rowArray[13].includes("T")?"TRUE":"FALSE";
                                 rowArray[14] = rowArray[14].includes("T")?"TRUE":"FALSE";
                                 rowArray[15] = rowArray[15].includes("T")?"TRUE":"FALSE";
-                                delete rowArray[16];
+                                rowArray[16] = rowArray[16].includes("T")?"TRUE":"FALSE";
                                 delete rowArray[17];
+                                delete rowArray[18];
                                 cleanData.push(rowArray);
                             });
                             cleanData.forEach(function(rowArray) {
@@ -771,6 +786,12 @@
                             a = new Date(datestring);
                             [d, t, s] = a.toLocaleString().split(" ");
                             return a.toISOString().slice(0, 10) + " " + t.slice(0, -3) + " " + s.toLowerCase();
+                        }
+                        const validappointment = (datetimefrontendstring)=>{
+                            if (datetimefrontendstring=="") { return false; }
+                            a = new Date(datetimefrontendstring);
+                            b = new Date();
+                            return a>b;
                         }
                         
                         initDateTimePickers();
