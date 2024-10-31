@@ -21,7 +21,7 @@
                 "uname" => $_POST["uname"],
                 "web" => $_POST["web"],
                 "revenue" => $_POST["revenue"],
-                "aname" => $_POST["aname"],
+                "aname" => "",
                 "nocontact" => $_POST["nocontact"],
                 "notinterested" => $_POST["notinterested"],
                 "followingup" => $_POST["followingup"],

@@ -13,9 +13,9 @@
             $data = array();
 
             if ($_POST["ukey"]=="1"){
-                $sql_query = "SELECT * FROM information;";
+                $sql_query = "SELECT * FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk;";
             }else{
-                $sql_query = "SELECT * FROM information WHERE whichcompany='".trim($_POST["whichcompany"])."';";
+                $sql_query = "SELECT * FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE whichcompany='".trim($_POST["whichcompany"])."';";
             }
             $result = pg_query($dbconn, $sql_query);
 

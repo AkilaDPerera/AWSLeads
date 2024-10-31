@@ -85,9 +85,16 @@
                             <label for="revenue" class="form-label">Gross Revenue</label>
                             <input type="text" name="revenue" id="revenue" class="form-control" maxlength="50"/>
                         </div>
-                        <div class="d-inline-block" style="width: 200px;">
+                        <!-- <div class="d-inline-block" style="width: 200px;">
                             <label for="aname" class="form-label">Agent Name</label>
                             <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
+                        </div> -->
+                        <div class="d-inline-block" style="width: 140px;">
+                            <label for="owner" class="form-label">Agent Name</label>
+                            <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
+                                <option value="akila">akila - agent</option>
+                                <option value="akila2">akila2 - agent</option>
+                            </select>
                         </div>
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
@@ -199,7 +206,6 @@
                         formData.append("successsale", document.querySelector("#addInfoForm #successsale").checked);
                         formData.append("possibleproperty", document.querySelector("#addInfoForm #possibleproperty").checked);
                         formData.append("possiblebuyer", document.querySelector("#addInfoForm #possiblebuyer").checked);
-                        formData.append("whocreatedpk", window.localStorage.getItem("ukey"));
                         formData.append("whichcompany", window.localStorage.getItem("cname"));
                         formData.append("jwt", window.localStorage.getItem("jwt"));
                         timer.timestart();
@@ -219,7 +225,7 @@
                                 document.querySelector("#addInfoForm #uname").value = "";
                                 document.querySelector("#addInfoForm #web").value = "";
                                 document.querySelector("#addInfoForm #revenue").value = "";
-                                document.querySelector("#addInfoForm #aname").value = "";
+                                // document.querySelector("#addInfoForm #aname").value = "";
                                 document.querySelector("#addInfoForm #appointment").value = "";
                                 document.querySelector("#addInfoForm #lowrev").checked = false;
                                 document.querySelector("#addInfoForm #nocontact").checked = true;
@@ -286,12 +292,12 @@
                                 <label for="revenue" class="form-label">Gross Revenue</label>
                                 <input type="text" name="revenue" id="revenue" class="form-control" maxlength="50"/>
                             </div>
-                            <div class="d-inline-block" style="width: 200px;">
+                            <!-- <div class="d-inline-block" style="width: 200px;">
                                 <label for="aname" class="form-label">Agent Name</label>
                                 <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
-                            </div>
+                            </div> -->
                             <div class="d-inline-block" style="width: 140px;">
-                                <label for="owner" class="form-label">Lead Owner</label>
+                                <label for="owner" class="form-label">Agent Name</label>
                                 <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
                                     <option value="akila">akila - agent</option>
                                     <option value="akila2">akila2 - agent</option>
@@ -486,7 +492,7 @@
                             document.querySelector("#updateInfoForm #uname").value = record.uname;
                             document.querySelector("#updateInfoForm #web").value = record.web;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
-                            document.querySelector("#updateInfoForm #aname").value = record.aname;
+                            // document.querySelector("#updateInfoForm #aname").value = record.aname;
                             record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
                             document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
@@ -524,7 +530,7 @@
                                 if (remaining<0){ tense = "class='red'"; } else if (istoday && remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
 
                                 tableEle.innerHTML += `<tr ${tense}>
-                                <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.aname}</td>
+                                <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
                                 <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
                                 <td>${record.notes}</td>
                                 <td>${getfrontendtime(record.appointment)}</td>
@@ -662,7 +668,7 @@
                                     record.uname = document.querySelector("#updateInfoForm #uname").value;
                                     record.web = document.querySelector("#updateInfoForm #web").value;
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
-                                    record.aname = document.querySelector("#updateInfoForm #aname").value;
+                                    // record.aname = document.querySelector("#updateInfoForm #aname").value;
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
                                     record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
                                     record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
@@ -673,6 +679,7 @@
                                     record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
                                     record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
                                     record.notes = document.querySelector("#updateInfoForm #notes").value;
+                                    record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
                                     loadedData.data[loadedData.selectedToEdit] = record;
                                     populateSearchResult(loadedData.data);
                                 }else{
@@ -818,7 +825,9 @@
                                     loadedData.users.forEach((user)=>{
                                         optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username}</option>`;
                                     });
-                                    document.querySelector("#owner").innerHTML = optionscontent;
+                                    document.querySelectorAll("#owner").forEach((comp)=>{
+                                        comp.innerHTML = optionscontent;
+                                    });
                                 }
                             });
                         }

@@ -87,10 +87,10 @@
                             <label for="revenue" class="form-label">Gross Revenue</label>
                             <input type="text" name="revenue" id="revenue" class="form-control" maxlength="50"/>
                         </div>
-                        <div class="d-inline-block" style="width: 200px;">
+                        <!-- <div class="d-inline-block" style="width: 200px;">
                             <label for="aname" class="form-label">Agent Name</label>
                             <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
-                        </div>
+                        </div> -->
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                             <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
@@ -221,7 +221,7 @@
                                 document.querySelector("#addInfoForm #uname").value = "";
                                 document.querySelector("#addInfoForm #web").value = "";
                                 document.querySelector("#addInfoForm #revenue").value = "";
-                                document.querySelector("#addInfoForm #aname").value = "";
+                                // document.querySelector("#addInfoForm #aname").value = "";
                                 document.querySelector("#addInfoForm #appointment").value = "";
                                 document.querySelector("#addInfoForm #lowrev").checked = false;
                                 document.querySelector("#addInfoForm #nocontact").checked = true;
@@ -289,10 +289,10 @@
                                 <label for="revenue" class="form-label">Gross Revenue</label>
                                 <input type="text" name="revenue" id="revenue" class="form-control" maxlength="50"/>
                             </div>
-                            <div class="d-inline-block" style="width: 200px;">
+                            <!-- <div class="d-inline-block" style="width: 200px;">
                                 <label for="aname" class="form-label">Agent Name</label>
                                 <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
-                            </div>
+                            </div> -->
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
@@ -482,7 +482,7 @@
                             document.querySelector("#updateInfoForm #uname").value = record.uname;
                             document.querySelector("#updateInfoForm #web").value = record.web;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
-                            document.querySelector("#updateInfoForm #aname").value = record.aname;
+                            // document.querySelector("#updateInfoForm #aname").value = record.aname;
                             record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
                             document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
@@ -519,7 +519,7 @@
                                 if (remaining<0){ tense = "class='red'"; } else if (istoday && remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
 
                                 tableEle.innerHTML += `<tr ${tense}>
-                                <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.aname}</td>
+                                <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
                                 <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
                                 <td>${record.notes}</td>
                                 <td>${getfrontendtime(record.appointment)}</td>
@@ -657,7 +657,7 @@
                                     record.uname = document.querySelector("#updateInfoForm #uname").value;
                                     record.web = document.querySelector("#updateInfoForm #web").value;
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
-                                    record.aname = document.querySelector("#updateInfoForm #aname").value;
+                                    // record.aname = document.querySelector("#updateInfoForm #aname").value;
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
                                     record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
                                     record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
