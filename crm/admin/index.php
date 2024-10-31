@@ -290,6 +290,13 @@
                                 <label for="aname" class="form-label">Agent Name</label>
                                 <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
                             </div>
+                            <div class="d-inline-block" style="width: 140px;">
+                                <label for="owner" class="form-label">Lead Owner</label>
+                                <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
+                                    <option value="akila">akila - agent</option>
+                                    <option value="akila2">akila2 - agent</option>
+                                </select>
+                            </div>
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
@@ -490,6 +497,7 @@
                             document.querySelector("#updateInfoForm #possiblepropertyu").checked = record.possibleproperty==="f"?false:true;
                             document.querySelector("#updateInfoForm #possiblebuyeru").checked = record.possiblebuyer==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
+                            document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
@@ -635,7 +643,6 @@
                             formData.append("successsale", document.querySelector("#updateInfoForm #successsaleu").checked);
                             formData.append("possibleproperty", document.querySelector("#updateInfoForm #possiblepropertyu").checked);
                             formData.append("possiblebuyer", document.querySelector("#updateInfoForm #possiblebuyeru").checked);
-                            formData.append("whocreatedpk", window.localStorage.getItem("ukey"));
                             formData.append("whichcompany", window.localStorage.getItem("cname"));
                             formData.append("jwt", window.localStorage.getItem("jwt"));
                             timer.timestart();
@@ -794,9 +801,31 @@
                             b = new Date();
                             return a>b;
                         }
+                        const getusers = ()=>{
+                            const formData = new FormData();
+                            formData.append("whichcompany", window.localStorage.getItem("cname"));
+                            formData.append("jwt", window.localStorage.getItem("jwt"));
+                            formData.append("ukey", window.localStorage.getItem("ukey"));
+                            fetch("<?php echo $baseurl ?>agents/getUsers.php", {
+                                method: "post",
+                                body: formData
+                            })
+                            .then((response)=>response.json())
+                            .then((data)=>{
+                                if (data.success){
+                                    loadedData.users = data.data;
+                                    optionscontent = "";
+                                    loadedData.users.forEach((user)=>{
+                                        optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username}</option>`;
+                                    });
+                                    document.querySelector("#owner").innerHTML = optionscontent;
+                                }
+                            });
+                        }
                         
                         initDateTimePickers();
                         listAllInfo();
+                        getusers();
                     </script>
                 </div>
             </div>

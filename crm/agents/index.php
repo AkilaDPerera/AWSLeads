@@ -638,7 +638,6 @@
                             formData.append("successsale", document.querySelector("#updateInfoForm #successsaleu").checked);
                             formData.append("possibleproperty", document.querySelector("#updateInfoForm #possiblepropertyu").checked);
                             formData.append("possiblebuyer", document.querySelector("#updateInfoForm #possiblebuyeru").checked);
-                            formData.append("whocreatedpk", window.localStorage.getItem("ukey"));
                             formData.append("whichcompany", window.localStorage.getItem("cname"));
                             formData.append("jwt", window.localStorage.getItem("jwt"));
                             timer.timestart();
