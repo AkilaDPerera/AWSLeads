@@ -12,7 +12,11 @@
             $message = "";
             $data = array();
 
-            $sql_query = "SELECT * FROM information WHERE whichcompany='".trim($_POST["whichcompany"])."';";
+            if ($_POST["ukey"]=="1"){
+                $sql_query = "SELECT * FROM information;";
+            }else{
+                $sql_query = "SELECT * FROM information WHERE whichcompany='".trim($_POST["whichcompany"])."';";
+            }
             $result = pg_query($dbconn, $sql_query);
 
             $count = 0;

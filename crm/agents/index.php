@@ -516,7 +516,7 @@
                                 if (record.successsale=="t"){ remaining = "999999999"; }
 
                                 tense = "";
-                                if (remaining<0){ tense = "class='red'"; } else if (istoday){ tense="class='green'"; } else { tense=""; }
+                                if (remaining<0){ tense = "class='red'"; } else if (istoday && remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
 
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.aname}</td>
