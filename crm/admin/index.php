@@ -99,7 +99,7 @@
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                             <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
-                            <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off">
+                            <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off" onchange="selfvalidateappointment(event);">
                             <div class="invalid-feedback">Please enter a future date and time.</div>
                         </div>
                     </div>
@@ -306,7 +306,7 @@
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
-                                <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off">
+                                <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off" onchange="selfvalidateappointment(event);">
                                 <div class="invalid-feedback">Please enter a future date and time.</div>
                             </div>
                         </div>
@@ -831,6 +831,14 @@
                                     });
                                 }
                             });
+                        }
+                        const selfvalidateappointment = (e)=>{
+                            if (e.target.value==""){ e.target.classList.remove("is-invalid"); return; }
+                            if(!validappointment(e.target.value)){
+                                e.target.classList.add("is-invalid");
+                            } else {
+                                e.target.classList.remove("is-invalid");
+                            }
                         }
                         
                         initDateTimePickers();
