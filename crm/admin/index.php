@@ -42,6 +42,7 @@
     </div>
     <script>
         document.querySelector(".company-name").innerHTML = window.localStorage.getItem("cname");
+        const cname = window.localStorage.getItem("cname");
     </script>
     
     <div class="accordion mt-5 mx-2" id="mainaccord">
@@ -542,7 +543,7 @@
                                 <td>${record.lowrev=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possibleproperty=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possiblebuyer=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
-                                <td><button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button></td>
+                                <td>${record.whichcompany==cname?`<button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button>`:""}</td>
                                 <td>${remaining}</td>
                                 </tr>`;
                             });
