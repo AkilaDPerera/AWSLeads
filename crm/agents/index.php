@@ -111,9 +111,9 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <div class="d-inline-block me-4">
+                            <div class="d-none me-4">
                                 <!-- <input class="form-check-input" type="checkbox" value="" id="nocontact" name="nocontact"> -->
-                                <input class="form-check-input" type="radio" name="status" id="nocontact" checked>
+                                <input class="form-check-input" type="radio" name="status" id="nocontact" >
                                 <label class="form-check-label" for="nocontact">
                                     No Answer
                                 </label>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="d-inline-block me-4">
                                 <!-- <input class="form-check-input" type="checkbox" value="" id="followingup" name="followingup"> -->
-                                <input class="form-check-input" type="radio" name="status" id="followingup">
+                                <input class="form-check-input" type="radio" name="status" id="followingup" checked>
                                 <label class="form-check-label" for="followingup">
                                     Interested
                                 </label>
@@ -233,9 +233,9 @@
                                 // document.querySelector("#addInfoForm #aname").value = "";
                                 document.querySelector("#addInfoForm #appointment").value = "";
                                 document.querySelector("#addInfoForm #lowrev").checked = false;
-                                document.querySelector("#addInfoForm #nocontact").checked = true;
+                                document.querySelector("#addInfoForm #nocontact").checked = false;
                                 document.querySelector("#addInfoForm #notinterested").checked = false;
-                                document.querySelector("#addInfoForm #followingup").checked = false;
+                                document.querySelector("#addInfoForm #followingup").checked = true;
                                 document.querySelector("#addInfoForm #listedtosale").checked = false;
                                 document.querySelector("#addInfoForm #successsale").checked = false;
                                 document.querySelector("#addInfoForm #possibleproperty").checked = false;
@@ -311,7 +311,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="d-inline-block me-4">
+                                <div class="d-none me-4">
                                     <!-- <input class="form-check-input" type="checkbox" value="" id="nocontactu" name="nocontact"> -->
                                     <input class="form-check-input" type="radio" name="status" id="nocontactu">
                                     <label class="form-check-label" for="nocontactu">
@@ -562,7 +562,7 @@
                                 searching: true,
                                 order: [[18, 'asc']],
                                 columnDefs: [
-                                    { target: 5, visible: false },
+                                    { target: [5, 9], visible: false },
                                     { targets:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], className: "desktop" },
                                     { targets:[1, 6, 17], className: "mobile" },
                                     { target:17, visible: true, searchable: false}, { target:18, visible: false, searchable: false}
