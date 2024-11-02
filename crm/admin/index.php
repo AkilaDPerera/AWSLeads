@@ -44,6 +44,17 @@
         document.querySelector(".company-name").innerHTML = window.localStorage.getItem("cname");
         const cname = window.localStorage.getItem("cname");
     </script>
+
+    <div class="mx-4 mt-3">
+        <div>
+            <div class="h6">Recommendation for No Answers</div>
+            <ul>
+                <li class="mt-2">1st No Answer - Leave a message, set future appointment (3 days later), select the No Answer check box, put NA1 in notes, Add Lead</li>
+                <li class="mt-2">2nd No Answer - Leave a message, send text, set future appointment (3 days later), put NA2 in notes, Update Lead</li>
+                <li class="mt-2">3rd No Answer - Leave simple message - don't want to bother someone that is not interested, call me if you need help, I’m here, check box Remarket, Update Lead We will remarket to them once a month if Remarket is checked.</li>
+            </ul>
+        </div>
+    </div>
     
     <div class="accordion mt-5 mx-2" id="mainaccord">
         <div class="accordion-item" id="addInfoForm">
@@ -54,7 +65,7 @@
                 </button>
             </div>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" data-bs-parent="#mainaccord">
-                <form action="<?php echo $baseurl ?>agents/addInfo.php" method="post" onsubmit="addInfo(event);" class="accordion-body my-2">
+                <form action="<?php echo $baseurl ?>agents/addInfo.php" method="post" onsubmit="addInfo(event);" class="accordion-body my-2" onchange="selfvalidate(event);">
                     <div class="row g-3 mb-3">
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone" class="form-label">Phone 1*</label>
@@ -100,7 +111,7 @@
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                             <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
-                            <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off" onchange="selfvalidateappointment(event);">
+                            <input type="text" id="appointment" name="appointment" class="appointment1 form-control" autocomplete="off">
                             <div class="invalid-feedback">Please enter a future date and time.</div>
                         </div>
                     </div>
@@ -177,9 +188,7 @@
                 </form>
                 <script>
                     const dateclr = ()=>{
-                        document.querySelectorAll("#appointment").forEach((comp)=>{comp.value = "";})
-                        document.querySelector("#addInfoForm #appointment").classList.remove("is-invalid");
-                        document.querySelector("#updateInfoForm #appointment").classList.remove("is-invalid");
+                        document.querySelectorAll("#appointment").forEach((comp)=>{comp.value = "";});
                     }
                     const phonenumbervalidation = (e)=>{
                         e.target.value = e.target.value.replace(/\D/g,'');
@@ -257,7 +266,7 @@
                 <div class="accordion-body">
 
 
-                    <form action="<?php echo $baseurl ?>agents/updateInfo.php" method="post" onsubmit="updateInfo(event);" class="mb-5 hide" id="updateInfoForm">
+                    <form action="<?php echo $baseurl ?>agents/updateInfo.php" method="post" onsubmit="updateInfo(event);" class="mb-5 hide" id="updateInfoForm" onchange="selfvalidate(event);">
                         <input type="text" name="pk" id="pk" hidden/>
                         <input type="text" name="oldemail" id="oldemail" hidden/>
                         <input type="text" name="oldphone" id="oldphone" hidden/>
@@ -307,7 +316,7 @@
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
-                                <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off" onchange="selfvalidateappointment(event);">
+                                <input type="text" id="appointment" name="appointment" class="appointment2 form-control" autocomplete="off">
                                 <div class="invalid-feedback">Please enter a future date and time.</div>
                             </div>
                         </div>
@@ -833,12 +842,18 @@
                                 }
                             });
                         }
-                        const selfvalidateappointment = (e)=>{
-                            if (e.target.value==""){ e.target.classList.remove("is-invalid"); return; }
-                            if(!validappointment(e.target.value)){
-                                e.target.classList.add("is-invalid");
+                        const selfvalidate = (e)=>{
+                            const form = e.target.closest("form");
+                            if (form.querySelector("input[id*='nocontact']").checked || form.querySelector("input[id*='followingup']").checked){
+                                const appointmentComp= form.querySelector("input[id*='appointment']");
+                                if (appointmentComp.value==""){ appointmentComp.classList.add("is-invalid"); return; }
+                                if(!validappointment(appointmentComp.value)){
+                                    appointmentComp.classList.add("is-invalid");
+                                } else {
+                                    appointmentComp.classList.remove("is-invalid");
+                                }
                             } else {
-                                e.target.classList.remove("is-invalid");
+                                form.querySelector("input[id*='appointment']").classList.remove("is-invalid");
                             }
                         }
                         
