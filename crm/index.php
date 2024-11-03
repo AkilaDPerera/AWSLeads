@@ -43,10 +43,10 @@
                     .then((data)=>{
                         timer.timestop();
                         if (data.success){
-                            window.localStorage.setItem("r", data.role[0]);
-                            window.localStorage.setItem("ukey", data.ukey);
-                            window.localStorage.setItem("cname", data.cname);
-                            window.localStorage.setItem("jwt", data.jwt);
+                            window.sessionStorage.setItem("r", data.role[0]);
+                            window.sessionStorage.setItem("ukey", data.ukey);
+                            window.sessionStorage.setItem("cname", data.cname);
+                            window.sessionStorage.setItem("jwt", data.jwt);
                             const currentURL = new URLSearchParams(document.location.search);
                             if(currentURL.get("next")!==null){
                                 window.location.replace(currentURL.get("next"));
@@ -54,10 +54,10 @@
                                 window.location.replace("<?php echo $baseurl ?>agents/");
                             }
                         }else{
-                            window.localStorage.removeItem("r");
-                            window.localStorage.removeItem("ukey");
-                            window.localStorage.removeItem("cname");
-                            window.localStorage.removeItem("jwt");
+                            window.sessionStorage.removeItem("r");
+                            window.sessionStorage.removeItem("ukey");
+                            window.sessionStorage.removeItem("cname");
+                            window.sessionStorage.removeItem("jwt");
                             alert(data.message);
                         }
                     });

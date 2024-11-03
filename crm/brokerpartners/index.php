@@ -16,10 +16,10 @@
     ?>
     <script>
         if (ukey!=="1"){
-            window.localStorage.removeItem("r");
-            window.localStorage.removeItem("ukey");
-            window.localStorage.removeItem("cname");
-            window.localStorage.removeItem("jwt");
+            window.sessionStorage.removeItem("r");
+            window.sessionStorage.removeItem("ukey");
+            window.sessionStorage.removeItem("cname");
+            window.sessionStorage.removeItem("jwt");
             alert("Only Jay can access this page.");
             window.location.replace("<?php echo $baseurl ?>?next="+encodeURIComponent(window.location.pathname)); 
         }
@@ -53,8 +53,8 @@
             const loadedUsers = {}
             const fetchUsers = async ()=>{
                 const formData = new FormData();
-                formData.append("ukey", window.localStorage.getItem("ukey"));
-                formData.append("jwt", window.localStorage.getItem("jwt"));
+                formData.append("ukey", window.sessionStorage.getItem("ukey"));
+                formData.append("jwt", window.sessionStorage.getItem("jwt"));
 
                 timer.timestart();
 
@@ -101,7 +101,7 @@
                 const pk = e.target.getAttribute("data-pk");
                 const formData = new FormData();
                 formData.append("pk", pk);
-                formData.append("jwt", window.localStorage.getItem("jwt"));
+                formData.append("jwt", window.sessionStorage.getItem("jwt"));
                 timer.timestart();
                 fetch("<?php echo $baseurl ?>brokerpartners/deleteuser.php", {
                     method: "POST",
@@ -156,7 +156,7 @@
                 const form = event.currentTarget;
                 const url = new URL(form.action);
                 const formData = new FormData(form);
-                formData.append("jwt", window.localStorage.getItem("jwt"));
+                formData.append("jwt", window.sessionStorage.getItem("jwt"));
                 timer.timestart();
                 fetch(url, {
                     method: form.method,

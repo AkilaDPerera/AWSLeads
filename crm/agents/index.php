@@ -29,7 +29,7 @@
     ?>
 
     <script>
-        const r = window.localStorage.getItem("r");
+        const r = window.sessionStorage.getItem("r");
         if (r==="o"){
             window.location.replace("<?php echo $baseurl ?>admin/"); 
         }
@@ -41,7 +41,7 @@
         </div>
     </div>
     <script>
-        document.querySelector(".company-name").innerHTML = window.localStorage.getItem("cname");
+        document.querySelector(".company-name").innerHTML = window.sessionStorage.getItem("cname");
     </script>
 
     <div class="mx-4 mt-3">
@@ -210,9 +210,9 @@
                         formData.append("successsale", document.querySelector("#addInfoForm #successsale").checked);
                         formData.append("possibleproperty", document.querySelector("#addInfoForm #possibleproperty").checked);
                         formData.append("possiblebuyer", document.querySelector("#addInfoForm #possiblebuyer").checked);
-                        formData.append("whocreatedpk", window.localStorage.getItem("ukey"));
-                        formData.append("whichcompany", window.localStorage.getItem("cname"));
-                        formData.append("jwt", window.localStorage.getItem("jwt"));
+                        formData.append("whocreatedpk", window.sessionStorage.getItem("ukey"));
+                        formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                        formData.append("jwt", window.sessionStorage.getItem("jwt"));
                         timer.timestart();
                         fetch(url, {
                             method: form.method,
@@ -596,8 +596,8 @@
                             const form = event.currentTarget;
                             const url = new URL(form.action);
                             const formData = new FormData(form);
-                            formData.append("whichcompany", window.localStorage.getItem("cname"));
-                            formData.append("jwt", window.localStorage.getItem("jwt"));
+                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
 
                             timer.timestart();
 
@@ -648,8 +648,8 @@
                             formData.append("successsale", document.querySelector("#updateInfoForm #successsaleu").checked);
                             formData.append("possibleproperty", document.querySelector("#updateInfoForm #possiblepropertyu").checked);
                             formData.append("possiblebuyer", document.querySelector("#updateInfoForm #possiblebuyeru").checked);
-                            formData.append("whichcompany", window.localStorage.getItem("cname"));
-                            formData.append("jwt", window.localStorage.getItem("jwt"));
+                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             timer.timestart();
                             fetch(url, {
                                 method: form.method,
@@ -688,9 +688,9 @@
                         }
                         const listInfoAgent = ()=>{
                             const formData = new FormData();
-                            formData.append("whichcompany", window.localStorage.getItem("cname"));
-                            formData.append("ukey", window.localStorage.getItem("ukey"));
-                            formData.append("jwt", window.localStorage.getItem("jwt"));
+                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("ukey", window.sessionStorage.getItem("ukey"));
+                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
 
                             timer.timestart();
 

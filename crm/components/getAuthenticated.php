@@ -6,8 +6,8 @@ Dependency files
 -->
 
 <script>
-    const ukey = window.localStorage.getItem("ukey");
-    const role = window.localStorage.getItem("r");
+    const ukey = window.sessionStorage.getItem("ukey");
+    const role = window.sessionStorage.getItem("r");
     if (ukey===null || role===null){
         // Get authenticated again
         window.location.replace("<?php echo $baseurl ?>?next="+encodeURIComponent(window.location.pathname)); 
@@ -18,10 +18,10 @@ Dependency files
         }
     }    
     const logout = ()=>{
-        window.localStorage.removeItem("r");
-        window.localStorage.removeItem("ukey");
-        window.localStorage.removeItem("cname");
-        window.localStorage.removeItem("jwt");
+        window.sessionStorage.removeItem("r");
+        window.sessionStorage.removeItem("ukey");
+        window.sessionStorage.removeItem("cname");
+        window.sessionStorage.removeItem("jwt");
         window.location.replace("<?php echo $baseurl ?>"); 
     }
 </script>
