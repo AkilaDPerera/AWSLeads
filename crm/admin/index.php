@@ -46,14 +46,14 @@
     </script>
 
     <div class="mx-4 mt-3">
-        <div>
+        <!-- <div>
             <div class="h6">Recommendation for No Answers</div>
             <ul>
                 <li class="mt-2">1st No Answer - Leave a message, set future appointment (3 days later), select the No Answer check box, put NA1 in notes, Add Lead</li>
                 <li class="mt-2">2nd No Answer - Leave a message, send text, set future appointment (3 days later), put NA2 in notes, Update Lead</li>
                 <li class="mt-2">3rd No Answer - Leave simple message - don't want to bother someone that is not interested, call me if you need help, I’m here, check box Remarket, Update Lead We will remarket to them once a month if Remarket is checked.</li>
             </ul>
-        </div>
+        </div> -->
     </div>
     
     <div class="accordion mt-5 mx-2" id="mainaccord">
