@@ -91,6 +91,10 @@
                             <label for="web" class="form-label">Website/FB</label>
                             <input type="text" name="web" id="web" class="form-control" maxlength="100"/>
                         </div>
+                        <div class="d-inline-block" style="width: 300px;">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" maxlength="100"/>
+                        </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="d-inline-block" style="width: 350px;">
@@ -281,6 +285,7 @@
                                 document.querySelector("#addInfoForm #company").value = "";
                                 document.querySelector("#addInfoForm #uname").value = "";
                                 document.querySelector("#addInfoForm #web").value = "";
+                                document.querySelector("#addInfoForm #address").value = "";
                                 document.querySelector("#addInfoForm #revenue").value = "";
                                 // document.querySelector("#addInfoForm #aname").value = "";
                                 document.querySelector("#addInfoForm #appointment").value = "";
@@ -337,6 +342,10 @@
                             <div class="d-inline-block" style="width: 300px;">
                                 <label for="web" class="form-label">Website/FB</label>
                                 <input type="text" name="web" id="web" class="form-control" maxlength="100"/>
+                            </div>
+                            <div class="d-inline-block" style="width: 300px;">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" maxlength="100"/>
                             </div>
                         </div>
                         <div class="row g-3 mb-3">
@@ -560,6 +569,7 @@
                             document.querySelector("#updateInfoForm #company").value = record.company;
                             document.querySelector("#updateInfoForm #uname").value = record.uname;
                             document.querySelector("#updateInfoForm #web").value = record.web;
+                            document.querySelector("#updateInfoForm #address").value = record.address;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
                             // document.querySelector("#updateInfoForm #aname").value = record.aname;
 
@@ -757,6 +767,7 @@
                                     record.company = document.querySelector("#updateInfoForm #company").value;
                                     record.uname = document.querySelector("#updateInfoForm #uname").value;
                                     record.web = document.querySelector("#updateInfoForm #web").value;
+                                    record.address = document.querySelector("#updateInfoForm #address").value; 
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
                                     // record.aname = document.querySelector("#updateInfoForm #aname").value;
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");

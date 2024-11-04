@@ -20,6 +20,7 @@
                 "company" => $_POST["company"],
                 "uname" => $_POST["uname"],
                 "web" => $_POST["web"],
+                "address" => $_POST["address"],
                 "revenue" => $_POST["revenue"],
                 "aname" => "",
                 "nocontact" => $_POST["nocontact"],
