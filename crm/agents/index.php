@@ -46,12 +46,19 @@
 
     <div class="mx-4 mt-3">
         <div>
+            <div class="h6">Lead Flow</div>
+            <p>Interested is automatically checked from the start.</p>
+            <p>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Commercial Property Sale OR + Business Buyer if they are in this category. </p>
+            <p>We especially would like to know what they are interested in purchasing, along with their budget, and if they are serious. </p>
+        </div>
+        <div>
             <div class="h6">Recommendation for No Answers</div>
             <ul>
-                <li class="mt-2">1st No Answer - Leave a message, set future appointment (3 days later), select the No Answer check box, put NA1 in notes, Add Lead</li>
-                <li class="mt-2">2nd No Answer - Leave a message, send text, set future appointment (3 days later), put NA2 in notes, Update Lead</li>
-                <li class="mt-2">3rd No Answer - Leave simple message - don't want to bother someone that is not interested, call me if you need help, I’m here, check box Remarket, Update Lead We will remarket to them once a month if Remarket is checked.</li>
+                <li class="mt-2">1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
+                <li class="mt-2">2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
+                <li class="mt-2">3rd No Answer -  Leave a message letting them know you contacted 3 times. Sure your busy. I will reach back out in a month, feel free to contact me sooner if you become available and would like to talk. Select Remarket, and Update Lead.</li>
             </ul>
+            <p>We will remarket to them in a month.</p>
         </div>
     </div>
     
@@ -240,9 +247,9 @@
                         document.querySelector("#addInfoForm #appointment").classList.remove("is-invalid");
 
                         if (document.querySelector("#addInfoForm #na1").checked || document.querySelector("#addInfoForm #na2").checked){
-                            formData.append("appointment", getDateToBackendTime(getDateAfterThreeDaysExcludingWeekends(new Date())));
+                            formData.set("appointment", getDateToBackendTime(getDateAfterThreeDaysExcludingWeekends(new Date())));
                         } else {
-                            formData.append("appointment", getbackendtime(loadedData.adddatetime));
+                            formData.set("appointment", getbackendtime(loadedData.adddatetime));
                         }
 
                         formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
@@ -709,9 +716,9 @@
                             if (document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked){
                                 const newdate = getDateAfterThreeDaysExcludingWeekends(new Date(), loadedData.data[loadedData.selectedToEdit].appointment);
                                 document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(getDateToBackendTime(newdate).replaceAll("T", " "));
-                                formData.append("appointment", getDateToBackendTime(newdate));
+                                formData.set("appointment", getDateToBackendTime(newdate));
                             } else {
-                                formData.append("appointment", getbackendtime(loadedData.adddatetime));
+                                formData.set("appointment", getbackendtime(loadedData.updatedatetime));
                             }
                             
                             formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
@@ -735,7 +742,7 @@
                             .then((data)=>{
                                 timer.timestop();
                                 if (data.success){
-                                    // document.querySelector("#updateInfoForm").classList.add("hide");
+                                    document.querySelector("#updateInfoForm").classList.add("hide");
                                     // const record = {...loadedData.data[loadedData.selectedToEdit]};
                                     // record.email = document.querySelector("#updateInfoForm #email").value;
                                     // record.phone = document.querySelector("#updateInfoForm #phone").value;
