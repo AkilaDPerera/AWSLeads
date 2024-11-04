@@ -484,7 +484,7 @@
                                     <th scope="col">Notes</th>
                                     <th scope="col">Appointment</th>
                                     <th scope="col">No Answer</th>
-                                    <th scope="col">Not Interested</th>
+                                    <th scope="col">NI</th>
                                     <th scope="col">Interested</th>
                                     <th scope="col">Listed</th>
                                     <th scope="col">Sold</th>
@@ -520,6 +520,10 @@
                             </tfoot>
                             <tbody></tbody>
                         </table>
+
+                        <div class="my-3">
+                            *NI - Not Interested
+                        </div>
 
                         <button class="btn btn-primary desktop" onclick="download();">Download</button>
                     </div>
