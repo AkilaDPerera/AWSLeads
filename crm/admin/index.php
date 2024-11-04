@@ -49,8 +49,8 @@
         <div>
             <div class="h6">Lead Flow</div>
             <div>Interested is automatically checked from the start.</div>
-            <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Commercial Property Sale OR + Business Buyer if they are in this category. </div>
-            <div>We especially would like to know what they are interested in purchasing, along with their budget, and if they are serious. </div>
+            <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Property Sale or +Biz Buyer if they are in this category.</div>
+            <div>If +Biz Buyer, please find out what they want (business wise) along with their budget.</div>
         </div>
         <div class="mt-2">
             <div class="h6">Recommendation for No Answers</div>
@@ -573,7 +573,13 @@
                             document.querySelector("#updateInfoForm #web").value = record.web;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
                             // document.querySelector("#updateInfoForm #aname").value = record.aname;
-                            record.appointment===""?document.querySelector("#updateInfoForm #appointment").value = "":document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
+                            
+                            if(checkpastdate(record.appointment.replaceAll(" ", "T"))){
+                                document.querySelector("#updateInfoForm #appointment").value = ""
+                            }else{
+                                document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(record.appointment.replaceAll(" ", "T"));
+                            }
+
                             document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
                             document.querySelector("#updateInfoForm #notinterestedu").checked = record.notinterested==="f"?false:true;
@@ -903,6 +909,13 @@
                             if (picker.val()==""){ return ""; }
                             a = new Date(picker.val());
                             return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
+                        }
+                        const checkpastdate = (datestring)=>{
+                            // Y-m-d H:i -> true false
+                            if (datestring==""){ return true; }
+                            atoday = new Date();
+                            a = new Date(datestring);
+                            if (atoday>a){return true;}else{return false;}
                         }
                         const getfrontendtime = (datestring)=>{
                             // Y-m-d H:i -> Y-m-d h:mm a
