@@ -77,6 +77,8 @@
                     "updateddate" => $date,
                     "whocreatedpk" => $_POST["whocreatedpk"],
                     "whichcompany" => $_POST["whichcompany"],
+                    "na1" => $_POST["na1"],
+                    "na2" => $_POST["na2"],
                     "appointment" => $appointment
                 ));
                 if ($result===false){

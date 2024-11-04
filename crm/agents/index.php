@@ -147,24 +147,36 @@
                                 </label>
                             </div>
                             <div class="d-inline-block me-4">
-                                <input class="form-check-input" type="radio" name="status" id="lowrev" >
-                                <label class="form-check-label" for="lowrev">
-                                    Remarket
+                                <input class="form-check-input" type="checkbox" value="" id="possibleproperty" name="possibleproperty">
+                                <!-- <input class="form-check-input" type="radio" name="possibletype" id="possibleproperty"> -->
+                                <label class="form-check-label" for="possibleproperty">
+                                    +Property Sale
+                                </label>
+                            </div>
+                            <div class="d-inline-block me-4">
+                                <input class="form-check-input" type="checkbox" value="" id="possiblebuyer" name="possiblebuyer">
+                                <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblebuyer"> -->
+                                <label class="form-check-label" for="possiblebuyer">
+                                    +Biz Buyer
                                 </label>
                             </div>
                             <div class="d-block">
                                 <div class="d-inline-block me-4 mt-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="possibleproperty" name="possibleproperty">
-                                    <!-- <input class="form-check-input" type="radio" name="possibletype" id="possibleproperty"> -->
-                                    <label class="form-check-label" for="possibleproperty">
-                                        +Property Sale
+                                    <input class="form-check-input" type="checkbox" value="" id="na1" name="na1">
+                                    <label class="form-check-label" for="na1">
+                                        NA1
                                     </label>
                                 </div>
                                 <div class="d-inline-block me-4 mt-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="possiblebuyer" name="possiblebuyer">
-                                    <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblebuyer"> -->
-                                    <label class="form-check-label" for="possiblebuyer">
-                                        +Biz Buyer
+                                    <input class="form-check-input" type="checkbox" value="" id="na2" name="na2">
+                                    <label class="form-check-label" for="na2">
+                                        NA2
+                                    </label>
+                                </div>
+                                <div class="d-inline-block me-4 mt-3">
+                                    <input class="form-check-input" type="radio" name="status" id="lowrev" >
+                                    <label class="form-check-label" for="lowrev">
+                                        Remarket
                                     </label>
                                 </div>
                             </div>
@@ -187,13 +199,39 @@
                     const phonenumbervalidation = (e)=>{
                         e.target.value = e.target.value.replace(/\D/g,'');
                     }
+                    const getDateAfterThreeDaysExcludingWeekends = (startDate, olddatestring="")=>{
+                        if (olddatestring!=""){
+                            const existingDate = new Date(getfrontendtime(olddatestring));
+                            const atoday = new Date();
+                            if ((existingDate-atoday)/(1000*60*60)>12){
+                                return existingDate;
+                            }
+                        }
+                        let daysAdded = 0;
+                        let currentDate = new Date(startDate);
+
+                        while (daysAdded < 3) {
+                            // Move to the next day
+                            currentDate.setDate(currentDate.getDate() + 1);
+
+                            // Check if the current day is a weekday (Monday to Friday)
+                            const dayOfWeek = currentDate.getDay();
+                            if (dayOfWeek !== 0 && dayOfWeek !== 6) { // 0 = Sunday, 6 = Saturday
+                                daysAdded++;
+                            }
+                        }
+                        currentDate.setHours(8, 0);
+                        return currentDate;
+                    }
                     const addInfo = (event)=>{
                         event.preventDefault();
                         const form = event.currentTarget;
                         const url = new URL(form.action);
                         const formData = new FormData(form);
 
-                        if (document.querySelector("#addInfoForm #nocontact").checked || document.querySelector("#addInfoForm #followingup").checked){
+                        if ((document.querySelector("#addInfoForm #nocontact").checked || document.querySelector("#addInfoForm #followingup").checked)
+                        && !(document.querySelector("#addInfoForm #na1").checked || document.querySelector("#addInfoForm #na2").checked)
+                        ){
                             if(!validappointment(document.querySelector("#addInfoForm #appointment").value)){
                                 document.querySelector("#addInfoForm #appointment").classList.add("is-invalid");
                                 return;
@@ -201,7 +239,12 @@
                         }
                         document.querySelector("#addInfoForm #appointment").classList.remove("is-invalid");
 
-                        formData.append("appointment", getbackendtime(loadedData.adddatetime));
+                        if (document.querySelector("#addInfoForm #na1").checked || document.querySelector("#addInfoForm #na2").checked){
+                            formData.append("appointment", getDateToBackendTime(getDateAfterThreeDaysExcludingWeekends(new Date())));
+                        } else {
+                            formData.append("appointment", getbackendtime(loadedData.adddatetime));
+                        }
+
                         formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
@@ -210,6 +253,8 @@
                         formData.append("successsale", document.querySelector("#addInfoForm #successsale").checked);
                         formData.append("possibleproperty", document.querySelector("#addInfoForm #possibleproperty").checked);
                         formData.append("possiblebuyer", document.querySelector("#addInfoForm #possiblebuyer").checked);
+                        formData.append("na1", document.querySelector("#addInfoForm #na1").checked);
+                        formData.append("na2", document.querySelector("#addInfoForm #na2").checked);
                         formData.append("whocreatedpk", window.sessionStorage.getItem("ukey"));
                         formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                         formData.append("jwt", window.sessionStorage.getItem("jwt"));
@@ -240,6 +285,8 @@
                                 document.querySelector("#addInfoForm #successsale").checked = false;
                                 document.querySelector("#addInfoForm #possibleproperty").checked = false;
                                 document.querySelector("#addInfoForm #possiblebuyer").checked = false;
+                                document.querySelector("#addInfoForm #na1").checked = false;
+                                document.querySelector("#addInfoForm #na2").checked = false;
                                 document.querySelector("#addInfoForm #notes").value = "";
                                 listInfoAgent();
                             }else{
@@ -347,24 +394,36 @@
                                     </label>
                                 </div>
                                 <div class="d-inline-block me-4">
-                                    <input class="form-check-input" type="radio" name="status" id="lowrevu">
-                                    <label class="form-check-label" for="lowrevu">
-                                        Remarket
+                                    <input class="form-check-input" type="checkbox" value="" id="possiblepropertyu" name="possibleproperty">
+                                    <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblepropertyu"> -->
+                                    <label class="form-check-label" for="possiblepropertyu">
+                                        +Property Sale
+                                    </label>
+                                </div>
+                                <div class="d-inline-block me-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="possiblebuyeru" name="possiblebuyer">
+                                    <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblebuyeru"> -->
+                                    <label class="form-check-label" for="possiblebuyeru">
+                                        +Biz Buyer
                                     </label>
                                 </div>
                                 <div class="d-block">
                                     <div class="d-inline-block me-4 mt-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="possiblepropertyu" name="possibleproperty">
-                                        <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblepropertyu"> -->
-                                        <label class="form-check-label" for="possiblepropertyu">
-                                            +Property Sale
+                                        <input class="form-check-input" type="checkbox" value="" id="na1u" name="na1">
+                                        <label class="form-check-label" for="na1u">
+                                            NA1
                                         </label>
                                     </div>
                                     <div class="d-inline-block me-4 mt-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="possiblebuyeru" name="possiblebuyer">
-                                        <!-- <input class="form-check-input" type="radio" name="possibletype" id="possiblebuyeru"> -->
-                                        <label class="form-check-label" for="possiblebuyeru">
-                                            +Biz Buyer
+                                        <input class="form-check-input" type="checkbox" value="" id="na2u" name="na2">
+                                        <label class="form-check-label" for="na2u">
+                                            NA2
+                                        </label>
+                                    </div>
+                                    <div class="d-inline-block me-4 mt-3">
+                                        <input class="form-check-input" type="radio" name="status" id="lowrevu">
+                                        <label class="form-check-label" for="lowrevu">
+                                            Remarket
                                         </label>
                                     </div>
                                 </div>
@@ -501,6 +560,8 @@
                             document.querySelector("#updateInfoForm #successsaleu").checked = record.successsale==="f"?false:true;
                             document.querySelector("#updateInfoForm #possiblepropertyu").checked = record.possibleproperty==="f"?false:true;
                             document.querySelector("#updateInfoForm #possiblebuyeru").checked = record.possiblebuyer==="f"?false:true;
+                            document.querySelector("#updateInfoForm #na1u").checked = record.na1==="f"?false:true;
+                            document.querySelector("#updateInfoForm #na2u").checked = record.na2==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -530,7 +591,7 @@
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
                                 <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
-                                <td>${record.notes}</td>
+                                <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
                                 <td>${getfrontendtime(record.appointment)}</td>
                                 <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.notinterested==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
@@ -631,15 +692,24 @@
                             const url = new URL(form.action);
                             const formData = new FormData(form);
 
-                            if (document.querySelector("#updateInfoForm #nocontactu").checked || document.querySelector("#updateInfoForm #followingupu").checked){
+                            if ((document.querySelector("#updateInfoForm #nocontactu").checked || document.querySelector("#updateInfoForm #followingupu").checked) 
+                            && !(document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked)
+                            ){
                                 if(!validappointment(document.querySelector("#updateInfoForm #appointment").value)){
                                     document.querySelector("#updateInfoForm #appointment").classList.add("is-invalid");
                                     return;
                                 };
                             }
                             document.querySelector("#updateInfoForm #appointment").classList.remove("is-invalid");
+
+                            if (document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked){
+                                const newdate = getDateAfterThreeDaysExcludingWeekends(new Date(), loadedData.data[loadedData.selectedToEdit].appointment);
+                                document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(getDateToBackendTime(newdate).replaceAll("T", " "));
+                                formData.append("appointment", getDateToBackendTime(newdate));
+                            } else {
+                                formData.append("appointment", getbackendtime(loadedData.adddatetime));
+                            }
                             
-                            formData.append("appointment", getbackendtime(loadedData.updatedatetime));
                             formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
                             formData.append("nocontact", document.querySelector("#updateInfoForm #nocontactu").checked);
                             formData.append("notinterested", document.querySelector("#updateInfoForm #notinterestedu").checked);
@@ -648,6 +718,8 @@
                             formData.append("successsale", document.querySelector("#updateInfoForm #successsaleu").checked);
                             formData.append("possibleproperty", document.querySelector("#updateInfoForm #possiblepropertyu").checked);
                             formData.append("possiblebuyer", document.querySelector("#updateInfoForm #possiblebuyeru").checked);
+                            formData.append("na1", document.querySelector("#updateInfoForm #na1u").checked);
+                            formData.append("na2", document.querySelector("#updateInfoForm #na2u").checked);
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             timer.timestart();
@@ -677,6 +749,8 @@
                                     record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
                                     record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
                                     record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
+                                    record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
+                                    record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
                                     record.notes = document.querySelector("#updateInfoForm #notes").value;
                                     loadedData.data[loadedData.selectedToEdit] = record;
                                     populateSearchResult(loadedData.data);
@@ -786,6 +860,10 @@
                         const addleadingzeros = (num)=>{
                             return num<10? '0'+num:''+num;
                         }
+                        const getDateToBackendTime = (date)=>{
+                            a = date;
+                            return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
+                        }
                         const getbackendtime = (picker)=>{
                             // Y-m-dTH:i
                             if (picker.val()==""){ return ""; }
@@ -809,7 +887,6 @@
                             const form = e.target.closest("form");
                             if (form.querySelector("input[id*='nocontact']").checked || form.querySelector("input[id*='followingup']").checked){
                                 const appointmentComp= form.querySelector("input[id*='appointment']");
-                                if (appointmentComp.value==""){ appointmentComp.classList.add("is-invalid"); return; }
                                 if(!validappointment(appointmentComp.value)){
                                     appointmentComp.classList.add("is-invalid");
                                 } else {
@@ -817,6 +894,12 @@
                                 }
                             } else {
                                 form.querySelector("input[id*='appointment']").classList.remove("is-invalid");
+                            }
+                            if (form.querySelector("input[id*='na1']").checked || form.querySelector("input[id*='na2']").checked){
+                                form.querySelector("input[id*='appointment']").classList.remove("is-invalid");
+                                form.querySelector("input[id*='appointment']").setAttribute('disabled', 'disabled');
+                            } else {
+                                form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
                         }
                         

@@ -28,6 +28,8 @@
                 "listedtosale" => $_POST["listedtosale"],
                 "successsale" => $_POST["successsale"],
                 "lowrev" => $_POST["lowrev"],
+                "na1" => $_POST["na1"],
+                "na2" => $_POST["na2"],
                 "possibleproperty" => $_POST["possibleproperty"],
                 "possiblebuyer" => $_POST["possiblebuyer"],
                 "notes" => $_POST["notes"],
