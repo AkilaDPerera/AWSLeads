@@ -46,13 +46,13 @@
 
     <div class="mx-4 mt-3">
         <div>
-            <div class="h6">Lead Flow</div>
+            <div class="h6 mb-1">Lead Flow</div>
             <div>Interested is automatically checked from the start.</div>
             <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Property Sale or +Biz Buyer if they are in this category.</div>
             <div>If +Biz Buyer, please find out what they want (business wise) along with their budget.</div>
         </div>
         <div class="mt-2">
-            <div class="h6">Recommendation for No Answers</div>
+            <div class="h6 mb-1">Recommendation for No Answers</div>
             <ul class="mb-1">
                 <li>1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
                 <li>2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
@@ -62,7 +62,7 @@
         </div>
     </div>
     
-    <div class="accordion mt-5 mx-2" id="mainaccord">
+    <div class="accordion mt-2 mx-2" id="mainaccord">
 
         <div class="accordion-item" id="addInfoForm">
             <div class="accordion-header">
@@ -580,6 +580,7 @@
                             document.querySelector("#updateInfoForm #na1u").checked = record.na1==="f"?false:true;
                             document.querySelector("#updateInfoForm #na2u").checked = record.na2==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
+                            document.querySelector("#updateInfoForm").dispatchEvent(new Event('change', {bubbles: true, cancelable: true}));
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
