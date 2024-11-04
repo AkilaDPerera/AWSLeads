@@ -48,18 +48,18 @@
     <div class="mx-4 mt-3">
         <div>
             <div class="h6">Lead Flow</div>
-            <p>Interested is automatically checked from the start.</p>
-            <p>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Commercial Property Sale OR + Business Buyer if they are in this category. </p>
-            <p>We especially would like to know what they are interested in purchasing, along with their budget, and if they are serious. </p>
+            <div>Interested is automatically checked from the start.</div>
+            <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Commercial Property Sale OR + Business Buyer if they are in this category. </div>
+            <div>We especially would like to know what they are interested in purchasing, along with their budget, and if they are serious. </div>
         </div>
-        <div>
+        <div class="mt-2">
             <div class="h6">Recommendation for No Answers</div>
-            <ul>
-                <li class="mt-2">1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
-                <li class="mt-2">2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
-                <li class="mt-2">3rd No Answer -  Leave a message letting them know you contacted 3 times. Sure your busy. I will reach back out in a month, feel free to contact me sooner if you become available and would like to talk. Select Remarket, and Update Lead.</li>
+            <ul class="mb-1">
+                <li>1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
+                <li>2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
+                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Sure your busy. I will reach back out in a month, feel free to contact me sooner if you become available and would like to talk. Select Remarket, and Update Lead.</li>
             </ul>
-            <p>We will remarket to them in a month.</p>
+            <div>We will remarket to them in a month.</div>
         </div>
     </div>
     
@@ -761,33 +761,33 @@
                                 timer.timestop();
                                 if (data.success){
                                     document.querySelector("#updateInfoForm").classList.add("hide");
-                                    // const record = {...loadedData.data[loadedData.selectedToEdit]};
-                                    // record.email = document.querySelector("#updateInfoForm #email").value;
-                                    // record.phone = document.querySelector("#updateInfoForm #phone").value;
-                                    // record.phone2 = document.querySelector("#updateInfoForm #phone2").value;
-                                    // record.company = document.querySelector("#updateInfoForm #company").value;
-                                    // record.uname = document.querySelector("#updateInfoForm #uname").value;
-                                    // record.web = document.querySelector("#updateInfoForm #web").value;
-                                    // record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
-                                    // // record.aname = document.querySelector("#updateInfoForm #aname").value;
-                                    // record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
-                                    // record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
-                                    // record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
-                                    // record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
-                                    // record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
-                                    // record.listedtosale = document.querySelector("#updateInfoForm #listedtosaleu").checked?"t":"f";
-                                    // record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
-                                    // record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
-                                    // record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
-                                    // record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
-                                    // record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
-                                    // record.notes = document.querySelector("#updateInfoForm #notes").value;
-                                    // if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
-                                    //     record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
-                                    // }
-                                    // loadedData.data[loadedData.selectedToEdit] = record;
-                                    // populateSearchResult(loadedData.data);
-                                    listAllInfo();
+                                    const record = {...loadedData.data[loadedData.selectedToEdit]};
+                                    record.email = document.querySelector("#updateInfoForm #email").value;
+                                    record.phone = document.querySelector("#updateInfoForm #phone").value;
+                                    record.phone2 = document.querySelector("#updateInfoForm #phone2").value;
+                                    record.company = document.querySelector("#updateInfoForm #company").value;
+                                    record.uname = document.querySelector("#updateInfoForm #uname").value;
+                                    record.web = document.querySelector("#updateInfoForm #web").value;
+                                    record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
+                                    // record.aname = document.querySelector("#updateInfoForm #aname").value;
+                                    record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
+                                    record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
+                                    record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
+                                    record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
+                                    record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
+                                    record.listedtosale = document.querySelector("#updateInfoForm #listedtosaleu").checked?"t":"f";
+                                    record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
+                                    record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
+                                    record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
+                                    record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
+                                    record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
+                                    record.notes = document.querySelector("#updateInfoForm #notes").value;
+                                    if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
+                                        record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
+                                    }
+                                    loadedData.data[loadedData.selectedToEdit] = record;
+                                    populateSearchResult(loadedData.data);
+                                    // listAllInfo();
                                 }else{
                                     alert(data.message);
                                 }
