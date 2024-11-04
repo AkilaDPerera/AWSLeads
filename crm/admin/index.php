@@ -46,14 +46,14 @@
     </script>
 
     <div class="mx-4 mt-3">
-        <!-- <div>
+        <div>
             <div class="h6">Recommendation for No Answers</div>
             <ul>
                 <li class="mt-2">1st No Answer - Leave a message, set future appointment (3 days later), select the No Answer check box, put NA1 in notes, Add Lead</li>
                 <li class="mt-2">2nd No Answer - Leave a message, send text, set future appointment (3 days later), put NA2 in notes, Update Lead</li>
                 <li class="mt-2">3rd No Answer - Leave simple message - don't want to bother someone that is not interested, call me if you need help, I’m here, check box Remarket, Update Lead We will remarket to them once a month if Remarket is checked.</li>
             </ul>
-        </div> -->
+        </div>
     </div>
     
     <div class="accordion mt-5 mx-2" id="mainaccord">
@@ -574,7 +574,13 @@
                             document.querySelector("#updateInfoForm #na1u").checked = record.na1==="f"?false:true;
                             document.querySelector("#updateInfoForm #na2u").checked = record.na2==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
-                            document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
+                            if(record.whichcompany!=cname){
+                                document.querySelector("#updateInfoForm #owner").setAttribute('disabled', 'disabled');
+                                document.querySelector("#updateInfoForm #owner").value = '';
+                            } else {
+                                document.querySelector("#updateInfoForm #owner").removeAttribute('disabled');
+                                document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
+                            }
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
@@ -613,7 +619,7 @@
                                 <td>${record.lowrev=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possibleproperty=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
                                 <td>${record.possiblebuyer=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
-                                <td>${record.whichcompany==cname?`<button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button>`:""}</td>
+                                <td><button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button></td>
                                 <td>${remaining}</td>
                                 </tr>`;
                             });
@@ -764,7 +770,9 @@
                                     record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
                                     record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
                                     record.notes = document.querySelector("#updateInfoForm #notes").value;
-                                    record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
+                                    if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
+                                        record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
+                                    }
                                     loadedData.data[loadedData.selectedToEdit] = record;
                                     populateSearchResult(loadedData.data);
                                 }else{
