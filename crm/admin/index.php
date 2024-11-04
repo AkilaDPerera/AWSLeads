@@ -751,38 +751,39 @@
                             })
                             .then((response)=>response.json())
                             .then((data)=>{
+                                timer.timestop();
                                 if (data.success){
-                                    document.querySelector("#updateInfoForm").classList.add("hide");
-                                    const record = {...loadedData.data[loadedData.selectedToEdit]};
-                                    record.email = document.querySelector("#updateInfoForm #email").value;
-                                    record.phone = document.querySelector("#updateInfoForm #phone").value;
-                                    record.phone2 = document.querySelector("#updateInfoForm #phone2").value;
-                                    record.company = document.querySelector("#updateInfoForm #company").value;
-                                    record.uname = document.querySelector("#updateInfoForm #uname").value;
-                                    record.web = document.querySelector("#updateInfoForm #web").value;
-                                    record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
-                                    // record.aname = document.querySelector("#updateInfoForm #aname").value;
-                                    record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
-                                    record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
-                                    record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
-                                    record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
-                                    record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
-                                    record.listedtosale = document.querySelector("#updateInfoForm #listedtosaleu").checked?"t":"f";
-                                    record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
-                                    record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
-                                    record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
-                                    record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
-                                    record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
-                                    record.notes = document.querySelector("#updateInfoForm #notes").value;
-                                    if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
-                                        record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
-                                    }
-                                    loadedData.data[loadedData.selectedToEdit] = record;
-                                    populateSearchResult(loadedData.data);
+                                    // document.querySelector("#updateInfoForm").classList.add("hide");
+                                    // const record = {...loadedData.data[loadedData.selectedToEdit]};
+                                    // record.email = document.querySelector("#updateInfoForm #email").value;
+                                    // record.phone = document.querySelector("#updateInfoForm #phone").value;
+                                    // record.phone2 = document.querySelector("#updateInfoForm #phone2").value;
+                                    // record.company = document.querySelector("#updateInfoForm #company").value;
+                                    // record.uname = document.querySelector("#updateInfoForm #uname").value;
+                                    // record.web = document.querySelector("#updateInfoForm #web").value;
+                                    // record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
+                                    // // record.aname = document.querySelector("#updateInfoForm #aname").value;
+                                    // record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
+                                    // record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
+                                    // record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
+                                    // record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
+                                    // record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
+                                    // record.listedtosale = document.querySelector("#updateInfoForm #listedtosaleu").checked?"t":"f";
+                                    // record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
+                                    // record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
+                                    // record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
+                                    // record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
+                                    // record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
+                                    // record.notes = document.querySelector("#updateInfoForm #notes").value;
+                                    // if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
+                                    //     record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
+                                    // }
+                                    // loadedData.data[loadedData.selectedToEdit] = record;
+                                    // populateSearchResult(loadedData.data);
+                                    listAllInfo();
                                 }else{
                                     alert(data.message);
                                 }
-                                timer.timestop();
                             });
                         }
                         const listAllInfo = ()=>{
