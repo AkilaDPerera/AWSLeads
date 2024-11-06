@@ -612,6 +612,10 @@
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
+                        const formatphonenumber = (number)=>{
+                            if (number==""){ return ""; }
+                            return `${number.slice(0,3)}-${number.slice(3,6)}-${number.slice(6,10)}`;
+                        }
                         const populateSearchResult = (data)=>{
                             const tableEle = document.querySelector("#searchInfoSection table tbody");
                             try{ loadedData.table.destroy(); }catch{}
@@ -636,7 +640,8 @@
 
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
-                                <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td><td><a href="tel:+1${record.phone}">${record.phone}</a>, <a href="tel:+1${record.phone2}">${record.phone2}</a></td>
+                                <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td>
+                                <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a></td>
                                 <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
                                 <td>${getfrontendtime(record.appointment)}</td>
                                 <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
