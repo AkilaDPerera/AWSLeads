@@ -228,7 +228,7 @@
                         let daysAdded = 0;
                         let currentDate = new Date(startDate);
 
-                        while (daysAdded < 3) {
+                        while (daysAdded < 2) {
                             // Move to the next day
                             currentDate.setDate(currentDate.getDate() + 1);
 
@@ -630,10 +630,20 @@
                                     remaining = (appo-today)/(1000);
                                 }
                                 
-                                if (record.lowrev==="t"){ remaining = "999999996"; }
-                                if (record.notinterested==="t"){ remaining = "999999997"; }
-                                if (record.listedtosale=="t"){ remaining = "999999998"; }
-                                if (record.successsale=="t"){ remaining = "999999999"; }
+                                // Not Interested
+                                if (record.notinterested==="t"){ remaining = "999999990"; }
+
+                                // Listed
+                                if (record.listedtosale=="t"){ remaining = "999999991"; }
+
+                                // Sold
+                                if (record.successsale=="t"){ remaining = "999999992"; }
+
+                                // Remarket
+                                if (record.lowrev==="t"){ remaining = "999999993"; }
+
+                                // +Biz Buyer
+                                if (record.possiblebuyer=="t"){ remaining = "999999994"; }
 
                                 tense = "";
                                 if (remaining<0){ tense = "class='red'"; } else if (istoday && remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
@@ -985,6 +995,12 @@
                             if (form.querySelector("input[id*='na1']").checked || form.querySelector("input[id*='na2']").checked){
                                 form.querySelector("input[id*='appointment']").classList.remove("is-invalid");
                                 form.querySelector("input[id*='appointment']").setAttribute('disabled', 'disabled');
+                            } else {
+                                form.querySelector("input[id*='appointment']").removeAttribute('disabled');
+                            }
+                            if (form.querySelector("input[id*='notinterested']").checked || form.querySelector("input[id*='listedtosale']").checked || form.querySelector("input[id*='successsale']").checked || form.querySelector("input[id*='lowrev']").checked){
+                                form.querySelector("input[id*='appointment']").setAttribute('disabled', 'disabled');
+                                form.querySelector("input[id*='appointment']").value = "";
                             } else {
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
