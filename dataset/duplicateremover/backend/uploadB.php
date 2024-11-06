@@ -13,26 +13,27 @@
             if ( move_uploaded_file($_FILES['fileB']['tmp_name'], $location) ) { 
 
                 // Let's create a tempory table
-                // pg_query($dbconn, "CREATE TABLE IF NOT EXISTS datasetB (columnB VARCHAR (20) NOT NULL);");
+                pg_query($dbconn, "CREATE TABLE IF NOT EXISTS datasetB (columnC VARCHAR (20) NOT NULL);");
                 
                 $files = glob("../uploads/*");
-                $dataset = array();
+                $insertableValues = array();
                 foreach($files as $file){ 
                     if (str_ends_with($file, "datasetB.csv")){
-                        $contents = file_get_contents($file);
-                        $dataset = explode("\n", $contents);
+                        if (($handle = fopen($file, "r")) !== FALSE) {
+                            $lineNumber = 0;
+                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                                $lineNumber++;if ($lineNumber == 1) { continue; }
+                                $phone = trim($data[0]);
+                                $phone = str_replace(array("(",")"," ","-"),"",$phone);
+                                if (strlen($phone)==11){ $phone = ltrim($phone, '1'); }
+                                if (strlen($phone)!=10){ continue; }
+                                $insertableValues[] = $phone;
+                            }
+                            fclose($handle);
+                        }
                     }
                 }
-                $insertableValues = [];
-                foreach ($dataset as $phone) {
-                    $phone = trim($phone);
-                    $phone = str_replace(array("(",")"," ","-"),"",$phone);
-                    if(isset($_POST["leadingone"])){
-                        $phone = ltrim($phone, '1');
-                    };
-                    $insertableValues[] = $phone;
-                }
-                $result = pg_copy_from($dbconn, "datasetB", $insertableValues);
+                pg_copy_from($dbconn, "datasetB", $insertableValues);
                 http_response_code(201);
             } else { 
                 http_response_code(400);

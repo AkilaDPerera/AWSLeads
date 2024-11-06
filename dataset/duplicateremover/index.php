@@ -64,10 +64,10 @@
                     <div class="mb-2">Please insert line separated list of values file.</div>
                     <form id="uploadformA" method="post" enctype="multipart/form-data" 
                     action="<?php echo $baseurl ?>duplicateremover/backend/uploadA.php" >
-                        <div class="leadingone">
+                        <!-- <div class="leadingone">
                             <input type="checkbox" name="leadingone" id="leadingoneA"/>    
                             <label for="leadingoneA">Remove leading 1</label>
-                        </div>
+                        </div> -->
                         <div style="display: inline-flex; align-items: center;" >
                             <input class="form-control input me-1" type="file" id="fileA" name="fileA" accept=".txt,.csv" required>
                             <input class="btn btn-primary" id="uploadA" type="submit" value="Upload">
@@ -109,6 +109,7 @@
                         });
                     }
                     clearuploadsA = ()=>{
+                        document.querySelector(".result a").style.display = "none";
                         timer.timestart(); document.querySelector("body").classList.toggle("loading");
                         fetch("<?php echo $baseurl ?>duplicateremover/backend/clearA.php")
                         .then(()=>{
@@ -145,10 +146,10 @@
                 <div class="mb-2">Please insert line separated list of values file.</div>
                     <form id="uploadformB" method="post" enctype="multipart/form-data" 
                     action="<?php echo $baseurl ?>duplicateremover/backend/uploadB.php" >
-                        <div class="leadingone">
+                        <!-- <div class="leadingone">
                             <input type="checkbox" name="leadingone" id="leadingoneB"/>    
                             <label for="leadingoneB">Remove leading 1</label>
-                        </div>
+                        </div> -->
                         <div style="display: inline-flex; align-items: center;">
                             <input class="form-control input me-1" type="file" id="fileB" name="fileB" accept=".txt,.csv" required>
                             <input class="btn btn-primary" id="uploadB" type="submit" value="Upload">
@@ -190,6 +191,7 @@
                         });
                     }
                     clearuploadsB = ()=>{
+                        document.querySelector(".result a").style.display = "none";
                         timer.timestart(); document.querySelector("body").classList.toggle("loading");
                         fetch("<?php echo $baseurl ?>duplicateremover/backend/clearB.php")
                         .then(()=>{

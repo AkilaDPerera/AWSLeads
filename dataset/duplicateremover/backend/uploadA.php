@@ -13,26 +13,32 @@
             if ( move_uploaded_file($_FILES['fileA']['tmp_name'], $location) ) { 
 
                 // Let's create a tempory table
-                // pg_query($dbconn, "CREATE TABLE IF NOT EXISTS datasetA (columnA VARCHAR (20) NOT NULL);");
+                pg_query($dbconn, "CREATE TABLE IF NOT EXISTS datasetA (columnA VARCHAR (20) NOT NULL, columnB VARCHAR (100));");
                 
                 $files = glob("../uploads/*");
-                $dataset = array();
+                $insertableValues = array();
                 foreach($files as $file){ 
                     if (str_ends_with($file, "datasetA.csv")){
-                        $contents = file_get_contents($file);
-                        $dataset = explode("\n", $contents);
+                        if (($handle = fopen($file, "r")) !== FALSE) {
+                            $lineNumber = 0;
+                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                                $lineNumber++;if ($lineNumber == 1) { continue; }
+
+                                $phone = trim($data[0]);
+                                $phone = str_replace(array("(",")"," ","-"),"",$phone);
+                                if (strlen($phone)!=10){ continue; }
+
+                                $cname = str_replace("\t","",$data[1]);
+                                $cname = substr($cname, 0, 99);
+                                
+                                $insertableValues[] = $phone."\t".$cname;
+                            }
+                            fclose($handle);
+                        }
                     }
                 }
-                $insertableValues = [];
-                foreach ($dataset as $phone) {
-                    $phone = trim($phone);
-                    $phone = str_replace(array("(",")"," ","-"),"",$phone);
-                    if(isset($_POST["leadingone"])){
-                        $phone = ltrim($phone, '1');
-                    };
-                    $insertableValues[] = $phone;
-                }
-                $result = pg_copy_from($dbconn, "datasetA", $insertableValues);
+                pg_copy_from($dbconn, "datasetA", $insertableValues, "\t");
+                pg_query($dbconn, "WITH DuplicateRecords AS (SELECT ctid, ROW_NUMBER() OVER (PARTITION BY columna ORDER BY ctid) AS row_num FROM dataseta) DELETE FROM dataseta WHERE ctid IN (SELECT ctid FROM DuplicateRecords WHERE row_num > 1);");
                 http_response_code(201);
             } else { 
                 http_response_code(400);
