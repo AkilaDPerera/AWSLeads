@@ -7,6 +7,7 @@
     /* Prepare to save the file upload to the upload folder */
     $location = "../uploads/datasetA.csv";
 
+    pg_set_client_encoding($dbconn, 'UTF-8');
     if (str_ends_with($filename, ".csv") or str_ends_with($filename, ".txt")){
         /* Permanently save the file upload to the upload folder */
         if ($_FILES['fileA']['size']<99999987){
@@ -31,7 +32,7 @@
                                 $cname = str_replace("\t","",$data[1]);
                                 $cname = substr($cname, 0, 99);
                                 
-                                $insertableValues[] = $phone."\t".$cname;
+                                $insertableValues[] = mb_convert_encoding($phone."\t".$cname, "UTF-8", "auto");
                             }
                             fclose($handle);
                         }

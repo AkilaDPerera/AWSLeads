@@ -27,7 +27,7 @@
                                 $phone = str_replace(array("(",")"," ","-"),"",$phone);
                                 if (strlen($phone)==11){ $phone = ltrim($phone, '1'); }
                                 if (strlen($phone)!=10){ continue; }
-                                $insertableValues[] = $phone;
+                                $insertableValues[] = mb_convert_encoding($phone, "UTF-8", "auto");
                             }
                             fclose($handle);
                         }
