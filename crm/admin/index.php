@@ -76,11 +76,11 @@
                     <div class="row g-3 mb-3">
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone" class="form-label">Phone 1*</label>
-                            <input type="text" name="phone" id="phone" class="form-control" required maxlength="10" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                            <input type="text" name="phone" id="phone" class="form-control" required maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
                         </div>
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone2" class="form-label">Phone 2</label>
-                            <input type="text" name="phone2" id="phone2" class="form-control" maxlength="10" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                            <input type="text" name="phone2" id="phone2" class="form-control" maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
                         </div>
                         <div class="d-inline-block" style="width: 300px;">
                             <label for="email" class="form-label">Email</label>
@@ -333,11 +333,11 @@
                         <div class="row g-3 mb-3">
                             <div class="d-inline-block" style="width: 130px;">
                                 <label for="phone" class="form-label">Phone 1*</label>
-                                <input type="text" name="phone" id="phone" class="form-control" maxlength="10" required pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                                <input type="text" name="phone" id="phone" class="form-control" maxlength="20" required pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
                             </div>
                             <div class="d-inline-block" style="width: 130px;">
                                 <label for="phone2" class="form-label">Phone 2</label>
-                                <input type="text" name="phone2" id="phone2" class="form-control" maxlength="10" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                                <input type="text" name="phone2" id="phone2" class="form-control" maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
                             </div>
                             <div class="d-inline-block" style="width: 300px;">
                                 <label for="email" class="form-label">Email</label>
@@ -651,7 +651,9 @@
                                 tableEle.innerHTML += `<tr ${tense}>
                                 <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
                                 <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td>
-                                <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a></td>
+                                <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a>
+                                <div class="d-none">${record.phone} ${record.phone2}</div>
+                                </td>
                                 <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
                                 <td>${getfrontendtime(record.appointment)}</td>
                                 <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
