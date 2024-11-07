@@ -1,13 +1,15 @@
 <?php
     require '../../backend/dbconnection.php';
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     /* Get the name of the file uploaded to Apache */
     $filename = $_FILES['fileA']['name'];
 
     /* Prepare to save the file upload to the upload folder */
     $location = "../uploads/datasetA.csv";
 
-    pg_set_client_encoding($dbconn, 'UTF-8');
     if (str_ends_with($filename, ".csv") or str_ends_with($filename, ".txt")){
         /* Permanently save the file upload to the upload folder */
         if ($_FILES['fileA']['size']<99999987){
@@ -22,11 +24,15 @@
                     if (str_ends_with($file, "datasetA.csv")){
                         if (($handle = fopen($file, "r")) !== FALSE) {
                             $lineNumber = 0;
-                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                                $lineNumber++;if ($lineNumber == 1) { continue; }
+                            // while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                            while (($line = fgets($handle)) !== false) {
+                                $lineNumber++; if ($lineNumber == 1) { continue; }
+                                $line = str_replace('\\', '', $line);
+                                $data = str_getcsv($line);
 
                                 $phone = trim($data[0]);
                                 $phone = str_replace(array("(",")"," ","-"),"",$phone);
+                                if (strlen($phone)==11){ $phone = ltrim($phone, '1'); }
                                 if (strlen($phone)!=10){ continue; }
 
                                 $cname = str_replace("\t","",$data[1]);

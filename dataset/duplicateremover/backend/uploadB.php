@@ -1,6 +1,9 @@
 <?php
     require '../../backend/dbconnection.php';
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     /* Get the name of the file uploaded to Apache */
     $filename = $_FILES['fileB']['name'];
 
@@ -21,8 +24,12 @@
                     if (str_ends_with($file, "datasetB.csv")){
                         if (($handle = fopen($file, "r")) !== FALSE) {
                             $lineNumber = 0;
-                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                                $lineNumber++;if ($lineNumber == 1) { continue; }
+                            // while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                            while (($line = fgets($handle)) !== false) {
+                                $lineNumber++; if ($lineNumber == 1) { continue; }
+                                $line = str_replace('\\', '', $line);
+                                $data = str_getcsv($line);
+                                
                                 $phone = trim($data[0]);
                                 $phone = str_replace(array("(",")"," ","-"),"",$phone);
                                 if (strlen($phone)==11){ $phone = ltrim($phone, '1'); }
