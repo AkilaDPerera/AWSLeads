@@ -829,26 +829,31 @@
                                 }
                             });
                         }
+                        const getpkfromstringhtml = (htmlString) => {
+                            const match = htmlString.match(/data-key="(\d+)"/);
+                            return match ? match[1] : null;
+                        }
+                        const findObjectByPk = (objectsArray, pkValue) => {
+                            return objectsArray.find(obj => obj.pk === pkValue);
+                        }
                         const download = ()=>{
                             let csvContent = "data:text/csv;charset=utf-8,";
 
                             // clean the search array
                             const cleanData = [[
-                                "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "No Answer", "Not Interested", "Interested",
+                                "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
                                 "Listed", "Sold", "Remarket", "PProperty", "PBuyer"
                             ]];
                             loadedData.searchedArray.forEach(function(rowArray) {
-                                rowArray[9] = rowArray[9].includes("T")?"TRUE":"FALSE";
-                                rowArray[10] = rowArray[10].includes("T")?"TRUE":"FALSE";
-                                rowArray[11] = rowArray[11].includes("T")?"TRUE":"FALSE";
-                                rowArray[12] = rowArray[12].includes("T")?"TRUE":"FALSE";
-                                rowArray[13] = rowArray[13].includes("T")?"TRUE":"FALSE";
-                                rowArray[14] = rowArray[14].includes("T")?"TRUE":"FALSE";
-                                rowArray[15] = rowArray[15].includes("T")?"TRUE":"FALSE";
-                                rowArray[16] = rowArray[16].includes("T")?"TRUE":"FALSE";
-                                delete rowArray[17];
-                                delete rowArray[18];
-                                cleanData.push(rowArray);
+                                const pk = getpkfromstringhtml(rowArray[17]);
+                                const object = findObjectByPk(loadedData.data, pk);
+                                cleanData.push([
+                                    object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
+                                    object.notes, object.appointment, 
+                                    object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
+                                    object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
+                                    object.possiblebuyer=="t"?"True":"False"
+                                ]);
                             });
                             cleanData.forEach(function(rowArray) {
                                 let row = rowArray.join("|");
