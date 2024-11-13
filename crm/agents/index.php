@@ -313,7 +313,7 @@
         <div class="accordion-item" id="searchInfoSection">
             <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <div class="h5">My Leads</div>
+                    <div class="h5">Edit my leads</div>
                 </button>
             </div>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#mainaccord"> 
