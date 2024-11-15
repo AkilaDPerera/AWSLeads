@@ -1,6 +1,6 @@
 <?php 
     $baseurl = "/phonebook/crm/";
-    $host = "52.41.130.39";
+    $host = "34.216.137.59";
     $port = "5432";
     $dbname = "phonebooktest";
     $user = "jaynofi";

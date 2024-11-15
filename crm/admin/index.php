@@ -77,10 +77,12 @@
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone" class="form-label">Phone 1*</label>
                             <input type="text" name="phone" id="phone" class="form-control" required maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                            <small class="form-text text-muted"></small>
                         </div>
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone2" class="form-label">Phone 2</label>
                             <input type="text" name="phone2" id="phone2" class="form-control" maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                            <small class="form-text text-muted"></small>
                         </div>
                         <div class="d-inline-block" style="width: 300px;">
                             <label for="email" class="form-label">Email</label>
@@ -211,11 +213,32 @@
                     </div>
                 </form>
                 <script>
+                    const formatPhone = (input) => {
+                        // Remove all non-digit characters
+                        const digits = input.replace(/\D/g, '');
+                        
+                        // Apply formatting
+                        let formatted = '';
+                        if (digits.length > 0) {
+                            formatted += '(' + digits.slice(0, 3); // Add area code
+                        }
+                        if (digits.length >= 4) {
+                            formatted += ') ' + digits.slice(3, 6); // Add first three digits
+                        }
+                        if (digits.length >= 7) {
+                            formatted += '-' + digits.slice(6, 10); // Add last four digits
+                        }
+
+                        // Update input value
+                        return formatted;
+                    }
                     const dateclr = ()=>{
                         document.querySelectorAll("#appointment").forEach((comp)=>{comp.value = "";});
                     }
                     const phonenumbervalidation = (e)=>{
                         e.target.value = e.target.value.replace(/\D/g,'');
+                        if (e.target.value.length==11){ e.target.value = e.target.value.slice(1); }
+                        e.target.parentElement.querySelector("small").innerHTML = formatPhone(e.target.value);
                     }
                     const getDateAfterThreeDaysExcludingWeekends = (startDate, olddatestring="")=>{
                         if (olddatestring!=""){
@@ -334,10 +357,12 @@
                             <div class="d-inline-block" style="width: 130px;">
                                 <label for="phone" class="form-label">Phone 1*</label>
                                 <input type="text" name="phone" id="phone" class="form-control" maxlength="20" required pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                                <small class="form-text text-muted"></small>
                             </div>
                             <div class="d-inline-block" style="width: 130px;">
                                 <label for="phone2" class="form-label">Phone 2</label>
                                 <input type="text" name="phone2" id="phone2" class="form-control" maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                                <small class="form-text text-muted"></small>
                             </div>
                             <div class="d-inline-block" style="width: 300px;">
                                 <label for="email" class="form-label">Email</label>
