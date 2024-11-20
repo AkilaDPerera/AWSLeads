@@ -874,7 +874,7 @@
                                 const object = findObjectByPk(loadedData.data, pk);
                                 cleanData.push([
                                     object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
-                                    object.notes, object.appointment, 
+                                    object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
                                     object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
                                     object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
                                     object.possiblebuyer=="t"?"True":"False"
