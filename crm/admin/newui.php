@@ -977,9 +977,6 @@
                             const match = htmlString.match(/data-key="(\d+)"/);
                             return match ? match[1] : null;
                         }
-                        const findObjectByPk = (objectsArray, pkValue) => {
-                            return objectsArray.find(obj => obj.pk === pkValue);
-                        }
                         const download = ()=>{
                             let csvContent = "data:text/csv;charset=utf-8,";
 
@@ -988,9 +985,7 @@
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
                                 "Listed", "Sold", "Remarket", "PProperty", "PBuyer"
                             ]];
-                            loadedData.searchedArray.forEach(function(rowArray) {
-                                const pk = getpkfromstringhtml(rowArray[17]);
-                                const object = findObjectByPk(loadedData.data, pk);
+                            loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([
                                     object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
