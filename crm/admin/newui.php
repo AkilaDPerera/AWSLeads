@@ -540,15 +540,15 @@
                                 </div>
                                 <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
                             </div>
                             <div class="showcase">
                             </div>
