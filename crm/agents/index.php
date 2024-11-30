@@ -45,20 +45,13 @@
     </script>
 
     <div class="mx-4 mt-3">
-        <div>
-            <div class="h6 mb-1">Lead Flow</div>
-            <div>Interested is automatically checked from the start.</div>
-            <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Property Sale or +Biz Buyer if they are in this category.</div>
-            <div>If +Biz Buyer, please find out what they want (business wise) along with their budget.</div>
-        </div>
-        <div class="mt-2">
+        <div class="mt-0">
             <div class="h6 mb-1">Recommendation for No Answers</div>
             <ul class="mb-1">
-                <li>1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
-                <li>2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
-                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Sure your busy. I will reach back out in a month, feel free to contact me sooner if you become available and would like to talk. Select Remarket, and Update Lead.</li>
+                <li>1st No Answer - Leave a message, select NA1, and Add Lead.</li>
+                <li>2nd No Answer - Leave a message, select NA2, and Update Lead.</li>
+                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Select Remarket, and Update Lead.</li>
             </ul>
-            <div>We will remarket to them in a month.</div>
         </div>
     </div>
     
@@ -336,7 +329,7 @@
         <div class="accordion-item" id="searchInfoSection">
             <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <div class="h5">Edit my leads</div>
+                    <div class="h5">Edit Leads</div>
                 </button>
             </div>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#mainaccord"> 
@@ -552,7 +545,6 @@
                         </table>
 
                         <div class="my-3">
-                            *NI - Not Interested
                         </div>
 
                         <button class="btn btn-primary desktop" onclick="download();">Download</button>

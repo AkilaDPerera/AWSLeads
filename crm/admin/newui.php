@@ -19,6 +19,9 @@
     <style>
         .hide { display: none; }
         .xdsoft_datetimepicker .xdsoft_timepicker { margin-left: 16px!important; }
+        body {
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
@@ -46,20 +49,13 @@
     </script>
 
     <div class="mx-4 mt-3">
-        <div>
-            <div class="h6 mb-1">Lead Flow</div>
-            <div>Interested is automatically checked from the start.</div>
-            <div>When you get a possible seller on the phone, and they are truly interested, collect info, and set future appointment date in calendar. Make sure to select +Property Sale or +Biz Buyer if they are in this category.</div>
-            <div>If +Biz Buyer, please find out what they want (business wise) along with their budget.</div>
-        </div>
-        <div class="mt-2">
+        <div class="mt-0">
             <div class="h6 mb-1">Recommendation for No Answers</div>
             <ul class="mb-1">
-                <li>1st No Answer - Leave a message, select NA1, and Add Lead. (It will automatically add NA1 to Notes and set a future call back date 3 days later not including weekends)</li>
-                <li>2nd No Answer - Leave a message, select NA2, and Update Lead. (Same thing)</li>
-                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Sure your busy. I will reach back out in a month, feel free to contact me sooner if you become available and would like to talk. Select Remarket, and Update Lead.</li>
+                <li>1st No Answer - Leave a message, select NA1, and Add Lead.</li>
+                <li>2nd No Answer - Leave a message, select NA2, and Update Lead.</li>
+                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Select Remarket, and Update Lead.</li>
             </ul>
-            <div>We will remarket to them in a month.</div>
         </div>
     </div>
     
@@ -117,8 +113,6 @@
                         <div class="d-inline-block" style="width: 140px;">
                             <label for="owner" class="form-label">Agent Name</label>
                             <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
-                                <option value="akila">akila - agent</option>
-                                <option value="akila2">akila2 - agent</option>
                             </select>
                         </div>
                         <div class="d-inline-block" style="width: 230px;">
@@ -341,7 +335,7 @@
         <div class="accordion-item" id="searchInfoSection">
             <div class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <div class="h5">Edit my leads</div>
+                    <div class="h5">Edit Leads</div>
                 </button>
             </div>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#mainaccord">
@@ -504,7 +498,7 @@
                                     <th scope="col">Revenue</th>
                                     <th scope="col">Agent</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Web/FB</th>
+                                    <!-- <th scope="col">Web/FB</th> -->
                                     <th scope="col">Phone</th>
                                     <th scope="col">Notes</th>
                                     <th scope="col">Appointment</th>
@@ -520,7 +514,7 @@
                                     <th><input type="text" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
                                     <th><input type="text" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
                                     <th><input type="text" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th style="display:none;"><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
                                     <th><input type="text" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
                                     <th><input type="text" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
                                     <th><input type="text" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
@@ -555,7 +549,6 @@
                         </div>
 
                         <div class="my-3">
-                            *NI - Not Interested
                         </div>
 
                         <button class="btn btn-primary" onclick="download();">Download</button>
@@ -571,8 +564,8 @@
                         .showcase .accord-head.red { background-color: #ffcccc!important;}
                         .accord-head { cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: solid 1px #cdc9c9; padding: 6px 4px; }
                         .accord-head > div { display: flex; align-items: center; }
-                        .accord-head > div > div:nth-child(1) { padding: 0 6px 0 2px; font-size: 12px; font-weight: 900; }
-                        .accord-show .accord-head > div > div:nth-child(1) { transform: rotate(180deg) translateX(25%); }
+                        /* .accord-head > div > div:nth-child(1) {} */
+                        /* .accord-show .accord-head > div > div:nth-child(1) { transform: rotate(180deg) translateX(25%); } */
                         .accord-head > div > div:nth-child(2) div { display: inline-block;  }
                         .accord-hide .accord { display: none; }
                         .accord-show .accord { display: block; }
@@ -581,17 +574,12 @@
                         .accord span.badge { padding: 0.35em 0.35em; }
                     </style>
                     <style>
-                        table td { padding: 0px 2px!important; }
                         table.data-table  > tfoot > tr > th, table.data-table  > tfoot > tr > td { padding: 6px 2px!important; }
                         table.data-table  > thead > tr > th, table.data-table  > thead > tr > td { padding: 2px!important; }
                         table.data-table tr.green td { background-color: #ccffcc!important;}
                         table.data-table tr.red td { background-color: #ffcccc!important;}
-                        .vertical-text .dt-column-title { writing-mode: tb; text-align: right!important; }
-                        .dt-column-order { top: unset!important; bottom: 15px!important; }
-                        .vertical-text .dt-column-order { right: 25px!important; }
-                        .dt-layout-row .dt-layout-start { display: none!important; }
-                        .dt-layout-row .dt-layout-end { display: block!important; margin-left: unset!important; }
-                        tfoot th input { max-width: 50px; }
+                        table.data-table > tbody td { padding: 0 0 0 6px; }
+                        table.data-table  > tfoot input { width: 100%; }
                         .desktop-data { display: none!important; }
                         @media (min-width: 1260px) {
                             .desktop-data { display: table!important; }
@@ -617,9 +605,7 @@
                         loadedData.mobileItemPlaceholder = { "fullItem": `<div class="accord-i accord-hide">
                                     <div class="accord-head _TENSE_" onclick="opencloseaccord(event);">
                                         <div>
-                                            <div>
-                                                V
-                                            </div>
+                                            <div></div>
                                             <div>
                                                 _HEAD-PLACE_
                                             </div>
@@ -629,7 +615,7 @@
                                         _ITEM-PLACE_
                                     </div>
                                 </div>`,
-                                "itemHead": `<div>_OWNER_</div> - <div>_COMPANY_</div>, <div><a style="text-wrap-mode: nowrap;" href="tel:+1_PHONE1_">_PHONE1-FORMAT_</a></div>`,
+                                "itemHead": `<div>_OWNER_</div><div>_COMPANY_</div><div><a style="text-wrap-mode: nowrap;" href="tel:+1_PHONE1_">_PHONE1-FORMAT_</a></div>`,
                                 "phone": `<div><span>Phone: </span><a style="text-wrap-mode: nowrap;" href="tel:+1_PHONE2_">_PHONE2-FORMAT_</a></div>`,
                                 "revenue": `<div><span>Rev: </span>_REV_</div>`,
                                 "agent": `<div><span>Agent: </span>_AGENT_</div>`,
@@ -770,7 +756,6 @@
                                     <td>${record.revenue}</td>
                                     <td>${record.username}</td>
                                     <td><a href= "mailto: ${record.email}">${record.email}</a></td>
-                                    <td>${record.web}</td>
                                     <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a>
                                     <div class="d-none">${record.phone} ${record.phone2}</div>
                                     </td>
@@ -796,8 +781,8 @@
                                     itemplaceholder = itemplaceholder.replace("_TENSE_", tense);
 
                                     itemhead = String(loadedData.mobileItemPlaceholder['itemHead']);
-                                    itemhead = itemhead.replace("_OWNER_", record.uname)
-                                    itemhead = itemhead.replace("_COMPANY_", record.company)
+                                    itemhead = itemhead.replace("_OWNER_", record.uname!=""?`${record.uname},&nbsp;`:"")
+                                    itemhead = itemhead.replace("_COMPANY_", record.company!=""?`${record.company},&nbsp;`:"")
                                     itemhead = itemhead.replace("_PHONE1_", record.phone)
                                     itemhead = itemhead.replace("_PHONE1-FORMAT_", formatphonenumber(record.phone))
 
@@ -807,7 +792,7 @@
                                     if (record.phone2 != "") { itembody += String(loadedData.mobileItemPlaceholder['phone']).replace("_PHONE2_", record.phone2).replace("_PHONE2-FORMAT_", formatphonenumber(record.phone2)); }
                                     if (record.revenue != "") { itembody += String(loadedData.mobileItemPlaceholder['revenue']).replace("_REV_", record.revenue); }
                                     if (record.username != "") { itembody += String(loadedData.mobileItemPlaceholder['agent']).replace("_AGENT_", record.username); }
-                                    if (record.email != "") { itembody += String(loadedData.mobileItemPlaceholder['email']).replace("_EMAIL_", record.email); }
+                                    if (record.email != "") { itembody += String(loadedData.mobileItemPlaceholder['email']).replace("_EMAIL_", `<a href= "mailto: ${record.email}">${record.email}</a>`); }
                                     if (record.web != "") { itembody += String(loadedData.mobileItemPlaceholder['web']).replace("_WEB_", record.web); }
                                     if (record.status != "") { itembody += String(loadedData.mobileItemPlaceholder['status']).replace("_STATUS_", record.status); }
                                     if (record.pmode != "") { itembody += String(loadedData.mobileItemPlaceholder['mode']).replace("_MODE_", record.pmode); }
