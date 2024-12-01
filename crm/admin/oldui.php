@@ -19,9 +19,6 @@
     <style>
         .hide { display: none; }
         .xdsoft_datetimepicker .xdsoft_timepicker { margin-left: 16px!important; }
-        body {
-            font-size: 17px;
-        }
     </style>
 </head>
 <body>
@@ -113,6 +110,8 @@
                         <div class="d-inline-block" style="width: 140px;">
                             <label for="owner" class="form-label">Agent Name</label>
                             <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
+                                <option value="akila">akila - agent</option>
+                                <option value="akila2">akila2 - agent</option>
                             </select>
                         </div>
                         <div class="d-inline-block" style="width: 230px;">
@@ -490,144 +489,98 @@
 
 
                     <div class="mb-5">
-                        <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
+                        <!-- <div class="table-toggle">
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="0">Company</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="1">Owner</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="2">Revenue</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="3">Agent</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="4">Email</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="5">Phone</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="6">Notes</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="7">No Contact</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="8">Not Interested</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="9">Following Up</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="10">Listed Business for Sale</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="11">Successful Sale</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="12">Possible Buyer</button>
+                            <button type="button" class="btn btn-sm active" data-bs-toggle="button" data-column="13">Action</button>
+                        </div> -->
+                        <table class="table table-striped table-bordered" data-page-length='1000'>
                             <thead>
                                 <tr>
                                     <th scope="col">Company</th>
-                                    <th scope="col">Owner</th>
+                                    <th scope="col" class="mobile">Owner</th>
                                     <th scope="col">Revenue</th>
                                     <th scope="col">Agent</th>
                                     <th scope="col">Email</th>
-                                    <!-- <th scope="col">Web/FB</th> -->
-                                    <th scope="col">Phone</th>
+                                    <th scope="col">Web/FB</th>
+                                    <th scope="col" class="mobile">Phone</th>
                                     <th scope="col">Notes</th>
                                     <th scope="col">Appointment</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Mode</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">No Answer</th>
+                                    <th scope="col">NI</th>
+                                    <th scope="col">Interested</th>
+                                    <th scope="col">Listed</th>
+                                    <th scope="col">Sold</th>
+                                    <th scope="col">Remarket</th>
+                                    <th scope="col">+Property Sale</th>
+                                    <th scope="col">+Biz Buyer</th>
+                                    <th scope="col" class="mobile"></th>
+                                    <th scope="col">Remaining</th>
                                 </tr>
                             </thead>
-                            <tfoot class="filters" style="display: table-header-group;">
+                            <tfoot style="display: table-header-group;">
                                 <tr>
-                                    <th><input type="text" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th style="display:none;"><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th></th>
+                                    <th class="mobile"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="mobile"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="mobile"></th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                             <tbody></tbody>
                         </table>
 
-                        <div class="data-list mobile-data">
-                            
-                            <div class="filters">
-                                <div style="font-weight: 600; margin-bottom: 5px; font-size: 15px;">
-                                    Filters
-                                </div>
-                                <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
-                            </div>
-                            <div class="showcase">
-                            </div>
-                        </div>
-
                         <div class="my-3">
                         </div>
 
-                        <button class="btn btn-primary" onclick="download();">Download</button>
+                        <button class="btn btn-primary desktop" onclick="download();">Download</button>
                     </div>
-                    
                     <style>
-                        /* mobile view */
-                        .mobile-data .filters { margin-bottom: 10px; }
-                        .mobile-data .filters input { width: 49%; }
-                        .showcase { border: solid 1px #cdc9c9; margin: 0 -21px; }
-                        .showcase .accord-head:nth-child(2n) { background-color: #f3f2f2; }
-                        .showcase .accord-head.green { background-color: #ccffcc!important;}
-                        .showcase .accord-head.red { background-color: #ffcccc!important;}
-                        .accord-head { cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: solid 1px #cdc9c9; padding: 6px 4px; }
-                        .accord-head > div { display: flex; align-items: center; }
-                        /* .accord-head > div > div:nth-child(1) {} */
-                        /* .accord-show .accord-head > div > div:nth-child(1) { transform: rotate(180deg) translateX(25%); } */
-                        .accord-head > div > div:nth-child(2) div { display: inline-block;  }
-                        .accord-hide .accord { display: none; }
-                        .accord-show .accord { display: block; }
-                        .accord { padding: 5px 10px 10px 10px; }
-                        .accord span { background-color: #beffc9; border-radius: 5px; margin-right: 5px; padding: 0 4px; }
-                        .accord span.badge { padding: 0.35em 0.35em; }
-                    </style>
-                    <style>
-                        table.data-table  > tfoot > tr > th, table.data-table  > tfoot > tr > td { padding: 6px 2px!important; }
-                        table.data-table  > thead > tr > th, table.data-table  > thead > tr > td { padding: 2px!important; }
-                        table.data-table tr.green td { background-color: #ccffcc!important;}
-                        table.data-table tr.red td { background-color: #ffcccc!important;}
-                        table.data-table > tbody td { padding: 0 0 0 6px; }
-                        table.data-table  > tfoot input { width: 100%; }
-                        .desktop-data { display: none!important; }
-                        @media (min-width: 1260px) {
-                            .desktop-data { display: table!important; }
-                            .mobile-data { display: none!important; }
+                        table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date { text-align: left!important;}
+                        table td { padding: 0px 2px!important; }
+                        table.dataTable > tfoot > tr > th, table.dataTable > tfoot > tr > td { padding: 6px 2px!important; }
+                        table.dataTable > thead > tr > th, table.dataTable > thead > tr > td { padding: 2px!important; }
+                        table.dataTable tr.green td { background-color: #ccffcc!important;}
+                        table.dataTable tr.red td { background-color: #ffcccc!important;}
+                        .vertical-text .dt-column-title { writing-mode: tb; text-align: right!important; }
+                        .dt-column-order { top: unset!important; bottom: 15px!important; }
+                        .vertical-text .dt-column-order { right: 25px!important; }
+                        .dt-layout-row .dt-layout-start { display: none!important; }
+                        .dt-layout-row .dt-layout-end { display: block!important; margin-left: unset!important; }
+                        tfoot th input { max-width: 50px; }
+                        @media (max-width: 750px) {
+                            .desktop { display: none!important; }
+                            .mobile { display: table-cell!important; }
                         }
                     </style>
-
-                    <script>
-                        const opencloseaccord = (e)=>{
-                            const record = e.target.closest(".accord-head").parentElement;
-                            if (record.classList.contains("accord-hide")){
-                                record.classList.remove("accord-hide"); record.classList.add("accord-show");
-                            } else {
-                                record.classList.add("accord-hide"); record.classList.remove("accord-show");
-                            };
-                        }
-                    </script>
 
                     <script>
                         const loadedData = {};
-                        loadedData.filteredData = [];
-
-                        loadedData.mobileItemPlaceholder = { "fullItem": `<div class="accord-i accord-hide">
-                                    <div class="accord-head _TENSE_" onclick="opencloseaccord(event);">
-                                        <div>
-                                            <div></div>
-                                            <div>
-                                                _HEAD-PLACE_
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accord">
-                                        _ITEM-PLACE_
-                                    </div>
-                                </div>`,
-                                "itemHead": `<div>_OWNER_</div><div>_COMPANY_</div><div><a style="text-wrap-mode: nowrap;" href="tel:+1_PHONE1_">_PHONE1-FORMAT_</a></div>`,
-                                "phone": `<div><span>Phone: </span><a style="text-wrap-mode: nowrap;" href="tel:+1_PHONE2_">_PHONE2-FORMAT_</a></div>`,
-                                "revenue": `<div><span>Rev: </span>_REV_</div>`,
-                                "agent": `<div><span>Agent: </span>_AGENT_</div>`,
-                                "email": `<div><span>Email: </span>_EMAIL_</div>`,
-                                "web": `<div><span>Web: </span>_WEB_</div>`,
-                                "status": `<div><span>Status: </span>_STATUS_</div>`,
-                                "mode": `<div><span>Mode: </span>_MODE_</div>`,
-                                "appointment": `<div><span>Appt: </span>_APPT_</div>`,
-                                "notes": `<div>_NOTES_</div>`,
-                                "button": `_EDITBTN_`
-
-                        };
                         const cancelEdit = ()=>{
                             document.querySelector("#updateInfoForm").classList.add("hide");
                         }
@@ -680,170 +633,138 @@
                             if (number==""){ return ""; }
                             return `${number.slice(0,3)}-${number.slice(3,6)}-${number.slice(6,10)}`;
                         }
-                        const isMobileDevice = () => {
-                            return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-                        }
                         const populateSearchResult = (data)=>{
+                            const tableEle = document.querySelector("#searchInfoSection table tbody");
+                            try{ loadedData.table.destroy(); }catch{}
+                            tableEle.innerHTML = "";
                             today = new Date();
                             data.forEach((record, i) => {
-                                remaining = 9999999.999;
+                                remaining = "9999999.999";
                                 istoday = false;
                                 if (record.appointment!=""){
                                     appo = new Date(Date.parse(record.appointment));
                                     istoday = appo.getDate() == today.getDate();
                                     remaining = (appo-today)/(1000);
                                 }
-
-                                statusArray = [];
-                                if (record.notinterested==="t"){statusArray.push('<span class="badge text-bg-dark">NI</span>');}
-                                if (record.followingup==="t"){statusArray.push('<span class="badge text-bg-success">Interested</span>');}
-                                if (record.listedtosale==="t"){statusArray.push('<span class="badge text-bg-secondary">Listed</span>');}
-                                if (record.successsale==="t"){statusArray.push('<span class="badge text-bg-info">Sold</span>');}
-                                if (record.lowrev==="t"){statusArray.push('<span class="badge text-bg-warning">Remarket</span>');}
-                                statusCol = "";
-                                statusArray.forEach((s)=>{ statusCol += s; });
-                                record.status = statusCol;
-
-                                pmode = [];
-                                if (record.possibleproperty==="t"){pmode.push('<span class="badge text-bg-warning">PropertySale</span>');}
-                                if (record.possiblebuyer==="t"){pmode.push('<span class="badge text-bg-info">BizBuyer</span>');}
-                                pmodeCol = "";
-                                pmode.forEach((m)=>{ pmodeCol += m; });
-                                record.pmode = pmodeCol;
-
-                                record.fullphone = `${formatphonenumber(record.phone)} ${formatphonenumber(record.phone2)} ${record.phone} ${record.phone2}`;
-
+                                
                                 // Not Interested
-                                if (record.notinterested==="t"){ remaining = 999999990; }
+                                if (record.notinterested==="t"){ remaining = "999999990"; }
 
                                 // Listed
-                                if (record.listedtosale=="t"){ remaining = 999999991; }
+                                if (record.listedtosale=="t"){ remaining = "999999991"; }
 
                                 // Sold
-                                if (record.successsale=="t"){ remaining = 999999992; }
+                                if (record.successsale=="t"){ remaining = "999999992"; }
 
                                 // Remarket
-                                if (record.lowrev==="t"){ remaining = 999999993; }
+                                if (record.lowrev==="t"){ remaining = "999999993"; }
 
                                 // +Biz Buyer
-                                if (record.possiblebuyer=="t"){ remaining = 999999994; }
+                                if (record.possiblebuyer=="t"){ remaining = "999999994"; }
 
-                                record.priority = remaining;
-                                record.istoday = istoday;
+                                tense = "";
+                                if (remaining<0){ tense = "class='red'"; } else if (istoday && remaining<(24*60*60)){ tense="class='green'"; } else { tense=""; }
 
-                                if (record.editbtn){}else{
-                                    record.editbtn = `<button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button>`;
-                                }
+                                tableEle.innerHTML += `<tr ${tense}>
+                                <td>${record.company}</td><td>${record.uname}</td><td>${record.revenue}</td><td>${record.username}</td>
+                                <td><a href= "mailto: ${record.email}">${record.email}</a></td><td>${record.web}</td>
+                                <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a>
+                                <div class="d-none">${record.phone} ${record.phone2}</div>
+                                </td>
+                                <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
+                                <td>${getfrontendtime(record.appointment)}</td>
+                                <td>${record.nocontact==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.notinterested==="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.followingup=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.listedtosale=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.successsale=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.lowrev=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.possibleproperty=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td>${record.possiblebuyer=="t"?'<span class="badge text-bg-success">T</span>':'<span class="badge text-bg-danger">F</span>'}</td>
+                                <td><button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button></td>
+                                <td>${remaining}</td>
+                                </tr>`;
                             });
-                            sorteddata = [...data];
-                            sorteddata = sorteddata.sort((a, b) => {
-                                if (a.priority < b.priority) return -1; 
-                                if (a.priority > b.priority) return 1;
-                                return 0;
+                            document.querySelectorAll('.table-toggle button').forEach((el) => {
+                                if (!el.classList.contains("active")){ el.classList.add("active"); }
                             });
-                            loadedData.filteredData = sorteddata;   
-
-                            // display the items
-                            if (loadedData.device == ".desktop-data"){
-                                const tableEle = document.querySelector("#searchInfoSection table tbody");
-                                tableEle.innerHTML = "";
-                                sorteddata.forEach((record, i) => {
-                                    tense = "";
-                                    if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
-                                    tableEle.innerHTML += `<tr ${tense}>
-                                    <td>${record.company}</td>
-                                    <td>${record.uname}</td>
-                                    <td>${record.revenue}</td>
-                                    <td>${record.username}</td>
-                                    <td><a href= "mailto: ${record.email}">${record.email}</a></td>
-                                    <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a>
-                                    <div class="d-none">${record.phone} ${record.phone2}</div>
-                                    </td>
-                                    <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
-                                    <td>${getfrontendtime(record.appointment)}</td>
-                                    <td>${record.status}</td>
-                                    <td>${record.pmode}</td>
-                                    <td>${record.editbtn}</td>
-                                    </tr>`;
+                            if(!loadedData.table){
+                                document.querySelectorAll('.table-toggle button').forEach((el) => {
+                                    el.addEventListener('click', function (e) {
+                                        let columnIdx = e.target.getAttribute('data-column');
+                                        let column = loadedData.table.column(columnIdx);
+                                        column.visible(!column.visible());
+                                    });
                                 });
-                            } else if (loadedData.device == ".mobile-data"){
-                                const divEle = document.querySelector(".mobile-data .showcase");
-                                divEle.innerHTML = "";
-
-                                // let's populate items step by step
-                                const step = 3; 
-                                items = "";
-                                sorteddata.forEach((record, i)=>{
-                                    tense = "";
-                                    if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
-                                    itemplaceholder = String(loadedData.mobileItemPlaceholder['fullItem']);
-                                    
-                                    itemplaceholder = itemplaceholder.replace("_TENSE_", tense);
-
-                                    itemhead = String(loadedData.mobileItemPlaceholder['itemHead']);
-                                    itemhead = itemhead.replace("_OWNER_", record.uname!=""?`${record.uname},&nbsp;`:"")
-                                    itemhead = itemhead.replace("_COMPANY_", record.company!=""?`${record.company},&nbsp;`:"")
-                                    itemhead = itemhead.replace("_PHONE1_", record.phone)
-                                    itemhead = itemhead.replace("_PHONE1-FORMAT_", formatphonenumber(record.phone))
-
-                                    itemplaceholder = itemplaceholder.replace("_HEAD-PLACE_", itemhead);
-
-                                    itembody = "";
-                                    if (record.phone2 != "") { itembody += String(loadedData.mobileItemPlaceholder['phone']).replace("_PHONE2_", record.phone2).replace("_PHONE2-FORMAT_", formatphonenumber(record.phone2)); }
-                                    if (record.revenue != "") { itembody += String(loadedData.mobileItemPlaceholder['revenue']).replace("_REV_", record.revenue); }
-                                    if (record.username != "") { itembody += String(loadedData.mobileItemPlaceholder['agent']).replace("_AGENT_", record.username); }
-                                    if (record.email != "") { itembody += String(loadedData.mobileItemPlaceholder['email']).replace("_EMAIL_", `<a href= "mailto: ${record.email}">${record.email}</a>`); }
-                                    if (record.web != "") { itembody += String(loadedData.mobileItemPlaceholder['web']).replace("_WEB_", record.web); }
-                                    if (record.status != "") { itembody += String(loadedData.mobileItemPlaceholder['status']).replace("_STATUS_", record.status); }
-                                    if (record.pmode != "") { itembody += String(loadedData.mobileItemPlaceholder['mode']).replace("_MODE_", record.pmode); }
-                                    if (record.appointment != "") { itembody += String(loadedData.mobileItemPlaceholder['appointment']).replace("_APPT_", record.appointment); }
-                                    if (record.notes != "") { itembody += String(loadedData.mobileItemPlaceholder['notes']).replace("_NOTES_", 
-                                        `${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}`); }
-                                    itembody += String(loadedData.mobileItemPlaceholder['button']).replace("_EDITBTN_", record.editbtn);
-
-                                    itemplaceholder = itemplaceholder.replace("_ITEM-PLACE_", itembody);
-                                    
-                                    items += itemplaceholder;
-
-                                    if (i%step==0){
-                                        // populate data
-                                        divEle.innerHTML += items;
-                                        items = "";
-                                    }
-                                });
-                                divEle.innerHTML += items;
                             }
-                        }
-                        const filterObjects = (list, filters) => {
-                            return list.filter(item => {
-                                // Check if every non-empty filter matches the corresponding item attribute
-                                return Object.keys(filters).every(key => {
-                                    const filterValue = filters[key];
-                                    if (filterValue === "") return true; // Ignore empty filters
-                                    if (item[key] === undefined) return false; // Skip if key doesn't exist in object
-                                    return item[key].toString().toLowerCase().includes(filterValue.toString().toLowerCase());
-                                });
+
+                            loadedData.table = new DataTable('#searchInfoSection table', {
+                                responsive: true,
+                                searching: true,
+                                order: [[18, 'asc']],
+                                columnDefs: [
+                                    { target: [5, 9], visible: false },
+                                    { targets:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], className: "desktop" },
+                                    { targets:[1, 6, 17], className: "mobile" },
+                                    { target:17, visible: true, searchable: false}, { target:18, visible: false, searchable: false}
+                                ],
+                                initComplete: function () {
+                                    this.api()
+                                    .columns()
+                                    .every(function () {
+                                        let column = this;
+                                        let title = column.footer().textContent;
+                        
+                                        // Create input element
+                                        let input = document.createElement('input');
+                                        input.placeholder = title;
+                                        column.footer().replaceChildren(input);
+                        
+                                        // Event listener for user input
+                                        input.addEventListener('keyup', () => {
+                                            if (column.search() !== this.value) {
+                                                loadedData.searchtable = column.search(input.value).draw();
+                                                loadedData.searchedArray = loadedData.searchtable.rows( {search: 'applied'} ).data().toArray();
+                                            }
+                                        });
+                                    });
+                                },
                             });
+                            loadedData.searchedArray = loadedData.table.rows( {search: 'applied'} ).data().toArray();
                         }
-                        const searchInfo = (e)=>{
-                            try {window.clearTimeout(loadedData.debouncesearch)}catch{}
-                            loadedData.debouncesearch = window.setTimeout(()=>{
-                                const searchparam = {
-                                    company: document.querySelector(loadedData.device+" .filters input#company-input").value,
-                                    uname: document.querySelector(loadedData.device+" .filters input#uname-input").value,
-                                    revenue: document.querySelector(loadedData.device+" .filters input#revenue-input").value,
-                                    username: document.querySelector(loadedData.device+" .filters input#username-input").value,
-                                    email: document.querySelector(loadedData.device+" .filters input#email-input").value,
-                                    web: document.querySelector(loadedData.device+" .filters input#web-input").value,
-                                    fullphone: document.querySelector(loadedData.device+" .filters input#phone-input").value,
-                                    notes: document.querySelector(loadedData.device+" .filters input#notes-input").value,
-                                    appointment: document.querySelector(loadedData.device+" .filters input#appointment-input").value,
-                                    status: document.querySelector(loadedData.device+" .filters input#status-input").value,
-                                    pmode: document.querySelector(loadedData.device+" .filters input#pmode-input").value,
+                        const searchInfo = (event)=>{
+                            event.preventDefault();
+                            const form = event.currentTarget;
+                            const url = new URL(form.action);
+                            const formData = new FormData(form);
+                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
+
+                            timer.timestart();
+
+                            if (formData.get("phone")==="" && formData.get("email")===""){
+                                timer.timestop();
+                                alert("Please enter a valid phone number or email address to search.");
+                                return;
+                            }
+                            
+                            fetch(url, {
+                                method: form.method,
+                                body: formData
+                            })
+                            .then((response)=>response.json())
+                            .then((data)=>{
+                                timer.timestop();
+                                if (data.success){
+                                    // clear fields
+                                    document.querySelector("#searchInfoForm #email").value = "";
+                                    document.querySelector("#searchInfoForm #phone").value = "";
+                                    loadedData.data = data.data;
+                                    populateSearchResult(data.data);
+                                }else{
+                                    alert(data.message);
                                 }
-                                filteredData = filterObjects(loadedData.data, searchparam);
-                                populateSearchResult(filteredData);
-                            }, 1000);
+                            });
                         }
                         const updateInfo = (event)=>{
                             event.preventDefault();
@@ -917,21 +838,8 @@
                                         record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
                                     }
                                     loadedData.data[loadedData.selectedToEdit] = record;
-
-                                    // clear search params
-                                    document.querySelector(loadedData.device+" .filters input#company-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#uname-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#revenue-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#username-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#email-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#web-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#phone-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#notes-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#appointment-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#status-input").value = "";
-                                    document.querySelector(loadedData.device+" .filters input#pmode-input").value = "";
-
                                     populateSearchResult(loadedData.data);
+                                    // listAllInfo();
                                 }else{
                                     alert(data.message);
                                 }
@@ -962,6 +870,9 @@
                             const match = htmlString.match(/data-key="(\d+)"/);
                             return match ? match[1] : null;
                         }
+                        const findObjectByPk = (objectsArray, pkValue) => {
+                            return objectsArray.find(obj => obj.pk === pkValue);
+                        }
                         const download = ()=>{
                             let csvContent = "data:text/csv;charset=utf-8,";
 
@@ -970,7 +881,9 @@
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
                                 "Listed", "Sold", "Remarket", "PProperty", "PBuyer"
                             ]];
-                            loadedData.filteredData.forEach(function(object) {
+                            loadedData.searchedArray.forEach(function(rowArray) {
+                                const pk = getpkfromstringhtml(rowArray[17]);
+                                const object = findObjectByPk(loadedData.data, pk);
                                 cleanData.push([
                                     object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
@@ -1115,12 +1028,6 @@
                             } else {
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
-                        }
-                        
-                        if (isMobileDevice()){
-                            loadedData.device = ".mobile-data";
-                        }else{
-                            loadedData.device = ".desktop-data";
                         }
                         
                         initDateTimePickers();

@@ -33,8 +33,8 @@
 
     <script>
         const r = window.sessionStorage.getItem("r");
-        if (r==="a"){
-            window.location.replace("<?php echo $baseurl ?>agents/"); 
+        if (r==="o"){
+            window.location.replace("<?php echo $baseurl ?>admin/"); 
         }
     </script>
 
@@ -45,7 +45,6 @@
     </div>
     <script>
         document.querySelector(".company-name").innerHTML = window.sessionStorage.getItem("cname");
-        const cname = window.sessionStorage.getItem("cname");
     </script>
 
     <div class="mx-4 mt-3">
@@ -60,6 +59,7 @@
     </div>
     
     <div class="accordion mt-2 mx-2" id="mainaccord">
+
         <div class="accordion-item" id="addInfoForm">
             <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
@@ -68,11 +68,12 @@
                 </button>
             </div>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" data-bs-parent="#mainaccord">
+                <!-- show -->
                 <form action="<?php echo $baseurl ?>agents/addInfo.php" method="post" onsubmit="addInfo(event);" class="accordion-body my-2" onchange="selfvalidate(event);">
                     <div class="row g-3 mb-3">
                         <div class="d-inline-block" style="width: 130px;">
                             <label for="phone" class="form-label">Phone 1*</label>
-                            <input type="text" name="phone" id="phone" class="form-control" required maxlength="20" pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
+                            <input type="text" name="phone" id="phone" class="form-control" maxlength="20" required pattern="[0-9]{10}" onkeyup="phonenumbervalidation(event)"/>
                             <small class="form-text text-muted"></small>
                         </div>
                         <div class="d-inline-block" style="width: 130px;">
@@ -110,11 +111,6 @@
                             <label for="aname" class="form-label">Agent Name</label>
                             <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
                         </div> -->
-                        <div class="d-inline-block" style="width: 140px;">
-                            <label for="owner" class="form-label">Agent Name</label>
-                            <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
-                            </select>
-                        </div>
                         <div class="d-inline-block" style="width: 230px;">
                             <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                             <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
@@ -126,7 +122,7 @@
                         <div class="col">
                             <div class="d-none me-4">
                                 <!-- <input class="form-check-input" type="checkbox" value="" id="nocontact" name="nocontact"> -->
-                                <input class="form-check-input" type="radio" name="status" id="nocontact">
+                                <input class="form-check-input" type="radio" name="status" id="nocontact" >
                                 <label class="form-check-label" for="nocontact">
                                     No Answer
                                 </label>
@@ -156,7 +152,7 @@
                                 <!-- <input class="form-check-input" type="checkbox" value="" id="successsale" name="successsale"> -->
                                 <input class="form-check-input" type="radio" name="status" id="successsale">
                                 <label class="form-check-label" for="successsale">
-                                    Sold
+                                Sold
                                 </label>
                             </div>
                             <div class="d-inline-block me-4">
@@ -173,7 +169,6 @@
                                     +Biz Buyer
                                 </label>
                             </div>
-
                             <div class="d-block">
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="checkbox" value="" id="na1" name="na1">
@@ -263,7 +258,7 @@
                         const form = event.currentTarget;
                         const url = new URL(form.action);
                         const formData = new FormData(form);
-                        
+
                         if ((document.querySelector("#addInfoForm #nocontact").checked || document.querySelector("#addInfoForm #followingup").checked)
                         && !(document.querySelector("#addInfoForm #na1").checked || document.querySelector("#addInfoForm #na2").checked)
                         ){
@@ -279,6 +274,7 @@
                         } else {
                             formData.set("appointment", getbackendtime(loadedData.adddatetime));
                         }
+
                         formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
@@ -289,6 +285,7 @@
                         formData.append("possiblebuyer", document.querySelector("#addInfoForm #possiblebuyer").checked);
                         formData.append("na1", document.querySelector("#addInfoForm #na1").checked);
                         formData.append("na2", document.querySelector("#addInfoForm #na2").checked);
+                        formData.append("whocreatedpk", window.sessionStorage.getItem("ukey"));
                         formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                         formData.append("jwt", window.sessionStorage.getItem("jwt"));
                         timer.timestart();
@@ -322,7 +319,7 @@
                                 document.querySelector("#addInfoForm #na1").checked = false;
                                 document.querySelector("#addInfoForm #na2").checked = false;
                                 document.querySelector("#addInfoForm #notes").value = "";
-                                listAllInfo();
+                                listInfoAgent();
                             }else{
                                 alert(data.message);
                             }
@@ -334,11 +331,12 @@
 
         <div class="accordion-item" id="searchInfoSection">
             <div class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                     <div class="h5">Edit Leads</div>
                 </button>
             </div>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#mainaccord">
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#mainaccord"> 
+                <!-- show -->
                 <div class="accordion-body">
 
 
@@ -388,13 +386,6 @@
                                 <label for="aname" class="form-label">Agent Name</label>
                                 <input type="text" name="aname" id="aname" class="form-control" maxlength="50"/>
                             </div> -->
-                            <div class="d-inline-block" style="width: 140px;">
-                                <label for="owner" class="form-label">Agent Name</label>
-                                <select name="whocreatedpk" id="owner" class="form-control" style="text-transform: capitalize;">
-                                    <option value="akila">akila - agent</option>
-                                    <option value="akila2">akila2 - agent</option>
-                                </select>
-                            </div>
                             <div class="d-inline-block" style="width: 230px;">
                                 <label for="appointment" class="form-label">Appointment <span class="btn btn-link" style="padding: 0; margin-top: -6px;" onclick="dateclr();">clear</span></label>
                                 <!-- <input type="datetime-local" id="appointment" name="appointment" class="form-control"/> -->
@@ -485,7 +476,7 @@
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
-                        
+
                     </form>
 
 
@@ -551,9 +542,9 @@
                         <div class="my-3">
                         </div>
 
-                        <button class="btn btn-primary" onclick="download();">Download</button>
+                        <button class="btn btn-primary desktop" onclick="download();">Download</button>
                     </div>
-                    
+
                     <style>
                         /* mobile view */
                         .mobile-data .filters { margin-bottom: 10px; }
@@ -641,13 +632,13 @@
                             document.querySelector("#updateInfoForm #email").value = record.email;
                             document.querySelector("#updateInfoForm #phone").value = record.phone;
                             document.querySelector("#updateInfoForm #phone2").value = record.phone2;
-                            document.querySelector("#updateInfoForm #address").value = record.address;
                             document.querySelector("#updateInfoForm #company").value = record.company;
                             document.querySelector("#updateInfoForm #uname").value = record.uname;
                             document.querySelector("#updateInfoForm #web").value = record.web;
+                            document.querySelector("#updateInfoForm #address").value = record.address;
                             document.querySelector("#updateInfoForm #revenue").value = record.revenue;
                             // document.querySelector("#updateInfoForm #aname").value = record.aname;
-                            
+
                             if(checkpastdate(record.appointment.replaceAll(" ", "T"))){
                                 document.querySelector("#updateInfoForm #appointment").value = ""
                             }else{
@@ -665,13 +656,6 @@
                             document.querySelector("#updateInfoForm #na1u").checked = record.na1==="f"?false:true;
                             document.querySelector("#updateInfoForm #na2u").checked = record.na2==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
-                            if(record.whichcompany!=cname){
-                                document.querySelector("#updateInfoForm #owner").setAttribute('disabled', 'disabled');
-                                document.querySelector("#updateInfoForm #owner").value = '';
-                            } else {
-                                document.querySelector("#updateInfoForm #owner").removeAttribute('disabled');
-                                document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
-                            }
                             document.querySelector("#updateInfoForm").dispatchEvent(new Event('change', {bubbles: true, cancelable: true}));
                             document.querySelector("#updateInfoForm").classList.remove("hide");
                             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -686,7 +670,7 @@
                         const populateSearchResult = (data)=>{
                             today = new Date();
                             data.forEach((record, i) => {
-                                remaining = 9999999.999;
+                                remaining = "9999999.999";
                                 istoday = false;
                                 if (record.appointment!=""){
                                     appo = new Date(Date.parse(record.appointment));
@@ -712,7 +696,7 @@
                                 record.pmode = pmodeCol;
 
                                 record.fullphone = `${formatphonenumber(record.phone)} ${formatphonenumber(record.phone2)} ${record.phone} ${record.phone2}`;
-
+                                
                                 // Not Interested
                                 if (record.notinterested==="t"){ remaining = 999999990; }
 
@@ -850,7 +834,7 @@
                             const form = event.currentTarget;
                             const url = new URL(form.action);
                             const formData = new FormData(form);
-                            
+
                             if ((document.querySelector("#updateInfoForm #nocontactu").checked || document.querySelector("#updateInfoForm #followingupu").checked) 
                             && !(document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked)
                             ){
@@ -898,7 +882,7 @@
                                     record.company = document.querySelector("#updateInfoForm #company").value;
                                     record.uname = document.querySelector("#updateInfoForm #uname").value;
                                     record.web = document.querySelector("#updateInfoForm #web").value;
-                                    record.address = document.querySelector("#updateInfoForm #address").value;
+                                    record.address = document.querySelector("#updateInfoForm #address").value; 
                                     record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
                                     // record.aname = document.querySelector("#updateInfoForm #aname").value;
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
@@ -913,9 +897,6 @@
                                     record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
                                     record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
                                     record.notes = document.querySelector("#updateInfoForm #notes").value;
-                                    if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
-                                        record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
-                                    }
                                     loadedData.data[loadedData.selectedToEdit] = record;
 
                                     // clear search params
@@ -935,17 +916,18 @@
                                 }else{
                                     alert(data.message);
                                 }
+                                
                             });
                         }
-                        const listAllInfo = ()=>{
+                        const listInfoAgent = ()=>{
                             const formData = new FormData();
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
-                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
+                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
 
                             timer.timestart();
 
-                            fetch("<?php echo $baseurl ?>agents/listAllInfo.php", {
+                            fetch("<?php echo $baseurl ?>agents/listInfoAgent.php", {
                                 method: "post",
                                 body: formData
                             })
@@ -961,6 +943,9 @@
                         const getpkfromstringhtml = (htmlString) => {
                             const match = htmlString.match(/data-key="(\d+)"/);
                             return match ? match[1] : null;
+                        }
+                        const findObjectByPk = (objectsArray, pkValue) => {
+                            return objectsArray.find(obj => obj.pk === pkValue);
                         }
                         const download = ()=>{
                             let csvContent = "data:text/csv;charset=utf-8,";
@@ -994,7 +979,6 @@
                             link.click()
                         }
 
-                        
                         const initDateTimePickers = ()=>{
                             $.datetimepicker.setDateFormatter({
                                 parseDate: function (date, format) {
@@ -1068,29 +1052,6 @@
                             b = new Date();
                             return a>b;
                         }
-                        const getusers = ()=>{
-                            const formData = new FormData();
-                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
-                            formData.append("jwt", window.sessionStorage.getItem("jwt"));
-                            formData.append("ukey", window.sessionStorage.getItem("ukey"));
-                            fetch("<?php echo $baseurl ?>agents/getUsers.php", {
-                                method: "post",
-                                body: formData
-                            })
-                            .then((response)=>response.json())
-                            .then((data)=>{
-                                if (data.success){
-                                    loadedData.users = data.data;
-                                    optionscontent = "";
-                                    loadedData.users.forEach((user)=>{
-                                        optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username}</option>`;
-                                    });
-                                    document.querySelectorAll("#owner").forEach((comp)=>{
-                                        comp.innerHTML = optionscontent;
-                                    });
-                                }
-                            });
-                        }
                         const selfvalidate = (e)=>{
                             const form = e.target.closest("form");
                             if (form.querySelector("input[id*='nocontact']").checked || form.querySelector("input[id*='followingup']").checked){
@@ -1116,7 +1077,7 @@
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
                         }
-                        
+
                         if (isMobileDevice()){
                             loadedData.device = ".mobile-data";
                         }else{
@@ -1124,8 +1085,7 @@
                         }
                         
                         initDateTimePickers();
-                        listAllInfo();
-                        getusers();
+                        listInfoAgent();
                     </script>
                 </div>
             </div>
