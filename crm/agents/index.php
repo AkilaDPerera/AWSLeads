@@ -36,6 +36,12 @@
         if (r==="o"){
             window.location.replace("<?php echo $baseurl ?>admin/"); 
         }
+
+        const playsound = ()=>{
+            const audio = new Audio("https://cdn.shopify.com/s/files/1/0027/0578/4877/files/ring.mp3?v=1733065254");
+            audio.loop = true;
+            audio.play().catch(error => console.error("Playback failed:", error));
+        }
     </script>
 
     <div style="position: fixed; right: 0; top: 0;">
@@ -591,6 +597,7 @@
 
                     <script>
                         const loadedData = {};
+                        loadedData.notificationCountdown = null;
                         loadedData.filteredData = [];
 
                         loadedData.mobileItemPlaceholder = { "fullItem": `<div class="accord-i accord-hide">
@@ -732,6 +739,13 @@
                                 const tableEle = document.querySelector("#searchInfoSection table tbody");
                                 tableEle.innerHTML = "";
                                 sorteddata.forEach((record, i) => {
+                                    if (loadedData.notificationCountdown==null){
+                                        if (record.priority>=0){
+                                            if (record.priority<999999980){
+                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                            }
+                                        }
+                                    }
                                     tense = "";
                                     if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
                                     tableEle.innerHTML += `<tr ${tense}>
@@ -758,6 +772,13 @@
                                 const step = 3; 
                                 items = "";
                                 sorteddata.forEach((record, i)=>{
+                                    if (loadedData.notificationCountdown==null){
+                                        if (record.priority>=0){
+                                            if (record.priority<999999980){
+                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                            }
+                                        }
+                                    }
                                     tense = "";
                                     if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
                                     itemplaceholder = String(loadedData.mobileItemPlaceholder['fullItem']);
