@@ -487,6 +487,9 @@
 
 
                     <div class="mb-5">
+                
+                        <input style="margin-bottom: 10px;" type="text" placeholder="Search" name="globalsearch" id="globalsearch" autocomplete="off" onkeydown="searchInfo(event)">
+
                         <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
                             <thead>
                                 <tr>
@@ -830,6 +833,15 @@
                                 });
                             });
                         }
+                        const globalSearch = (list, keyword) => {
+                            if (keyword.trim()==""){return list;}
+                            const lowerCaseKeyword = keyword.toLowerCase();
+                            return list.filter(obj => 
+                                Object.values(obj).some(value => 
+                                    String(value).toLowerCase().includes(lowerCaseKeyword)
+                                )
+                            );
+                        }
                         const searchInfo = (e)=>{
                             try {window.clearTimeout(loadedData.debouncesearch)}catch{}
                             loadedData.debouncesearch = window.setTimeout(()=>{
@@ -847,6 +859,7 @@
                                     pmode: document.querySelector(loadedData.device+" .filters input#pmode-input").value,
                                 }
                                 filteredData = filterObjects(loadedData.data, searchparam);
+                                filteredData = globalSearch(filteredData, document.querySelector("#globalsearch").value);
                                 populateSearchResult(filteredData);
                             }, 1000);
                         }
@@ -932,6 +945,7 @@
                                     document.querySelector(loadedData.device+" .filters input#appointment-input").value = "";
                                     document.querySelector(loadedData.device+" .filters input#status-input").value = "";
                                     document.querySelector(loadedData.device+" .filters input#pmode-input").value = "";
+                                    document.querySelector("#globalsearch").value = "";
 
                                     populateSearchResult(loadedData.data);
                                 }else{
