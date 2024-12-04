@@ -580,10 +580,10 @@
                         table.data-table tr.red td { background-color: #ffcccc!important;}
                         table.data-table > tbody td { padding: 0 0 0 6px; }
                         table.data-table  > tfoot input { width: 100%; }
-                        .desktop-data { display: none!important; }
+                        .desktop-data { display: none; }
                         @media (min-width: 1260px) {
-                            .desktop-data { display: table!important; }
-                            .mobile-data { display: none!important; }
+                            .desktop-data { display: none; }
+                            .mobile-data { display: none; }
                         }
                     </style>
 
@@ -1115,8 +1115,10 @@
 
                         if (isMobileDevice()){
                             loadedData.device = ".mobile-data";
+                            document.querySelectorAll(".mobile-data").forEach((comp)=>{ comp.style.display = "block"; })
                         }else{
                             loadedData.device = ".desktop-data";
+                            document.querySelectorAll(".desktop-data").forEach((comp)=>{ comp.style.display = "table"; })
                         }
                         
                         initDateTimePickers();
