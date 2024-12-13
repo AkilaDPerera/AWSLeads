@@ -251,7 +251,7 @@
                         let daysAdded = 0;
                         let currentDate = new Date(startDate);
 
-                        while (daysAdded < 2) {
+                        while (daysAdded <= 0) {
                             // Move to the next day
                             currentDate.setDate(currentDate.getDate() + 1);
 
