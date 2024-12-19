@@ -676,8 +676,10 @@
                             document.querySelector("#updateInfoForm #na2u").checked = record.na2==="f"?false:true;
                             document.querySelector("#updateInfoForm #notes").value = record.notes;
                             if(record.whichcompany!=cname){
-                                document.querySelector("#updateInfoForm #owner").setAttribute('disabled', 'disabled');
-                                document.querySelector("#updateInfoForm #owner").value = '';
+                                // document.querySelector("#updateInfoForm #owner").setAttribute('disabled', 'disabled');
+                                // document.querySelector("#updateInfoForm #owner").value = '';
+                                document.querySelector("#updateInfoForm #owner").removeAttribute('disabled');
+                                document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
                             } else {
                                 document.querySelector("#updateInfoForm #owner").removeAttribute('disabled');
                                 document.querySelector("#updateInfoForm #owner").value = record.whocreatedpk;
