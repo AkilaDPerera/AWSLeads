@@ -43,6 +43,11 @@
                     $updatesArray['whocreatedpk'] = $_POST['whocreatedpk'];
                 }
             }
+            if (isset($_POST['whichcompany'])) {
+                if ($_POST['whichcompany']!=""){
+                    $updatesArray['whichcompany'] = $_POST['whichcompany'];
+                }
+            }
 
             // check phone number duplicates first
             if (trim($_POST["phone"])!==trim($_POST["oldphone"])){

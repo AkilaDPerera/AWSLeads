@@ -915,7 +915,7 @@
                             formData.append("possiblebuyer", document.querySelector("#updateInfoForm #possiblebuyeru").checked);
                             formData.append("na1", document.querySelector("#updateInfoForm #na1u").checked);
                             formData.append("na2", document.querySelector("#updateInfoForm #na2u").checked);
-                            formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("whichcompany", loadedData.users.find(user => user.pk === document.querySelector("#updateInfoForm #owner").value).cname);
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             timer.timestart();
                             fetch(url, {
@@ -950,7 +950,10 @@
                                     record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
                                     record.notes = document.querySelector("#updateInfoForm #notes").value;
                                     if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
-                                        record.username = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex].username;
+                                        user = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex];
+                                        record.username = user.username;
+                                        record.whichcompany = user.cname;
+                                        record.whocreatedpk = user.pk;
                                     }
                                     loadedData.data[loadedData.selectedToEdit] = record;
 
@@ -1120,7 +1123,7 @@
                                     loadedData.users = data.data;
                                     optionscontent = "";
                                     loadedData.users.forEach((user)=>{
-                                        optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username}</option>`;
+                                        optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username} - ${user.cname}</option>`;
                                     });
                                     document.querySelectorAll("#owner").forEach((comp)=>{
                                         comp.innerHTML = optionscontent;
