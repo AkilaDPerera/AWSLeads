@@ -295,7 +295,7 @@
                         formData.append("possiblebuyer", document.querySelector("#addInfoForm #possiblebuyer").checked);
                         formData.append("na1", document.querySelector("#addInfoForm #na1").checked);
                         formData.append("na2", document.querySelector("#addInfoForm #na2").checked);
-                        formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                        formData.append("whichcompany", loadedData.users.find(user => user.pk === document.querySelector("#addInfoForm #owner").value).cname);
                         formData.append("jwt", window.sessionStorage.getItem("jwt"));
                         timer.timestart();
                         fetch(url, {
