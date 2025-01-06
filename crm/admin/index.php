@@ -955,7 +955,14 @@
                                         record.whichcompany = user.cname;
                                         record.whocreatedpk = user.pk;
                                     }
+
                                     loadedData.data[loadedData.selectedToEdit] = record;
+
+                                    if (window.sessionStorage.getItem("r")==="f"){
+                                        if (window.sessionStorage.getItem("cname")!==record.whichcompany){
+                                            delete loadedData.data[loadedData.selectedToEdit];
+                                        }
+                                    }
 
                                     // clear search params
                                     document.querySelector(loadedData.device+" .filters input#company-input").value = "";
@@ -982,6 +989,7 @@
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
+                            formData.append("role", window.sessionStorage.getItem("r"));
 
                             timer.timestart();
 
@@ -1113,6 +1121,8 @@
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
+                            formData.append("role", window.sessionStorage.getItem("r"));
+
                             fetch("<?php echo $baseurl ?>agents/getUsers.php", {
                                 method: "post",
                                 body: formData

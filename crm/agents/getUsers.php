@@ -8,6 +8,8 @@
         if (strpos($_SERVER['HTTP_ORIGIN'], "localhost")!==false || strpos($_SERVER['HTTP_ORIGIN'], "crm.leadz101.com")!==false){
             if ($_POST["ukey"]=="1" || $_POST["ukey"]=="29"){
                 $sql_query = "SELECT pk, username, urole, cname FROM users WHERE urole != 'superadmin';";
+            } elseif ($_POST["role"]=="f"){
+                $sql_query = "SELECT pk, username, urole, cname FROM users WHERE urole != 'superadmin';";
             } else {
                 $sql_query = "SELECT pk, username, urole, cname FROM users WHERE cname='".trim($_POST["whichcompany"])."';";
             }

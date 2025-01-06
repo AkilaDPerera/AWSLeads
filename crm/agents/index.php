@@ -33,7 +33,7 @@
 
     <script>
         const r = window.sessionStorage.getItem("r");
-        if (r==="o"){
+        if (r==="o" || r==="f"){
             window.location.replace("<?php echo $baseurl ?>admin/"); 
         }
 
@@ -959,6 +959,7 @@
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
+                            formData.append("role", window.sessionStorage.getItem("r"));
 
                             timer.timestart();
 
