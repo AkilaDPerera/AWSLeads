@@ -55,11 +55,9 @@
 
     <div class="mx-4 mt-3">
         <div class="mt-0">
-            <div class="h6 mb-1">Recommendation for No Answers</div>
+            <!-- <div class="h6 mb-1">Recommendation for No Answers</div> -->
             <ul class="mb-1">
-                <li>1st No Answer - Leave a message, select NA1, and Add Lead.</li>
-                <li>2nd No Answer - Leave a message, select NA2, and Update Lead.</li>
-                <li>3rd No Answer -  Leave a message letting them know you contacted 3 times. Select Remarket, and Update Lead.</li>
+                <li>If you want to set a specific time and date to contact a lead, uncheck NA.</li>
             </ul>
         </div>
     </div>
