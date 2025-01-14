@@ -1073,16 +1073,55 @@
                             a = new Date(datestring);
                             if (atoday>a){return true;}else{return false;}
                         }
+                        const getLocalDateTime = (datestring) => {
+                            const timeZoneOffset = -(new Date().getTimezoneOffset())/60;
+                            const date = new Date(datestring);
+
+                            // Calculate UTC time in milliseconds
+                            const utcMilliseconds = date.getTime() + date.getTimezoneOffset() * 60000;
+
+                            // Apply the desired timezone offset
+                            const localDate = new Date(utcMilliseconds + timeZoneOffset * 3600000);
+
+                            // Format the date and time
+                            const year = localDate.getFullYear();
+                            const month = String(localDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+                            const day = String(localDate.getDate()).padStart(2, '0');
+
+                            let hours = date.getHours();
+                            // Determine AM/PM
+                            const amPm = hours >= 12 ? 'pm' : 'am';
+                            // Convert to 12-hour format
+                            hours = hours % 12 || 12; // Convert "0" to "12" for midnight
+                            const minutes = String(localDate.getMinutes()).padStart(2, '0');
+
+                            return `${year}-${month}-${day} ${hours}:${minutes} ${amPm}`;
+                        }
                         const getfrontendtime = (datestring)=>{
                             // Y-m-d H:i -> Y-m-d h:mm a
                             if (datestring==""){ return ""; }
-                            a = new Date(datestring);
-                            [d, t, s] = a.toLocaleString().split(" ");
-                            return a.toISOString().slice(0, 10) + " " + t.slice(0, -3) + " " + s.toLowerCase();
+                            return getLocalDateTime(datestring);
+                            // a = new Date(datestring);
+                            // [d, t, s] = a.toLocaleString().split(" ");
+                            // return a.toISOString().slice(0, 10) + " " + t.slice(0, -3) + " " + s.toLowerCase();
+                        }
+                        const parseCustomDate = (dateString) => {
+                            const [datePart, timePart, amPm] = dateString.split(/[\s]+/);
+                            const [year, month, day] = datePart.split('-').map(Number);
+                            let [hours, minutes] = timePart.split(':').map(Number);
+
+                            // Convert to 24-hour format
+                            if (amPm.toLowerCase() === 'pm' && hours < 12) {
+                                hours += 12;
+                            } else if (amPm.toLowerCase() === 'am' && hours === 12) {
+                                hours = 0;
+                            }
+
+                            return new Date(year, month - 1, day, hours, minutes);
                         }
                         const validappointment = (datetimefrontendstring)=>{
                             if (datetimefrontendstring=="") { return false; }
-                            a = new Date(datetimefrontendstring);
+                            a = parseCustomDate(datetimefrontendstring);
                             b = new Date();
                             return a>b;
                         }
