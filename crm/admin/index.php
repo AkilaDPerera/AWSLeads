@@ -1170,7 +1170,11 @@
                                     loadedData.users = data.data;
                                     optionscontent = "";
                                     loadedData.users.forEach((user)=>{
-                                        optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username} - ${user.cname}</option>`;
+                                        if (window.sessionStorage.getItem("ukey")==user.pk){
+                                            optionscontent = `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username} - ${user.cname}</option>` + optionscontent;
+                                        }else{
+                                            optionscontent += `<option value='${user.pk}'>(${user.urole[0].toUpperCase()}) ${user.username} - ${user.cname}</option>`;
+                                        }
                                     });
                                     document.querySelectorAll("#owner").forEach((comp)=>{
                                         comp.innerHTML = optionscontent;
