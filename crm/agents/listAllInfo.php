@@ -13,7 +13,7 @@
             $data = array();
 
             if ($_POST["ukey"]=="1"){
-                $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk;";
+                $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE notinterested='false';";
             }else{
                 $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE whichcompany='".trim($_POST["whichcompany"])."';";
             }
