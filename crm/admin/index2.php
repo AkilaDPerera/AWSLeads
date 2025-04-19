@@ -661,7 +661,11 @@
                             try {window.clearTimeout(loadedData.debouncesearch)}catch{}
                             loadedData.debouncesearch = window.setTimeout(()=>{
                                 // loadedData.data
-                                const keyword = document.querySelector("#globalsearch").value;
+                                var keyword = document.querySelector("#globalsearch").value;
+                                keyword = keyword.replace(/[-\s]/g, '');
+                                if (keyword.startsWith('1')) {
+                                    keyword = keyword.substring(1);
+                                }
                                 if (keyword.trim()==""){ return; }
                                 const resultData = loadedData.data.filter(item => {
                                     const phoneMatch = item.phone && item.phone.includes(keyword);
