@@ -10,6 +10,13 @@
             $message = "";
             $date = date('Y-m-d');
 
+            $filename = './example.txt';
+            $file = fopen($filename, 'w');
+            if ($file) {
+                fwrite($file, $_POST["appointment"]); 
+                fclose($file); 
+            } 
+
             $appointment = "";
             if ($_POST["appointment"]!==""){
                 $appointment = DateTimeImmutable::createFromFormat("Y-m-d H:i", str_replace("T", " ", $_POST["appointment"]));
