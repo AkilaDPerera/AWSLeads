@@ -1013,12 +1013,12 @@
 
                             // clean the search array
                             const cleanData = [[
-                                "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
+                                "Company", "Owner", "Revenue", "Agent", "Email", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
                                 "Listed", "Sold", "Remarket", "PProperty", "PBuyer"
                             ]];
                             loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([
-                                    object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
+                                    object.company, object.uname, object.revenue, object.username, object.email, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
                                     object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
                                     object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
