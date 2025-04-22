@@ -1088,11 +1088,36 @@
                             a = date;
                             return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
                         }
+                        function convertToISO(datetimeStr) {
+                            // Example input: "2025-04-23 9:00 am"
+                            const [datePart, timePart, meridian] = datetimeStr.split(/[\s:]+/); // ["2025-04-23", "9", "00", "am"]
+                            let [year, month, day] = datePart.split('-');
+                            let hour = parseInt(timePart, 10);
+                            let minute = datetimeStr.match(/:(\d+)/)[1];
+
+                            // Convert to 24-hour format
+                            if (meridian.toLowerCase() === 'pm' && hour !== 12) {
+                                hour += 12;
+                            } else if (meridian.toLowerCase() === 'am' && hour === 12) {
+                                hour = 0;
+                            }
+
+                            // Pad hour and minute
+                            const hh = String(hour).padStart(2, '0');
+                            const mm = String(minute).padStart(2, '0');
+
+                            // Return ISO local datetime format
+                            return `${year}-${month}-${day}T${hh}:${mm}:00`;
+                        }
                         const getbackendtime = (picker)=>{
                             // Y-m-dTH:i
                             if (picker.val()==""){ return ""; }
-                            a = new Date(picker.val());
-                            return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
+                            // alert(picker.val());
+                            // alert(convertToISO(picker.val()));
+                            a = new Date(convertToISO(picker.val()));
+                            output = `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`;
+                            // alert(output);
+                            return output;
                         }
                         const checkpastdate = (datestring)=>{
                             // Y-m-d H:i -> true false
