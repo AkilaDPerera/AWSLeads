@@ -1062,24 +1062,21 @@
                         }
                         function convertToISO(datetimeStr) {
                             // Example input: "2025-04-23 9:00 am"
-                            const [datePart, timePart, meridian] = datetimeStr.split(/[\s:]+/); // ["2025-04-23", "9", "00", "am"]
-                            let [year, month, day] = datePart.split('-');
-                            let hour = parseInt(timePart, 10);
-                            let minute = datetimeStr.match(/:(\d+)/)[1];
+                            const [date, time, meridian] = datetimeStr.trim().split(/[\s]+/); // ["2025-04-23", "9:00", "am"]
+                            let [hour, minute] = time.split(':').map(Number);
 
-                            // Convert to 24-hour format
+                            // Convert hour based on AM/PM
                             if (meridian.toLowerCase() === 'pm' && hour !== 12) {
                                 hour += 12;
                             } else if (meridian.toLowerCase() === 'am' && hour === 12) {
                                 hour = 0;
                             }
 
-                            // Pad hour and minute
+                            // Pad values
                             const hh = String(hour).padStart(2, '0');
                             const mm = String(minute).padStart(2, '0');
 
-                            // Return ISO local datetime format
-                            return `${year}-${month}-${day}T${hh}:${mm}:00`;
+                            return `${date}T${hh}:${mm}:00`;
                         }
                         const getbackendtime = (picker)=>{
                             // Y-m-dTH:i
