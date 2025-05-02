@@ -840,6 +840,17 @@
                                 )
                             );
                         }
+                        function cleanPhoneNumber(input) {
+                            // Remove all non-digit characters
+                            let digits = input.replace(/\D/g, '');
+
+                            // Remove leading '1' if present and number is 11 digits
+                            if (digits.length === 11 && digits.startsWith('1')) {
+                                digits = digits.slice(1);
+                            }
+
+                            return digits;
+                        }
                         const searchInfo = (e)=>{
                             try {window.clearTimeout(loadedData.debouncesearch)}catch{}
                             loadedData.debouncesearch = window.setTimeout(()=>{
@@ -850,7 +861,7 @@
                                     username: document.querySelector(loadedData.device+" .filters input#username-input").value,
                                     email: document.querySelector(loadedData.device+" .filters input#email-input").value,
                                     web: document.querySelector(loadedData.device+" .filters input#web-input").value,
-                                    fullphone: document.querySelector(loadedData.device+" .filters input#phone-input").value,
+                                    fullphone: cleanPhoneNumber(document.querySelector(loadedData.device+" .filters input#phone-input").value),
                                     notes: document.querySelector(loadedData.device+" .filters input#notes-input").value,
                                     appointment: document.querySelector(loadedData.device+" .filters input#appointment-input").value,
                                     status: document.querySelector(loadedData.device+" .filters input#status-input").value,
