@@ -1155,8 +1155,10 @@
                         const validappointment = (datetimefrontendstring)=>{
                             if (datetimefrontendstring=="") { return false; }
                             a = parseCustomDate(datetimefrontendstring);
-                            b = new Date();
-                            return a>b;
+                            today = new Date();
+                            yesterday = new Date(today);
+                            yesterday.setDate(today.getDate() - 2);
+                            return a>yesterday;
                         }
                         const selfvalidate = (e)=>{
                             const form = e.target.closest("form");
