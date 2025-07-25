@@ -12,7 +12,7 @@
             $message = "";
             $data = array();
 
-            $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE whichcompany='".trim($_POST["whichcompany"])."' AND whocreatedpk='".trim($_POST["ukey"])."';";
+            $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, nofinance, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE whichcompany='".trim($_POST["whichcompany"])."' AND whocreatedpk='".trim($_POST["ukey"])."';";
             $result = pg_query($dbconn, $sql_query);
 
             $count = 0;

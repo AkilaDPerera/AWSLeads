@@ -71,6 +71,7 @@
                     "listedtosale" => $_POST["listedtosale"],
                     "successsale" => $_POST["successsale"],
                     "lowrev" => $_POST["lowrev"],
+                    "nofinance" => $_POST["nofinance"],
                     "possibleproperty" => $_POST["possibleproperty"],
                     "possiblebuyer" => $_POST["possiblebuyer"],
                     "notes" => $_POST["notes"],
