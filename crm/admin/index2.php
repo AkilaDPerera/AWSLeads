@@ -203,6 +203,12 @@
                                         Waiting For Financials
                                     </label>
                                 </div>
+                                <div class="d-inline-block me-4 mt-3">
+                                    <input class="form-check-input" type="radio" name="status" id="gotfinance" >
+                                    <label class="form-check-label" for="gotfinance">
+                                        Received Financials
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -291,6 +297,7 @@
                         }
                         formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nofinance", document.querySelector("#addInfoForm #nofinance").checked);
+                        formData.append("gotfinance", document.querySelector("#addInfoForm #gotfinance").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
                         formData.append("followingup", document.querySelector("#addInfoForm #followingup").checked);
@@ -324,6 +331,7 @@
                                 document.querySelector("#addInfoForm #appointment").value = "";
                                 document.querySelector("#addInfoForm #lowrev").checked = false;
                                 document.querySelector("#addInfoForm #nofinance").checked = false;
+                                document.querySelector("#addInfoForm #gotfinance").checked = false;
                                 document.querySelector("#addInfoForm #nocontact").checked = false;
                                 document.querySelector("#addInfoForm #notinterested").checked = false;
                                 document.querySelector("#addInfoForm #followingup").checked = true;
@@ -490,6 +498,12 @@
                                             Waiting For Financials
                                         </label>
                                     </div>
+                                    <div class="d-inline-block me-4 mt-3">
+                                        <input class="form-check-input" type="radio" name="status" id="gotfinanceu" >
+                                        <label class="form-check-label" for="gotfinanceu">
+                                            Received Financials
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -629,6 +643,7 @@
 
                             document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nofinanceu").checked = record.nofinance==="f"?false:true;
+                            document.querySelector("#updateInfoForm #gotfinanceu").checked = record.gotfinance==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
                             document.querySelector("#updateInfoForm #notinterestedu").checked = record.notinterested==="f"?false:true;
                             document.querySelector("#updateInfoForm #followingupu").checked = record.followingup==="f"?false:true;
@@ -718,6 +733,7 @@
                             
                             formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
                             formData.append("nofinance", document.querySelector("#updateInfoForm #nofinanceu").checked);
+                            formData.append("gotfinance", document.querySelector("#updateInfoForm #gotfinanceu").checked);
                             formData.append("nocontact", document.querySelector("#updateInfoForm #nocontactu").checked);
                             formData.append("notinterested", document.querySelector("#updateInfoForm #notinterestedu").checked);
                             formData.append("followingup", document.querySelector("#updateInfoForm #followingupu").checked);
@@ -786,7 +802,8 @@
                                     object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
                                     object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
-                                    object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.nofinance=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
+                                    object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.nofinance=="t"?"True":"False", 
+                                    object.gotfinance=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
                                     object.possiblebuyer=="t"?"True":"False"
                                 ]);
                             });
@@ -963,7 +980,7 @@
                             } else {
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
-                            if (form.querySelector("input[id*='notinterested']").checked || form.querySelector("input[id*='listedtosale']").checked || form.querySelector("input[id*='successsale']").checked || form.querySelector("input[id*='lowrev']").checked || form.querySelector("input[id*='nofinance']").checked){ 
+                            if (form.querySelector("input[id*='notinterested']").checked || form.querySelector("input[id*='listedtosale']").checked || form.querySelector("input[id*='successsale']").checked || form.querySelector("input[id*='lowrev']").checked){ 
                                 form.querySelector("input[id*='appointment']").setAttribute('disabled', 'disabled');
                                 form.querySelector("input[id*='appointment']").value = "";
                             } else {

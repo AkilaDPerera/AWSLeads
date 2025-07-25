@@ -37,6 +37,7 @@
                 "successsale" => $_POST["successsale"],
                 "lowrev" => $_POST["lowrev"],
                 "nofinance" => $_POST["nofinance"],
+                "gotfinance" => $_POST["gotfinance"],
                 "na1" => $_POST["na1"],
                 "na2" => $_POST["na2"],
                 "possibleproperty" => $_POST["possibleproperty"],

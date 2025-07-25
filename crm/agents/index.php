@@ -198,6 +198,12 @@
                                         Waiting For Financials
                                     </label>
                                 </div>
+                                <div class="d-inline-block me-4 mt-3">
+                                    <input class="form-check-input" type="radio" name="status" id="gotfinance" >
+                                    <label class="form-check-label" for="gotfinance">
+                                        Received Financials
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -287,6 +293,7 @@
 
                         formData.append("lowrev", document.querySelector("#addInfoForm #lowrev").checked);
                         formData.append("nofinance", document.querySelector("#addInfoForm #nofinance").checked);
+                        formData.append("gotfinance", document.querySelector("#addInfoForm #gotfinance").checked);
                         formData.append("nocontact", document.querySelector("#addInfoForm #nocontact").checked);
                         formData.append("notinterested", document.querySelector("#addInfoForm #notinterested").checked);
                         formData.append("followingup", document.querySelector("#addInfoForm #followingup").checked);
@@ -321,6 +328,7 @@
                                 document.querySelector("#addInfoForm #appointment").value = "";
                                 document.querySelector("#addInfoForm #lowrev").checked = false;
                                 document.querySelector("#addInfoForm #nofinance").checked = false;
+                                document.querySelector("#addInfoForm #gotfinance").checked = false;
                                 document.querySelector("#addInfoForm #nocontact").checked = false;
                                 document.querySelector("#addInfoForm #notinterested").checked = false;
                                 document.querySelector("#addInfoForm #followingup").checked = true;
@@ -479,6 +487,12 @@
                                         <input class="form-check-input" type="radio" name="status" id="nofinanceu" >
                                         <label class="form-check-label" for="nofinanceu">
                                             Waiting For Financials
+                                        </label>
+                                    </div>
+                                    <div class="d-inline-block me-4 mt-3">
+                                        <input class="form-check-input" type="radio" name="status" id="gotfinanceu" >
+                                        <label class="form-check-label" for="gotfinanceu">
+                                            Received Financials
                                         </label>
                                     </div>
                                 </div>
@@ -669,6 +683,7 @@
 
                             document.querySelector("#updateInfoForm #lowrevu").checked = record.lowrev==="f"?false:true;
                             document.querySelector("#updateInfoForm #nofinanceu").checked = record.nofinance==="f"?false:true;
+                            document.querySelector("#updateInfoForm #gotfinanceu").checked = record.gotfinance==="f"?false:true;
                             document.querySelector("#updateInfoForm #nocontactu").checked = record.nocontact==="f"?false:true;
                             document.querySelector("#updateInfoForm #notinterestedu").checked = record.notinterested==="f"?false:true;
                             document.querySelector("#updateInfoForm #followingupu").checked = record.followingup==="f"?false:true;
@@ -707,7 +722,9 @@
                                 if (record.listedtosale==="t"){statusArray.push('<span class="badge text-bg-secondary">Listed</span>');}
                                 if (record.successsale==="t"){statusArray.push('<span class="badge text-bg-info">Sold</span>');}
                                 if (record.lowrev==="t"){statusArray.push('<span class="badge text-bg-warning">Remarket</span>');}
-                                if (record.nofinance==="t"){statusArray.push('<span class="badge text-bg-primary">Remarket</span>');}
+                                if (record.nofinance==="t"){statusArray.push('<span class="badge text-bg-secondary">NoFinance</span>');}
+                                if (record.gotfinance==="t"){statusArray.push('<span class="badge text-bg-primary">HasFinance</span>');}
+                                
                                 statusCol = "";
                                 statusArray.forEach((s)=>{ statusCol += s; });
                                 record.status = statusCol;
@@ -733,11 +750,14 @@
                                 // Waiting for financials
                                 if (record.nofinance==="t"){ remaining = 999999993; }
 
+                                // Received financials
+                                if (record.gotfinance==="t"){ remaining = 999999994; }
+
                                 // Remarket
-                                if (record.lowrev==="t"){ remaining = 999999994; }
+                                if (record.lowrev==="t"){ remaining = 999999995; }
 
                                 // +Biz Buyer
-                                if (record.possiblebuyer=="t"){ remaining = 999999995; }
+                                if (record.possiblebuyer=="t"){ remaining = 999999996; }
 
                                 record.priority = remaining;
                                 record.istoday = istoday;
@@ -917,6 +937,7 @@
                             
                             formData.append("lowrev", document.querySelector("#updateInfoForm #lowrevu").checked);
                             formData.append("nofinance", document.querySelector("#updateInfoForm #nofinanceu").checked);
+                            formData.append("gotfinance", document.querySelector("#updateInfoForm #gotfinanceu").checked);
                             formData.append("nocontact", document.querySelector("#updateInfoForm #nocontactu").checked);
                             formData.append("notinterested", document.querySelector("#updateInfoForm #notinterestedu").checked);
                             formData.append("followingup", document.querySelector("#updateInfoForm #followingupu").checked);
@@ -951,6 +972,7 @@
                                     record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
                                     record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
                                     record.nofinance = document.querySelector("#updateInfoForm #nofinanceu").checked?"t":"f";
+                                    record.gotfinance = document.querySelector("#updateInfoForm #gotfinanceu").checked?"t":"f";
                                     record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
                                     record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
                                     record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
@@ -1026,7 +1048,8 @@
                                     object.company, object.uname, object.revenue, object.username, object.email, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
                                     object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
-                                    object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.nofinance=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
+                                    object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.nofinance=="t"?"True":"False", 
+                                    object.gotfinance=="t"?"True":"False", object.possibleproperty=="t"?"True":"False", 
                                     object.possiblebuyer=="t"?"True":"False"
                                 ]);
                             });
@@ -1199,7 +1222,7 @@
                             } else {
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
-                            if (form.querySelector("input[id*='notinterested']").checked || form.querySelector("input[id*='listedtosale']").checked || form.querySelector("input[id*='successsale']").checked || form.querySelector("input[id*='lowrev']").checked || form.querySelector("input[id*='nofinance']").checked){ 
+                            if (form.querySelector("input[id*='notinterested']").checked || form.querySelector("input[id*='listedtosale']").checked || form.querySelector("input[id*='successsale']").checked || form.querySelector("input[id*='lowrev']").checked){ 
                                 form.querySelector("input[id*='appointment']").setAttribute('disabled', 'disabled');
                                 form.querySelector("input[id*='appointment']").value = "";
                             } else {
