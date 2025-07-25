@@ -63,6 +63,11 @@
                 $updatesArray['whichcompany'] = "Not Interested";
             }
 
+            if ($_POST["nofinance"]=="true" || $_POST["gotfinance"]=="true"){
+                $updatesArray['whocreatedpk'] = "38";
+                $updatesArray['whichcompany'] = "SureBridge";
+            }
+
             // check phone number duplicates first
             if (trim($_POST["phone"])!==trim($_POST["oldphone"])){
                 $sql_check = "SELECT pk, phone, phone2, email FROM information WHERE (phone='".trim($_POST["phone"])."' OR phone2='".trim($_POST["phone"])."') AND whichcompany='".$_POST["whichcompany"]."';";
