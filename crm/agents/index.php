@@ -195,13 +195,13 @@
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="nofinance" >
                                     <label class="form-check-label" for="nofinance">
-                                        Waiting
+                                        Waiting For Financials
                                     </label>
                                 </div>
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="gotfinance" >
                                     <label class="form-check-label" for="gotfinance">
-                                        Received
+                                        Received Financials
                                     </label>
                                 </div>
                             </div>
@@ -486,13 +486,13 @@
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="nofinanceu" >
                                         <label class="form-check-label" for="nofinanceu">
-                                            Waiting
+                                            Waiting For Financials
                                         </label>
                                     </div>
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="gotfinanceu" >
                                         <label class="form-check-label" for="gotfinanceu">
-                                            Received
+                                            Received Financials
                                         </label>
                                     </div>
                                 </div>
@@ -722,8 +722,8 @@
                                 if (record.listedtosale==="t"){statusArray.push('<span class="badge text-bg-secondary">Listed</span>');}
                                 if (record.successsale==="t"){statusArray.push('<span class="badge text-bg-info">Sold</span>');}
                                 if (record.lowrev==="t"){statusArray.push('<span class="badge text-bg-warning">Remarket</span>');}
-                                if (record.nofinance==="t"){statusArray.push('<span class="badge text-bg-secondary">NoFinance</span>');}
-                                if (record.gotfinance==="t"){statusArray.push('<span class="badge text-bg-primary">HasFinance</span>');}
+                                if (record.nofinance==="t"){statusArray.push('<span class="badge text-bg-secondary">Waiting</span>');}
+                                if (record.gotfinance==="t"){statusArray.push('<span class="badge text-bg-primary">Received</span>');}
                                 
                                 statusCol = "";
                                 statusArray.forEach((s)=>{ statusCol += s; });
@@ -1041,7 +1041,7 @@
                             // clean the search array
                             const cleanData = [[
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
-                                "Listed", "Sold", "Remarket", "Waiting", "Received", "PProperty", "PBuyer"
+                                "Listed", "Sold", "Remarket", "Waiting For Financials", "Received Financials", "PProperty", "PBuyer"
                             ]];
                             loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([

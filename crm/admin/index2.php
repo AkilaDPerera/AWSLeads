@@ -200,13 +200,13 @@
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="nofinance" >
                                     <label class="form-check-label" for="nofinance">
-                                        Waiting
+                                        Waiting For Financials
                                     </label>
                                 </div>
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="gotfinance" >
                                     <label class="form-check-label" for="gotfinance">
-                                        Received
+                                        Received Financials
                                     </label>
                                 </div>
                             </div>
@@ -495,13 +495,13 @@
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="nofinanceu" >
                                         <label class="form-check-label" for="nofinanceu">
-                                            Waiting
+                                            Waiting For Financials
                                         </label>
                                     </div>
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="gotfinanceu" >
                                         <label class="form-check-label" for="gotfinanceu">
-                                            Received
+                                            Received Financials
                                         </label>
                                     </div>
                                 </div>
@@ -795,7 +795,7 @@
                             // clean the search array
                             const cleanData = [[
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
-                                "Listed", "Sold", "Remarket", "Waiting", "Received", "PProperty", "PBuyer"
+                                "Listed", "Sold", "Remarket", "Waiting For Financials", "Received Financials", "PProperty", "PBuyer"
                             ]];
                             loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([
