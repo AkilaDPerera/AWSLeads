@@ -200,13 +200,13 @@
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="nofinance" >
                                     <label class="form-check-label" for="nofinance">
-                                        Waiting For Financials
+                                        Waiting
                                     </label>
                                 </div>
                                 <div class="d-inline-block me-4 mt-3">
                                     <input class="form-check-input" type="radio" name="status" id="gotfinance" >
                                     <label class="form-check-label" for="gotfinance">
-                                        Received Financials
+                                        Received
                                     </label>
                                 </div>
                             </div>
@@ -495,13 +495,13 @@
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="nofinanceu" >
                                         <label class="form-check-label" for="nofinanceu">
-                                            Waiting For Financials
+                                            Waiting
                                         </label>
                                     </div>
                                     <div class="d-inline-block me-4 mt-3">
                                         <input class="form-check-input" type="radio" name="status" id="gotfinanceu" >
                                         <label class="form-check-label" for="gotfinanceu">
-                                            Received Financials
+                                            Received
                                         </label>
                                     </div>
                                 </div>
@@ -765,10 +765,10 @@
                                 // Sold
                                 if (record.successsale=="t"){ remaining = 999999992; }
 
-                                // Waiting for financials
+                                // Waiting
                                 if (record.nofinance==="t"){ remaining = 999999993; }
 
-                                // Has financials
+                                // Received
                                 if (record.gotfinance==="t"){ remaining = 999999994; }
 
                                 // Remarket
@@ -1068,7 +1068,7 @@
                             // clean the search array
                             const cleanData = [[
                                 "Company", "Owner", "Revenue", "Agent", "Email", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
-                                "Listed", "Sold", "Remarket", "Waiting For Financials", "PProperty", "PBuyer"
+                                "Listed", "Sold", "Remarket", "Waiting", "Received", "PProperty", "PBuyer"
                             ]];
                             loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([
