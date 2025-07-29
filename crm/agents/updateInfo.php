@@ -58,7 +58,7 @@
                 }
             }
 
-            if ($_POST["notinterested"]=="true"){
+            if ($_POST["notinterested"]=="true" && $_POST['whocreatedpk']!="38"){
                 $updatesArray['whocreatedpk'] = "34";
                 $updatesArray['whichcompany'] = "Not Interested";
             }

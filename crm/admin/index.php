@@ -734,8 +734,6 @@
                                     remaining = (appo-today)/(1000);
                                 }
 
-                                record.remaining = remaining;
-
                                 statusArray = [];
                                 if (record.notinterested==="t"){statusArray.push('<span class="badge text-bg-dark">NI</span>');}
                                 if (record.followingup==="t"){statusArray.push('<span class="badge text-bg-success">Interested</span>');}
@@ -758,26 +756,37 @@
 
                                 record.fullphone = `${formatphonenumber(record.phone)} ${formatphonenumber(record.phone2)} ${record.phone} ${record.phone2}`;
 
-                                // Not Interested
-                                if (record.notinterested==="t"){ remaining = 999999990; }
+                                if (window.sessionStorage.getItem("ukey")=="38"){
+                                    // Not Interested
+                                    if (record.notinterested==="t"){ remaining = 999999992; }
 
-                                // Listed
-                                if (record.listedtosale=="t"){ remaining = 999999991; }
+                                    // Listed
+                                    if (record.listedtosale=="t"){ remaining = 999999991; }
 
-                                // Sold
-                                if (record.successsale=="t"){ remaining = 999999992; }
+                                    // Received
+                                    if (record.gotfinance==="t"){ remaining = 999999990; }
+                                } else {
+                                    // Not Interested
+                                    if (record.notinterested==="t"){ remaining = 999999990; }
 
-                                // Waiting
-                                if (record.nofinance==="t"){ remaining = 999999993; }
+                                    // Listed
+                                    if (record.listedtosale=="t"){ remaining = 999999991; }
 
-                                // Received
-                                if (record.gotfinance==="t"){ remaining = 999999994; }
+                                    // Sold
+                                    if (record.successsale=="t"){ remaining = 999999992; }
 
-                                // Remarket
-                                if (record.lowrev==="t"){ remaining = 999999995; }
+                                    // Waiting
+                                    if (record.nofinance==="t"){ remaining = 999999993; }
 
-                                // +Biz Buyer
-                                if (record.possiblebuyer=="t"){ remaining = 999999996; }
+                                    // Received
+                                    if (record.gotfinance==="t"){ remaining = 999999994; }
+
+                                    // Remarket
+                                    if (record.lowrev==="t"){ remaining = 999999995; }
+
+                                    // +Biz Buyer
+                                    if (record.possiblebuyer=="t"){ remaining = 999999996; }
+                                }
 
                                 record.priority = remaining;
                                 record.istoday = istoday;
@@ -793,14 +802,6 @@
                                 if (a.priority > b.priority) return 1;
                                 return 0;
                             });
-                            if (window.sessionStorage.getItem("ukey")=="38"){
-                                sorteddata = sorteddata.sort((a, b) => {
-                                    if (a.gotfinance=="t") return 100;
-                                    if (a.remaining < b.remaining) return -1; 
-                                    if (a.remaining > b.remaining) return 1;
-                                    return 0;
-                                });
-                            }
                             
                             loadedData.filteredData = sorteddata;   
 
