@@ -726,13 +726,15 @@
                         const populateSearchResult = (data)=>{
                             today = new Date();
                             data.forEach((record, i) => {
-                                remaining = 9999999.999;
+                                remaining = 9999999.99;
                                 istoday = false;
                                 if (record.appointment!=""){
                                     appo = new Date(Date.parse(record.appointment));
                                     istoday = appo.getDate() == today.getDate();
                                     remaining = (appo-today)/(1000);
                                 }
+
+                                record.remaining = remaining;
 
                                 statusArray = [];
                                 if (record.notinterested==="t"){statusArray.push('<span class="badge text-bg-dark">NI</span>');}
@@ -806,6 +808,7 @@
                                     }
                                     tense = "";
                                     if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
+                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } else { tense=""; }
                                     tableEle.innerHTML += `<tr ${tense}>
                                     <td>${record.company}</td>
                                     <td>${record.uname}</td>
