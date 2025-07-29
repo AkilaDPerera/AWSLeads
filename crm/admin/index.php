@@ -795,6 +795,7 @@
                             });
                             if (window.sessionStorage.getItem("ukey")=="38"){
                                 sorteddata = sorteddata.sort((a, b) => {
+                                    if (a.gotfinance=="t") return 100;
                                     if (a.remaining < b.remaining) return -1; 
                                     if (a.remaining > b.remaining) return 1;
                                     return 0;
