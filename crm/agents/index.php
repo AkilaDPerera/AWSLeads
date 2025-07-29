@@ -833,8 +833,8 @@
                                     }
                                     tense = "";
                                     if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
-                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } 
-                                    
+                                    if (tense=="" && record.remaining<0) { tense = "red"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="green"; } 
+
                                     itemplaceholder = String(loadedData.mobileItemPlaceholder['fullItem']);
                                     
                                     itemplaceholder = itemplaceholder.replace("_TENSE_", tense);
