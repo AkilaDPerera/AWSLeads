@@ -769,11 +769,20 @@
                                 }
                             });
                             sorteddata = [...data];
+
                             sorteddata = sorteddata.sort((a, b) => {
                                 if (a.priority < b.priority) return -1; 
                                 if (a.priority > b.priority) return 1;
                                 return 0;
                             });
+                            if (window.sessionStorage.getItem("ukey")=="38"){
+                                sorteddata = sorteddata.sort((a, b) => {
+                                    if (a.remaining < b.remaining) return -1; 
+                                    if (a.remaining > b.remaining) return 1;
+                                    return 0;
+                                });
+                            }
+
                             loadedData.filteredData = sorteddata;   
 
                             // display the items
@@ -790,7 +799,7 @@
                                     }
                                     tense = "";
                                     if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
-                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } else { tense=""; }
+                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } 
                                     tableEle.innerHTML += `<tr ${tense}>
                                     <td>${record.company}</td>
                                     <td>${record.uname}</td>
@@ -824,6 +833,8 @@
                                     }
                                     tense = "";
                                     if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
+                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } 
+                                    
                                     itemplaceholder = String(loadedData.mobileItemPlaceholder['fullItem']);
                                     
                                     itemplaceholder = itemplaceholder.replace("_TENSE_", tense);
