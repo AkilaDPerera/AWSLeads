@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" type="image/png" href="/logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/bootstrap.min.css?v=1753851952" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/dataTables.dataTables.css?v=1753851871" />
     <link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/jquery.datetimepicker.min.css?v=1730216903" />
   
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/jquery-3.7.1.js?v=1753851952"></script>
     
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/dataTables.js?v=1753851875"></script>
     <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/jquery.datetimepicker.full.min.js?v=1730216904"></script>
     <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/moment.js?v=1730218704"></script>
 
@@ -1262,6 +1262,6 @@
         </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.shopify.com/s/files/1/0027/0578/4877/files/bootstrap.bundle.min.js?v=1753851951"></script>
 </body>
 </html>
