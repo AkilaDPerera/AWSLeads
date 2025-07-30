@@ -964,6 +964,7 @@
                             formData.append("na1", document.querySelector("#updateInfoForm #na1u").checked);
                             formData.append("na2", document.querySelector("#updateInfoForm #na2u").checked);
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
+                            formData.append("whocreatedpk", window.sessionStorage.getItem("ukey"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             timer.timestart();
                             fetch(url, {
