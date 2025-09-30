@@ -14,18 +14,10 @@
 
             if ($_POST["ukey"]=="1"){
                 $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, nofinance, gotfinance, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE notinterested='false';";
-                $result = pg_query($dbconn, $sql_query);
             }else{
-                $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, nofinance, gotfinance, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk 
-                WHERE (whichcompany = $1) AND (phone ILIKE $2
-                OR phone2 ILIKE $2
-                OR email ILIKE $2 
-                OR uname ILIKE $2 
-                OR company ILIKE $2) ORDER BY createddate DESC LIMIT 200";
-                $search = isset($_POST['search']) ? trim($_POST['search']) : '';
-                $searchParam = "%" . pg_escape_string($dbconn, $search) . "%";
-                $result = pg_query_params($dbconn, $sql_query, [trim($_POST["whichcompany"]), $searchParam]);
+                $sql_query = "SELECT A.pk, phone, phone2, email, company, uname, address, revenue, aname, nocontact, notinterested, followingup, listedtosale, successsale, possiblebuyer, notes, createddate, updateddate, whocreatedpk, whichcompany, appointment, web, lowrev, nofinance, gotfinance, possibleproperty, username, upassword, urole, cname, na1, na2 FROM information A LEFT JOIN users B on A.whocreatedpk::INTEGER=B.pk WHERE whichcompany='".trim($_POST["whichcompany"])."';";
             }
+            $result = pg_query($dbconn, $sql_query);
 
             $count = 0;
             $data = array();

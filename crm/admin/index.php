@@ -319,6 +319,8 @@
                             timer.timestop();
                             if (data.success){
                                 // clear fields
+                                document.querySelector("#backendsearch").value = document.querySelector("#addInfoForm #email").value;
+                                
                                 document.querySelector("#addInfoForm #email").value = "";
                                 document.querySelector("#addInfoForm #phone").value = "";
                                 document.querySelector("#addInfoForm #phone2").value = "";
@@ -523,6 +525,12 @@
 
                     <div class="mb-5">
 
+                        <div style="margin-bottom: 40px;;">
+                            <input style="display: inline-block;" type="text" placeholder="Backend search" name="backendsearch" id="backendsearch" autocomplete="off"/>
+                            <button onclick="listAllInfo()">Backend Search</button>
+                            <div>You can search through phone, name, email or company here.</div>
+                        </div>
+
                         <input style="margin-bottom: 10px;" type="text" placeholder="Search" name="globalsearch" id="globalsearch" autocomplete="off" onkeydown="searchInfo(event)">
 
                         <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
@@ -570,10 +578,10 @@
                                 <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
@@ -1057,6 +1065,7 @@
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
                             formData.append("role", window.sessionStorage.getItem("r"));
+                            formData.append("search", document.querySelector("#backendsearch").value);
 
                             timer.timestart();
 
@@ -1307,7 +1316,7 @@
                         }
                         
                         initDateTimePickers();
-                        listAllInfo();
+                        // listAllInfo();
                         getusers();
                     </script>
                 </div>

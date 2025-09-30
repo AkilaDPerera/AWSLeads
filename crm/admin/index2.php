@@ -525,19 +525,68 @@
 
                         <input style="margin-bottom: 10px;" type="text" placeholder="Search" name="globalsearch" id="globalsearch" autocomplete="off" onkeydown="searchInfo(event)">
 
-                        <table class="table searchresults">
+                        <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
                             <thead>
-                                <th>PK</th>
-                                <th>Phones</th>
-                                <th>Action</th>
-                            </thead>
-                            <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Owner</th>
+                                    <th scope="col">Revenue</th>
+                                    <th scope="col">Agent</th>
+                                    <th scope="col">Email</th>
+                                    <!-- <th scope="col">Web/FB</th> -->
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Appointment</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Mode</th>
+                                    <th scope="col"></th>
                                 </tr>
-                            </tbody>
+                            </thead>
+                            <tfoot class="filters" style="display: table-header-group;">
+                                <tr>
+                                    <th><input type="text" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th style="display:none;"><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th><input type="text" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody></tbody>
                         </table>
+
+                        <div class="data-list mobile-data">
+                            
+                            <div class="filters">
+                                <div style="font-weight: 600; margin-bottom: 5px; font-size: 15px;">
+                                    Filters
+                                </div>
+                                <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <input hidden type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
+                            </div>
+                            <div class="showcase">
+                            </div>
+                        </div>
+
+                        <div class="my-3">
+                        </div>
+
+                        <button class="btn btn-primary" onclick="download();">Download</button>
                     </div>
                     
                     <style>
@@ -619,8 +668,8 @@
                             document.querySelector("#updateInfoForm").classList.add("hide");
                         }
                         const editButtonHandler = (event)=>{
-                            loadedData.selectedToEdit = event.target.getAttribute("data-key");
-                            const record = loadedData.data.find(item => item.pk === loadedData.selectedToEdit);
+                            loadedData.selectedToEdit = event.target.getAttribute("data-index");
+                            const record = loadedData.data[event.target.getAttribute("data-index")]; 
                             document.querySelector("#updateInfoForm #pk").value = record.pk;
                             document.querySelector("#updateInfoForm #oldemail").value = record.email;
                             document.querySelector("#updateInfoForm #oldphone").value = record.phone;
@@ -675,34 +724,224 @@
                             return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
                         }
                         const populateSearchResult = (data)=>{
-                            var dataString = "";
-                            for (let index = 0; index < data.length; index++) {
-                                const element = data[index];
-                                dataString += `<tr>
-                                <td>${element.pk}</td>
-                                <td>${element.phone} | ${element.phone}</td>
-                                <td><button class="btn btn-primary btn-sm" data-key="${element.pk}" onclick="editButtonHandler(event);">EDIT</button></td>
-                                </tr>`
+                            today = new Date();
+                            data.forEach((record, i) => {
+                                remaining = 9999999.99;
+                                istoday = false;
+                                if (record.appointment!=""){
+                                    appo = new Date(Date.parse(record.appointment));
+                                    istoday = appo.getDate() == today.getDate();
+                                    remaining = (appo-today)/(1000);
+                                }
+
+                                statusArray = [];
+                                if (record.notinterested==="t"){statusArray.push('<span class="badge text-bg-dark">NI</span>');}
+                                if (record.followingup==="t"){statusArray.push('<span class="badge text-bg-success">Interested</span>');}
+                                if (record.listedtosale==="t"){statusArray.push('<span class="badge text-bg-secondary">Listed</span>');}
+                                if (record.successsale==="t"){statusArray.push('<span class="badge text-bg-info">Sold</span>');}
+                                if (record.lowrev==="t"){statusArray.push('<span class="badge text-bg-warning">Remarket</span>');}
+                                if (record.nofinance==="t"){statusArray.push('<span class="badge text-bg-secondary">Waiting</span>');}
+                                if (record.gotfinance==="t"){statusArray.push('<span class="badge text-bg-primary">Received</span>');}
+                                
+                                statusCol = "";
+                                statusArray.forEach((s)=>{ statusCol += s; });
+                                record.status = statusCol;
+
+                                pmode = [];
+                                if (record.possibleproperty==="t"){pmode.push('<span class="badge text-bg-warning">PropertySale</span>');}
+                                if (record.possiblebuyer==="t"){pmode.push('<span class="badge text-bg-info">BizBuyer</span>');}
+                                pmodeCol = "";
+                                pmode.forEach((m)=>{ pmodeCol += m; });
+                                record.pmode = pmodeCol;
+
+                                record.fullphone = `${formatphonenumber(record.phone)} ${formatphonenumber(record.phone2)} ${record.phone} ${record.phone2}`;
+
+                                if (window.sessionStorage.getItem("ukey")=="38"){
+                                    // Not Interested
+                                    if (record.notinterested==="t"){ remaining = 999999992; }
+
+                                    // Listed
+                                    if (record.listedtosale=="t"){ remaining = 999999991; }
+
+                                    // Received
+                                    if (record.gotfinance==="t"){ remaining = 999999990; }
+                                } else {
+                                    // Not Interested
+                                    if (record.notinterested==="t"){ remaining = 999999990; }
+
+                                    // Listed
+                                    if (record.listedtosale=="t"){ remaining = 999999991; }
+
+                                    // Sold
+                                    if (record.successsale=="t"){ remaining = 999999992; }
+
+                                    // Waiting
+                                    if (record.nofinance==="t"){ remaining = 999999993; }
+
+                                    // Received
+                                    if (record.gotfinance==="t"){ remaining = 999999994; }
+
+                                    // Remarket
+                                    if (record.lowrev==="t"){ remaining = 999999995; }
+
+                                    // +Biz Buyer
+                                    if (record.possiblebuyer=="t"){ remaining = 999999996; }
+                                }
+
+                                record.priority = remaining;
+                                record.istoday = istoday;
+
+                                if (record.editbtn){}else{
+                                    record.editbtn = `<button class="btn btn-primary btn-sm" data-index="${i}" data-key="${record.pk}" onclick="editButtonHandler(event);">EDIT</button>`;
+                                }
+                            });
+                            sorteddata = [...data];
+
+                            sorteddata = sorteddata.sort((a, b) => {
+                                if (a.priority < b.priority) return -1; 
+                                if (a.priority > b.priority) return 1;
+                                return 0;
+                            });
+                            
+                            loadedData.filteredData = sorteddata;   
+
+                            // display the items
+                            if (loadedData.device == ".desktop-data"){
+                                const tableEle = document.querySelector("#searchInfoSection table tbody");
+                                tableEle.innerHTML = "";
+                                sorteddata.forEach((record, i) => {
+                                    if (loadedData.notificationCountdown==null){
+                                        if (record.priority>=0){
+                                            if (record.priority<999999980){
+                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                            }
+                                        }
+                                    }
+                                    tense = "";
+                                    if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
+                                    if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } 
+                                    tableEle.innerHTML += `<tr ${tense}>
+                                    <td>${record.company}</td>
+                                    <td>${record.uname}</td>
+                                    <td>${record.revenue}</td>
+                                    <td>${record.username}</td>
+                                    <td><a href= "mailto: ${record.email}">${record.email}</a></td>
+                                    <td><a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone}">${formatphonenumber(record.phone)}</a>, <a style="text-wrap-mode: nowrap;" href="tel:+1${record.phone2}">${formatphonenumber(record.phone2)}</a>
+                                    <div class="d-none">${record.phone} ${record.phone2}</div>
+                                    </td>
+                                    <td>${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}</td>
+                                    <td>${getfrontendtime(record.appointment)}</td>
+                                    <td>${record.status}</td>
+                                    <td>${record.pmode}</td>
+                                    <td>${record.editbtn}</td>
+                                    </tr>`;
+                                });
+                            } else if (loadedData.device == ".mobile-data"){
+                                const divEle = document.querySelector(".mobile-data .showcase");
+                                divEle.innerHTML = "";
+
+                                // let's populate items step by step
+                                const step = 3; 
+                                items = "";
+                                sorteddata.forEach((record, i)=>{
+                                    if (loadedData.notificationCountdown==null){
+                                        if (record.priority>=0){
+                                            if (record.priority<999999980){
+                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                            }
+                                        }
+                                    }
+                                    tense = "";
+                                    if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
+                                    if (tense=="" && record.remaining<0) { tense = "red"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="green"; } 
+                                    itemplaceholder = String(loadedData.mobileItemPlaceholder['fullItem']);
+                                    
+                                    itemplaceholder = itemplaceholder.replace("_TENSE_", tense);
+
+                                    itemhead = String(loadedData.mobileItemPlaceholder['itemHead']);
+                                    itemhead = itemhead.replace("_OWNER_", record.uname!=""?`${record.uname},&nbsp;`:"")
+                                    itemhead = itemhead.replace("_COMPANY_", record.company!=""?`${record.company},&nbsp;`:"")
+                                    itemhead = itemhead.replace("_PHONE1_", record.phone)
+                                    itemhead = itemhead.replace("_PHONE1-FORMAT_", formatphonenumber(record.phone))
+
+                                    itemplaceholder = itemplaceholder.replace("_HEAD-PLACE_", itemhead);
+
+                                    itembody = "";
+                                    if (record.phone2 != "") { itembody += String(loadedData.mobileItemPlaceholder['phone']).replace("_PHONE2_", record.phone2).replace("_PHONE2-FORMAT_", formatphonenumber(record.phone2)); }
+                                    if (record.revenue != "") { itembody += String(loadedData.mobileItemPlaceholder['revenue']).replace("_REV_", record.revenue); }
+                                    if (record.username != "") { itembody += String(loadedData.mobileItemPlaceholder['agent']).replace("_AGENT_", record.username); }
+                                    if (record.email != "") { itembody += String(loadedData.mobileItemPlaceholder['email']).replace("_EMAIL_", `<a href= "mailto: ${record.email}">${record.email}</a>`); }
+                                    if (record.web != "") { itembody += String(loadedData.mobileItemPlaceholder['web']).replace("_WEB_", record.web); }
+                                    if (record.status != "") { itembody += String(loadedData.mobileItemPlaceholder['status']).replace("_STATUS_", record.status); }
+                                    if (record.pmode != "") { itembody += String(loadedData.mobileItemPlaceholder['mode']).replace("_MODE_", record.pmode); }
+                                    if (record.appointment != "") { itembody += String(loadedData.mobileItemPlaceholder['appointment']).replace("_APPT_", record.appointment); }
+                                    if (record.notes != "") { itembody += String(loadedData.mobileItemPlaceholder['notes']).replace("_NOTES_", 
+                                        `${record.na1=="t"?`<span class="badge text-bg-warning">NA1</span> `:""}${record.na2=="t"?`<span class="badge text-bg-warning">NA2</span> `:""}${record.notes}`); }
+                                    itembody += String(loadedData.mobileItemPlaceholder['button']).replace("_EDITBTN_", record.editbtn);
+
+                                    itemplaceholder = itemplaceholder.replace("_ITEM-PLACE_", itembody);
+                                    
+                                    items += itemplaceholder;
+
+                                    if (i%step==0){
+                                        // populate data
+                                        divEle.innerHTML += items;
+                                        items = "";
+                                    }
+                                });
+                                divEle.innerHTML += items;
                             }
-                            document.querySelector(".searchresults tbody").innerHTML = dataString;
                         }
-                        
+                        const filterObjects = (list, filters) => {
+                            return list.filter(item => {
+                                // Check if every non-empty filter matches the corresponding item attribute
+                                return Object.keys(filters).every(key => {
+                                    const filterValue = filters[key];
+                                    if (filterValue === "") return true; // Ignore empty filters
+                                    if (item[key] === undefined) return false; // Skip if key doesn't exist in object
+                                    return item[key].toString().toLowerCase().includes(filterValue.toString().toLowerCase());
+                                });
+                            });
+                        }
+                        const globalSearch = (list, keyword) => {
+                            if (keyword.trim()==""){return list;}
+                            const lowerCaseKeyword = keyword.toLowerCase();
+                            return list.filter(obj => 
+                                Object.values(obj).some(value => 
+                                    String(value).toLowerCase().includes(lowerCaseKeyword)
+                                )
+                            );
+                        }
+                        function cleanPhoneNumber(input) {
+                            // Remove all non-digit characters
+                            let digits = input.replace(/\D/g, '');
+
+                            // Remove leading '1' if present and number is 11 digits
+                            if (digits.length === 11 && digits.startsWith('1')) {
+                                digits = digits.slice(1);
+                            }
+
+                            return digits;
+                        }
                         const searchInfo = (e)=>{
                             try {window.clearTimeout(loadedData.debouncesearch)}catch{}
                             loadedData.debouncesearch = window.setTimeout(()=>{
-                                // loadedData.data
-                                var keyword = document.querySelector("#globalsearch").value;
-                                keyword = keyword.replace(/[-\s]/g, '');
-                                if (keyword.startsWith('1')) {
-                                    keyword = keyword.substring(1);
+                                const searchparam = {
+                                    company: document.querySelector(loadedData.device+" .filters input#company-input").value,
+                                    uname: document.querySelector(loadedData.device+" .filters input#uname-input").value,
+                                    revenue: document.querySelector(loadedData.device+" .filters input#revenue-input").value,
+                                    username: document.querySelector(loadedData.device+" .filters input#username-input").value,
+                                    email: document.querySelector(loadedData.device+" .filters input#email-input").value,
+                                    web: document.querySelector(loadedData.device+" .filters input#web-input").value,
+                                    fullphone: cleanPhoneNumber(document.querySelector(loadedData.device+" .filters input#phone-input").value),
+                                    notes: document.querySelector(loadedData.device+" .filters input#notes-input").value,
+                                    appointment: document.querySelector(loadedData.device+" .filters input#appointment-input").value,
+                                    status: document.querySelector(loadedData.device+" .filters input#status-input").value,
+                                    pmode: document.querySelector(loadedData.device+" .filters input#pmode-input").value,
                                 }
-                                if (keyword.trim()==""){ return; }
-                                const resultData = loadedData.data.filter(item => {
-                                    const phoneMatch = item.phone && item.phone.includes(keyword);
-                                    const phone2Match = item.phone2 && item.phone2.includes(keyword);
-                                    return phoneMatch || phone2Match;
-                                });
-                                populateSearchResult(resultData);
+                                filteredData = filterObjects(loadedData.data, searchparam);
+                                filteredData = globalSearch(filteredData, document.querySelector("#globalsearch").value);
+                                populateSearchResult(filteredData);
                             }, 1000);
                         }
                         const updateInfo = (event)=>{
@@ -710,8 +949,6 @@
                             const form = event.currentTarget;
                             const url = new URL(form.action);
                             const formData = new FormData(form);
-
-                            const originalObj = loadedData.data.find(item => item.pk === loadedData.selectedToEdit);
                             
                             if ((document.querySelector("#updateInfoForm #nocontactu").checked || document.querySelector("#updateInfoForm #followingupu").checked) 
                             && !(document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked)
@@ -724,7 +961,7 @@
                             document.querySelector("#updateInfoForm #appointment").classList.remove("is-invalid");
 
                             if (document.querySelector("#updateInfoForm #na1u").checked || document.querySelector("#updateInfoForm #na2u").checked){
-                                const newdate = getDateAfterThreeDaysExcludingWeekends(new Date(), originalObj.appointment);
+                                const newdate = getDateAfterThreeDaysExcludingWeekends(new Date(), loadedData.data[loadedData.selectedToEdit].appointment);
                                 document.querySelector("#updateInfoForm #appointment").value = getfrontendtime(getDateToBackendTime(newdate).replaceAll("T", " "));
                                 formData.set("appointment", getDateToBackendTime(newdate));
                             } else {
@@ -755,10 +992,60 @@
                                 timer.timestop();
                                 if (data.success){
                                     document.querySelector("#updateInfoForm").classList.add("hide");
+                                    const record = {...loadedData.data[loadedData.selectedToEdit]};
+                                    record.email = document.querySelector("#updateInfoForm #email").value;
+                                    record.phone = document.querySelector("#updateInfoForm #phone").value;
+                                    record.phone2 = document.querySelector("#updateInfoForm #phone2").value;
+                                    record.company = document.querySelector("#updateInfoForm #company").value;
+                                    record.uname = document.querySelector("#updateInfoForm #uname").value;
+                                    record.web = document.querySelector("#updateInfoForm #web").value;
+                                    record.address = document.querySelector("#updateInfoForm #address").value;
+                                    record.revenue = document.querySelector("#updateInfoForm #revenue").value; 
+                                    // record.aname = document.querySelector("#updateInfoForm #aname").value;
+                                    record.appointment = getbackendtime(loadedData.updatedatetime).replace("T", " ");
+                                    record.lowrev = document.querySelector("#updateInfoForm #lowrevu").checked?"t":"f";
+                                    record.nofinance = document.querySelector("#updateInfoForm #nofinanceu").checked?"t":"f";
+                                    record.gotfinance = document.querySelector("#updateInfoForm #gotfinanceu").checked?"t":"f";
+                                    record.nocontact = document.querySelector("#updateInfoForm #nocontactu").checked?"t":"f";
+                                    record.notinterested = document.querySelector("#updateInfoForm #notinterestedu").checked?"t":"f";
+                                    record.followingup = document.querySelector("#updateInfoForm #followingupu").checked?"t":"f";
+                                    record.listedtosale = document.querySelector("#updateInfoForm #listedtosaleu").checked?"t":"f";
+                                    record.successsale = document.querySelector("#updateInfoForm #successsaleu").checked?"t":"f";
+                                    record.possibleproperty = document.querySelector("#updateInfoForm #possiblepropertyu").checked?"t":"f";
+                                    record.possiblebuyer = document.querySelector("#updateInfoForm #possiblebuyeru").checked?"t":"f";
+                                    record.na1 = document.querySelector("#updateInfoForm #na1u").checked?"t":"f";
+                                    record.na2 = document.querySelector("#updateInfoForm #na2u").checked?"t":"f";
+                                    record.notes = document.querySelector("#updateInfoForm #notes").value;
+                                    if (document.querySelector("#updateInfoForm #owner").selectedIndex>=0){
+                                        user = loadedData.users[document.querySelector("#updateInfoForm #owner").selectedIndex];
+                                        record.username = user.username;
+                                        record.whichcompany = user.cname;
+                                        record.whocreatedpk = user.pk;
+                                    }
+
+                                    loadedData.data[loadedData.selectedToEdit] = record;
+
+                                    if (window.sessionStorage.getItem("r")==="f"){
+                                        if (window.sessionStorage.getItem("cname")!==record.whichcompany){
+                                            delete loadedData.data[loadedData.selectedToEdit];
+                                        }
+                                    }
+
                                     // clear search params
+                                    document.querySelector(loadedData.device+" .filters input#company-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#uname-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#revenue-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#username-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#email-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#web-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#phone-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#notes-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#appointment-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#status-input").value = "";
+                                    document.querySelector(loadedData.device+" .filters input#pmode-input").value = "";
                                     document.querySelector("#globalsearch").value = "";
-                                    document.querySelector(".searchresults tbody").innerHTML = "";
-                                    listAllInfo();
+
+                                    populateSearchResult(loadedData.data);
                                 }else{
                                     alert(data.message);
                                 }
@@ -782,6 +1069,7 @@
                                 timer.timestop();
                                 if (data.success){
                                     loadedData.data = data.data;
+                                    populateSearchResult(data.data);
                                 }
                             });
                         }
@@ -794,12 +1082,12 @@
 
                             // clean the search array
                             const cleanData = [[
-                                "Company", "Owner", "Revenue", "Agent", "Email", "Web/FB", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
+                                "Company", "Owner", "Revenue", "Agent", "Email", "Phone", "Notes", "Appointment", "Not Interested", "Interested",
                                 "Listed", "Sold", "Remarket", "Waiting For Financials", "Received Financials", "PProperty", "PBuyer"
                             ]];
                             loadedData.filteredData.forEach(function(object) {
                                 cleanData.push([
-                                    object.company, object.uname, object.revenue, object.username, object.email, object.web, object.phone + " - " + object.phone2,
+                                    object.company, object.uname, object.revenue, object.username, object.email, object.phone + " - " + object.phone2,
                                     object.notes.replaceAll("\r\n", "\t").replaceAll("#", "No:"), object.appointment, 
                                     object.notinterested=="t"?"True":"False", object.followingup=="t"?"True":"False", object.listedtosale=="t"?"True":"False", 
                                     object.successsale=="t"?"True":"False", object.lowrev=="t"?"True":"False", object.nofinance=="t"?"True":"False", 
@@ -870,11 +1158,33 @@
                             a = date;
                             return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
                         }
+                        function convertToISO(datetimeStr) {
+                            // Example input: "2025-04-23 9:00 am"
+                            const [date, time, meridian] = datetimeStr.trim().split(/[\s]+/); // ["2025-04-23", "9:00", "am"]
+                            let [hour, minute] = time.split(':').map(Number);
+
+                            // Convert hour based on AM/PM
+                            if (meridian.toLowerCase() === 'pm' && hour !== 12) {
+                                hour += 12;
+                            } else if (meridian.toLowerCase() === 'am' && hour === 12) {
+                                hour = 0;
+                            }
+
+                            // Pad values
+                            const hh = String(hour).padStart(2, '0');
+                            const mm = String(minute).padStart(2, '0');
+
+                            return `${date}T${hh}:${mm}:00`;
+                        }
                         const getbackendtime = (picker)=>{
                             // Y-m-dTH:i
                             if (picker.val()==""){ return ""; }
-                            a = new Date(picker.val());
-                            return `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`
+                            // alert(picker.val());
+                            // alert(convertToISO(picker.val()));
+                            a = new Date(convertToISO(picker.val()));
+                            output = `${a.getFullYear()}-${addleadingzeros(a.getMonth()+1)}-${addleadingzeros(a.getDate())}T${addleadingzeros(a.getHours())}:${addleadingzeros(a.getMinutes())}`;
+                            // alert(output);
+                            return output;
                         }
                         const checkpastdate = (datestring)=>{
                             // Y-m-d H:i -> true false
@@ -986,6 +1296,14 @@
                             } else {
                                 form.querySelector("input[id*='appointment']").removeAttribute('disabled');
                             }
+                        }
+                        
+                        if (isMobileDevice()){
+                            loadedData.device = ".mobile-data";
+                            document.querySelectorAll(".mobile-data").forEach((comp)=>{ comp.style.display = "block"; })
+                        }else{
+                            loadedData.device = ".desktop-data";
+                            document.querySelectorAll(".desktop-data").forEach((comp)=>{ comp.style.display = "table"; })
                         }
                         
                         initDateTimePickers();
