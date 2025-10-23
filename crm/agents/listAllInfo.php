@@ -21,15 +21,17 @@
                 OR phone2 ILIKE $2
                 OR email ILIKE $2 
                 OR uname ILIKE $2 
-                OR company ILIKE $2) ORDER BY createddate DESC LIMIT 200";
+                OR company ILIKE $2) ORDER BY createddate DESC";
                 $search = isset($_POST['search']) ? trim($_POST['search']) : '';
                 $searchParam = "%" . pg_escape_string($dbconn, $search) . "%";
                 $result = pg_query_params($dbconn, $sql_query, [trim($_POST["whichcompany"]), $searchParam]);
             }
 
+            $finalcount = pg_num_rows($result);
             $count = 0;
             $data = array();
             while ($row = pg_fetch_assoc($result)){
+                if ($count==200){ break; }
                 if ($row["appointment"]!=""){
                     $row["appointment"] = date('Y-m-d H:i', $row["appointment"]);
                 } else {
@@ -48,7 +50,7 @@
                 echo json_encode(array(
                     "success"=> true, 
                     "message"=> "Matching leads found",
-                    "count" => $count,
+                    "count" => $finalcount,
                     "data" => $data
                 ));
             }

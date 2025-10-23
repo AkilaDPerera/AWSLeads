@@ -527,74 +527,80 @@
 
                         <div style="margin-bottom: 40px;;">
                             <input style="display: inline-block;" type="text" placeholder="Backend search" name="backendsearch" id="backendsearch" autocomplete="off"/>
-                            <button onclick="listAllInfo()">Backend Search</button>
+                            <button onclick="backendSearch()">Backend Search</button>
                             <div>You can search through phone, name, email or company here.</div>
+
+                            <div class="backend-result" style="background-color: #8BC34A; font-weight: 600; padding: 10px;"></div>
                         </div>
 
-                        <input style="margin-bottom: 10px;" type="text" placeholder="Search" name="globalsearch" id="globalsearch" autocomplete="off" onkeydown="searchInfo(event)">
+                        <div class="frontend-view" style="display: none;">
 
-                        <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Company</th>
-                                    <th scope="col">Owner</th>
-                                    <th scope="col">Revenue</th>
-                                    <th scope="col">Agent</th>
-                                    <th scope="col">Email</th>
-                                    <!-- <th scope="col">Web/FB</th> -->
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Notes</th>
-                                    <th scope="col">Appointment</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Mode</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tfoot class="filters" style="display: table-header-group;">
-                                <tr>
-                                    <th><input type="text" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th style="display:none;"><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th><input type="text" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
-                            <tbody></tbody>
-                        </table>
+                            <input style="margin-bottom: 10px;" type="text" placeholder="Search" name="globalsearch" id="globalsearch" autocomplete="off" onkeydown="searchInfo(event)">
 
-                        <div class="data-list mobile-data">
-                            
-                            <div class="filters">
-                                <div style="font-weight: 600; margin-bottom: 5px; font-size: 15px;">
-                                    Filters
+                            <table class="data-table table table-striped table-bordered desktop-data" data-page-length='1000'>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Company</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Revenue</th>
+                                        <th scope="col">Agent</th>
+                                        <th scope="col">Email</th>
+                                        <!-- <th scope="col">Web/FB</th> -->
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Notes</th>
+                                        <th scope="col">Appointment</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Mode</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tfoot class="filters" style="display: table-header-group;">
+                                    <tr>
+                                        <th><input type="text" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th style="display:none;"><input type="text" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th><input type="text" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)"></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody></tbody>
+                            </table>
+
+                            <div class="data-list mobile-data">
+                                
+                                <div class="filters">
+                                    <div style="font-weight: 600; margin-bottom: 5px; font-size: 15px;">
+                                        Filters
+                                    </div>
+                                    <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                    <input hidden type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
                                 </div>
-                                <input type="text" placeholder="Company" name="company" id="company-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Owner" name="uname" id="uname-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Revenue" name="revenue" id="revenue-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Agent" name="username" id="username-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Email" name="email" id="email-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Web/Fb" name="web" id="web-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input type="text" placeholder="Phone" name="phone" id="phone-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Notes" name="notes" id="notes-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Appointment" name="appointment" id="appointment-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Status" name="status" id="status-input" autocomplete="off" onkeydown="searchInfo(event)">
-                                <input hidden type="text" placeholder="Mode" name="pmode" id="pmode-input" autocomplete="off" onkeydown="searchInfo(event)">
+                                <div class="showcase">
+                                </div>
                             </div>
-                            <div class="showcase">
+
+                            <div class="my-3">
                             </div>
-                        </div>
 
-                        <div class="my-3">
+                            <button class="btn btn-primary" onclick="download();">Download</button>
                         </div>
-
-                        <button class="btn btn-primary" onclick="download();">Download</button>
+                        
                     </div>
                     
                     <style>
@@ -1059,13 +1065,26 @@
                                 }
                             });
                         }
-                        const listAllInfo = ()=>{
+                        const backendSearch = ()=>{
+                            const searchtext = document.querySelector("#backendsearch").value;
+                            var phonesearch = searchtext.match(/\d+/g)?.join("");
+                            if (phonesearch?.length>8){
+                                if (phonesearch.length==11){
+                                    listAllInfo(phonesearch.slice(1));
+                                } else {
+                                    listAllInfo(phonesearch);
+                                }
+                            } else {
+                                listAllInfo(searchtext);
+                            } 
+                        }
+                        const listAllInfo = (bsearch="")=>{
                             const formData = new FormData();
                             formData.append("whichcompany", window.sessionStorage.getItem("cname"));
                             formData.append("jwt", window.sessionStorage.getItem("jwt"));
                             formData.append("ukey", window.sessionStorage.getItem("ukey"));
                             formData.append("role", window.sessionStorage.getItem("r"));
-                            formData.append("search", document.querySelector("#backendsearch").value);
+                            formData.append("search", bsearch);
 
                             timer.timestart();
 
@@ -1078,7 +1097,15 @@
                                 timer.timestop();
                                 if (data.success){
                                     loadedData.data = data.data;
-                                    populateSearchResult(data.data);
+                                    if (data.data.length>0){
+                                        document.querySelector(".backend-result").innerHTML = `Showing ${data.data.length} / ${data.count}`;
+                                        document.querySelector(".frontend-view").style.display = "block";
+                                        populateSearchResult(data.data);
+                                    } else {
+                                        document.querySelector(".frontend-view").style.display = "none";
+                                        document.querySelector(".backend-result").innerHTML = "No results associated with the keyword";
+                                        populateSearchResult(data.data);
+                                    }
                                 }
                             });
                         }
