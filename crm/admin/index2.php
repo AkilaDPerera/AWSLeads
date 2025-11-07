@@ -810,13 +810,13 @@
                                 const tableEle = document.querySelector("#searchInfoSection table tbody");
                                 tableEle.innerHTML = "";
                                 sorteddata.forEach((record, i) => {
-                                    if (loadedData.notificationCountdown==null){
-                                        if (record.priority>=0){
-                                            if (record.priority<999999980){
-                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
-                                            }
-                                        }
-                                    }
+                                    // if (loadedData.notificationCountdown==null){
+                                    //     if (record.priority>=0){
+                                    //         if (record.priority<999999980){
+                                    //             loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                    //         }
+                                    //     }
+                                    // }
                                     tense = "";
                                     if (record.priority<0){ tense = "class='red'"; } else if (record.istoday && record.priority<(24*60*60)){ tense="class='green'"; } else { tense=""; }
                                     if (tense=="" && record.remaining<0) { tense = "class='red'"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="class='green'"; } 
@@ -844,13 +844,13 @@
                                 const step = 3; 
                                 items = "";
                                 sorteddata.forEach((record, i)=>{
-                                    if (loadedData.notificationCountdown==null){
-                                        if (record.priority>=0){
-                                            if (record.priority<999999980){
-                                                loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
-                                            }
-                                        }
-                                    }
+                                    // if (loadedData.notificationCountdown==null){
+                                    //     if (record.priority>=0){
+                                    //         if (record.priority<999999980){
+                                    //             loadedData.notificationCountdown = window.setTimeout(()=>{ playsound(); }, record.priority*1000);
+                                    //         }
+                                    //     }
+                                    // }
                                     tense = "";
                                     if (record.priority<0){ tense = "red"; } else if (record.istoday && record.priority<(24*60*60)){ tense="green"; } else { tense=""; }
                                     if (tense=="" && record.remaining<0) { tense = "red"; } else if (record.istoday && tense=="" && record.remaining<(24*60*60)) { tense="green"; } 
