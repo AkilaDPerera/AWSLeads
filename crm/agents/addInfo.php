@@ -13,36 +13,36 @@
             $message = "";
 
             // check phone number duplicates first
-            $sql_check = "SELECT pk, phone, phone2, email FROM information WHERE (phone='".trim($_POST["phone"])."' OR phone2='".trim($_POST["phone"])."') AND whichcompany='".$_POST["whichcompany"]."';";
-            $result = pg_query($dbconn, $sql_check);
-            $row = pg_fetch_assoc($result);
-            if ($row!==false){
-                $success = false;
-                $message = "Duplicate phone number detected.";
-            }
+            // $sql_check = "SELECT pk, phone, phone2, email FROM information WHERE (phone='".trim($_POST["phone"])."' OR phone2='".trim($_POST["phone"])."') AND whichcompany='".$_POST["whichcompany"]."';";
+            // $result = pg_query($dbconn, $sql_check);
+            // $row = pg_fetch_assoc($result);
+            // if ($row!==false){
+            //     $success = false;
+            //     $message = "Duplicate phone number detected.";
+            // }
             
-            if ($success){
-                // check phone2 number duplicates
-                if (trim($_POST["phone2"])!==""){
-                    $sql_check = "SELECT * FROM information WHERE (phone='".trim($_POST["phone2"])."' OR phone2='".trim($_POST["phone2"])."') AND whichcompany='".$_POST["whichcompany"]."';";
-                    $result = pg_query($dbconn, $sql_check);
-                    $row = pg_fetch_assoc($result);
-                    if ($row!==false){
-                        $success = false;
-                        $message = "Duplicate phone number detected.";
-                    }
-                }
-            }
-            if ($success && (trim($_POST["email"])!="")){
-                // check email duplicates
-                $sql_check = "SELECT * FROM information WHERE (email='".trim($_POST["email"])."') AND whichcompany='".$_POST["whichcompany"]."';";
-                $result = pg_query($dbconn, $sql_check);
-                $row = pg_fetch_assoc($result);
-                if ($row!==false){
-                    $success = false;
-                    $message = "Duplicate email detected.";
-                }
-            }
+            // if ($success){
+            //     // check phone2 number duplicates
+            //     if (trim($_POST["phone2"])!==""){
+            //         $sql_check = "SELECT * FROM information WHERE (phone='".trim($_POST["phone2"])."' OR phone2='".trim($_POST["phone2"])."') AND whichcompany='".$_POST["whichcompany"]."';";
+            //         $result = pg_query($dbconn, $sql_check);
+            //         $row = pg_fetch_assoc($result);
+            //         if ($row!==false){
+            //             $success = false;
+            //             $message = "Duplicate phone number detected.";
+            //         }
+            //     }
+            // }
+            // if ($success && (trim($_POST["email"])!="")){
+            //     // check email duplicates
+            //     $sql_check = "SELECT * FROM information WHERE (email='".trim($_POST["email"])."') AND whichcompany='".$_POST["whichcompany"]."';";
+            //     $result = pg_query($dbconn, $sql_check);
+            //     $row = pg_fetch_assoc($result);
+            //     if ($row!==false){
+            //         $success = false;
+            //         $message = "Duplicate email detected.";
+            //     }
+            // }
 
             $appointment = "";
             if ($_POST["appointment"]!==""){
